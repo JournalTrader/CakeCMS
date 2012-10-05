@@ -323,7 +323,14 @@ class ModuleController extends ModuleAppController
                 ));
                 
                 return $this->render(false);
-            }           
+            } else {
+                echo json_encode(array(
+                    'message' => "Mise à jour de l'activation du module effectué !",
+                    'type' => AppController::TYPE_SUCCESS
+                ));
+                
+                return $this->render(false);
+            }     
             
         }
         

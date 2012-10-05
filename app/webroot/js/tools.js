@@ -58,7 +58,9 @@
                                    data: $serialize,
                                    type: 'POST',
                                    success: function(reponse) {
+                                       var $response = jQuery.parseJSON(reponse);
                                        
+                                       $self.alert($response.message, $response.error, $('div#container'));
                                    }
                                })
                                
@@ -135,6 +137,61 @@
             $modal.append($footer);
             
             return $modal;
+        },
+        alert: function(message, error, elm, methode) {
+            var $type = null;
+            var $intro = null;
+            var $anchor = $el;
+            
+            if(elm != undefined) { $anchor = elm;  }
+            
+            switch(error)
+            {
+                case 3:
+                    $type = 'error';
+                    $intro = 'Erreur';
+                    break;
+                case 2:
+                    $type = 'warning';
+                    $intro = 'Attention';
+                    break;
+                case 1:
+                    $type = 'info';
+                    $intro = 'Info';
+                    break;
+                default:
+                case 0:
+                    $type = 'success';
+                    $intro = 'Félicitation';
+                    break;
+            }
+            
+            if($type == null || $intro == null || message == undefined) { return false; }
+            
+            var $xhtml  = '<div class="alert alert-' + $type + '">';
+                $xhtml += '<button type="button" class="close" data-dismiss="alert">×</button>';
+                $xhtml += '<strong>' + $intro + ' !</strong> ' + message
+                $xhtml += '</div>';
+                
+            if($('.alert').is('div'))
+            {
+                $('.alert').remove();
+            }
+            
+            if(methode == undefined) { methode = 'prepend' }
+            
+            switch(methode)
+            {
+                case 'append':
+                    $anchor.append($xhtml);
+                    break;
+                case 'prepend':
+                    $anchor.prepend($xhtml);
+                    break;
+                case 'after':
+                    $anchor.after($xhtml);
+                    break;
+            }
         }
     }
 })(jQuery);
