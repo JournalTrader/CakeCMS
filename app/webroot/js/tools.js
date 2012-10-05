@@ -81,10 +81,10 @@
                 $t.parents('table:first').find('input[type=checkbox]').each(function(i, el) {
                     var $elm = $(el);
                     
-                    if(!$elm.is('#checkAll') && !$elm.is(':checked'))
+                    if(!$elm.is('#checkAll') && !$elm.is(':checked') && $el.is(':checked'))
                     {
                         $elm.attr('checked', true);
-                    } else if(!$elm.is('#checkAll') && $elm.is(':checked')) {
+                    } else if(!$elm.is('#checkAll') && $elm.is(':checked') && !$el.is(':checked')) {
                         $elm.attr('checked', false);
                     }
                 });

@@ -16,7 +16,8 @@
                   'type' => 'checkbox',
                   'id' => 'checkAll',
                   'div' => false,
-                  'label' => false
+                  'label' => false,
+                  'checked' => ($aModule['Plugin']['is_active'] == true) ? true:false
               )); ?>
           </td>
           <td colspan="2"><?php echo $aModule['Module']['name'] ?></td>
@@ -26,7 +27,8 @@
               <?php echo $this->Form->input('Plugin.id.' . $aModule['Plugin']['id'], array(
                   'type' => 'checkbox',
                   'div' => false,
-                  'label' => false
+                  'label' => false,
+                  'checked' => ($aModule['Plugin']['is_active'] == true) ? true:false
               )); ?>
           </td>
           <td class="index center">--</td>
@@ -38,7 +40,8 @@
               <?php echo $this->Form->input('Plugin.id.' . $aChildPlugin['id'], array(
                   'type' => 'checkbox',
                   'div' => false,
-                  'label' => false
+                  'label' => false,
+                  'checked' => ($aChildPlugin['is_active'] == true) ? true:false
               )); ?>
           </td>
           <td class="index center">--</td>

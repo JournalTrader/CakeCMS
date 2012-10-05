@@ -269,37 +269,85 @@ class ModuleController extends ModuleAppController
         
         if(!empty($this->data))
         {
-            $aModule = $this->Module->findModuleById($named['id'], array(
-                'Plugin' => array(
-                    'ChildPlugin'
-                )
-            ));
+            $error = false;
             
-            $aPlugins = array();
+            foreach($this->data['Module']['id'] as $aKey => $aValue)
+            {
+                $aModule = $this->Module->findModuleById($aKey);
+                
+                if($aModule['Module']['is_active'] == $aValue) { continue; }
+                
+                $aModule['Module']['is_active'] = $aValue;
+                
+                if(!$this->Module->save($aModule, false))
+                {
+                    $error = true;
+                }
+            }
             
-            $aModule['Plugin']
+            if($error)
+            {
+                echo json_encode(array(
+                    'message' => "Impossible de mettre à jour le status d'activation du module !",
+                    'type' => AppController::TYPE_WARNING
+                ));
+                
+                return $this->render(false);
+            }
             
-            debug($aModule);
+            if(empty($this->data['Plugin'])) { return $this->render(false); }
+            
+            foreach($this->data['Plugin']['id'] as $aKey => $aValue)
+            {
+                $aPlugin = $this->Plugin->find('first', array(
+                    'conditions' => array(
+                        'id' => $aKey
+                    )
+                ));
+                
+                if($aPlugin['Plugin']['is_active'] == $aValue) { continue; }
+                
+                $aPlugin['Plugin']['is_active'] = ($aValue == 1) ? true:false;
+                
+                if($this->Plugin->save($aPlugin, false))
+                {
+                    $error = true;
+                }
+            }
+             
+            if($error)
+            {
+                echo json_encode(array(
+                    'message' => "Impossible de mettre à jour certains status d'activation des modules !",
+                    'type' => AppController::TYPE_WARNING
+                ));
+                
+                return $this->render(false);
+            }           
+            
         }
         
         $aModule = $this->Module->findModuleById($named['id'], array(
             'Plugin' => array(
                 'fields' => array(
                     'id',
-                    'name'
+                    'name',
+                    'is_active'
                 ),
                 'ChildPlugin' => array(
                     'fields' => array(
                         'id',
                         'name',
-                        'parent_id'
+                        'parent_id',
+                        'is_active'
                     )
                 )
             )
         ), array(
             'id',
             'plugins_id',
-            'name'
+            'name',
+            'is_active'
         ));
         
         $this->set('aModule', $aModule);
