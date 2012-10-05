@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>Test</name>
+    <description>Test en un module de teste</description>
+    <version>1.0.0</version>
+    <author>MORICET Nicolas</author>
+    <site>Mon super CMS</site>
+    <url>http://www.cms.com</url>
+    <plugins>
+        <plugin main="true" active="true">
+            <name>manager index</name>
+            <prefix>manager</prefix>
+            <plugin_name>test</plugin_name>
+            <controller>test</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>manager add</name>
+            <prefix>manager</prefix>
+            <plugin_name>test</plugin_name>
+            <controller>test</controller>
+            <action>add</action>
+        </plugin>
+        <plugin active="false">
+            <name>manager remove</name>
+            <prefix>manager</prefix>
+            <plugin_name>test</plugin_name>
+            <controller>test</controller>
+            <action>remove</action>
+        </plugin>
+    </plugins>
+</module>

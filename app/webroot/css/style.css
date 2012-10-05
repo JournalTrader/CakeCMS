@@ -1,0 +1,51 @@
+body>.container {
+    padding-top: 60px;
+}
+
+.index
+{
+    width: 15px;
+}
+
+.center
+{
+    text-align: center;
+}
+
+/** TABLE
+-------------------------------------------------------------------------- */
+table .help-block
+{
+    padding-top: 10px;
+    text-align: center;
+}
+
+table td.name
+{
+    position: relative;
+    min-width: 200px;
+}
+
+table td.center
+{
+    text-align: center;
+}
+
+table .credit
+{
+    list-style: none;
+    margin: 0;
+}
+
+table .credit>li
+{
+    display: inline;
+}
+
+table .name .module-tools
+{  
+    position: absolute;
+    bottom: 5px;    
+}
+
+table .credit>li.sperator { }
