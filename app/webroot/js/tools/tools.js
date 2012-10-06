@@ -11,7 +11,14 @@
         this.$el = $(element);
         
         this.$params = $.extend({
-            
+            modalBox : {
+                confirmBox: {
+                    title : LANG.modalBox.confirmBox.title,
+                    content : LANG.modalBox.confirmBox.content,
+                    btnAction : LANG.modalBox.confirmBox.btnAction,
+                    btnCancel : LANG.modalBox.confirmBox.btnCancel
+                }
+            }
         }, params);
         
         this.init();
@@ -31,6 +38,48 @@
             $self = this;
             
             return this;
+        },
+        confirmBox: function() {
+            $el.each(function(i, el) {
+                var $t = $(el);
+                
+                $t.bind('click', function() {
+                    var $loc = $(this);
+                    var $href = $loc.attr('href');
+                    var $title = ($loc.attr('data-confirm-box-title') != undefined) ? $loc.attr('data-confirm-box-title'):$params.modalBox.confirmBox.title;
+                    var $content = ($loc.attr('data-confirm-box-content') != undefined) ? $loc.attr('data-confirm-box-content'):$params.modalBox.confirmBox.content;
+                    var $action = ($loc.attr('data-confirm-box-action') != undefined) ? $loc.attr('data-confirm-box-action'):$params.modalBox.confirmBox.btnAction;
+                    var $cancel = ($loc.attr('data-confirm-box-cancel') != undefined) ? $loc.attr('data-confirm-box-cancel'):$params.modalBox.confirmBox.btnCancel;
+                    var $query = ($loc.attr('data-confirm-box-query') != undefined) ? $loc.attr('data-confirm-box-query'):null;
+                    var $request = ($loc.attr('data-confirm-box-request') != undefined) ? true:false;
+                    
+                    var $modal = $self.modalBox($title, $content, $action, $cancel);
+                    
+                    $modal.find('.btn-action').click(function() {
+                        
+                        if($query != null && $request == true)
+                        {
+                            window.location = $href + '/?' + $query;
+                        } else {
+                            window.location = $href;
+                        }
+                        
+                        return false;
+                    });
+                    
+                    $modal.find('.btn-cancel').click(function() {
+                        
+                        if($request == true)
+                        {
+                            window.location = $href;
+                        }
+                    });
+                    
+                    return false;
+                });
+            });
+            
+            return false;
         },
         ajaxFormBox: function() {
             $el.each(function(i, el) {
@@ -62,9 +111,7 @@
                                        
                                        $self.alert($response.message, $response.error, $('div#container'));
                                    }
-                               })
-                               
-                               return false;
+                               });
                            });
                            
                            $('body').append($modal);

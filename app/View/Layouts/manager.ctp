@@ -33,9 +33,10 @@
 		echo $this->Html->css('style');
 		echo $this->Html->script('jquery');
                 echo $this->Html->script('bootstrap.min');
-                echo $this->Html->script('tools');
+                echo $this->Html->script('tools/i18n/fre');
+                echo $this->Html->script('tools/tools');
                 echo $this->Html->script('core');
-
+                
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');

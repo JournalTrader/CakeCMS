@@ -18,6 +18,7 @@
     Global.prototype = {
         init: function()
         {
+           $('a[data-confirm-box=true]').tools().confirmBox();
            $('a[data-form-ajax=true]').tools().ajaxFormBox();
            $('input[type=checkbox]#checkAll').tools().checkAll();
            

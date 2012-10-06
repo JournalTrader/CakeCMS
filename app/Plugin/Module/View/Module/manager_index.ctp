@@ -1,7 +1,6 @@
 <table class="table table-condensed table-hover table-bordered">
   <thead>
     <tr>
-      <th class="index center">#</th>
       <th class="name">Name</th>
       <th>Description</th>
     </tr>
@@ -11,17 +10,6 @@
           <?php foreach($aModules as $aKey => $aModule): ?>
               <?php // debug($aModule); ?>
             <tr>
-              <td class="index">
-                  <div class="btn-group">
-                      <button class="btn dropdown-toggle" data-toggle="dropdown">
-                          <span class="caret"></span>
-                      </button>
-                      <ul class="dropdown-menu">
-                          <li><a href="">Modifier</a></li>
-                          <li><a href="">Supprimer</a></li>
-                      </ul>
-                  </div>
-              </td>
               <td>
                   <span class="name"><?php echo $aModule['name'] ?></span>
                   <div class="module-tools">
@@ -43,7 +31,13 @@
                                 'id' => $aModule['id']
                             )) ?>"><i class="icon-off"></i> Gestionnaire d'activation</a></li> 
                             <li class="sperator"> | </li>
-                            <li><a href="<?php echo $this->Html->url(array(
+                            <li><a data-confirm-box="true"
+                                   data-confirm-box-request="true"
+                                   data-confirm-box-content="Voulez-vous supprimer les fichiers liés au module ?"
+                                   data-confirm-box-query="dir=true"
+                                   data-confirm-box-action="Oui"
+                                   data-confirm-box-cancel="Non"
+                                   href="<?php echo $this->Html->url(array(
                                 'manager' => true,
                                 'plugin' => 'module',
                                 'controller' => 'module',

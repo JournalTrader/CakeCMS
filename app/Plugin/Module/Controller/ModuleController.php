@@ -91,6 +91,8 @@ class ModuleController extends ModuleAppController
                 }
             }
         }
+        
+//        CakePlugin::unload(ucfirst($aModule['Plugin']['plugin']));
     }
     
     public function manager_index()
@@ -110,6 +112,11 @@ class ModuleController extends ModuleAppController
                     $this->aModules[$aKey]['plugins_id'] = $bPlugin['Module']['plugins_id'];
                 }
             }
+        }
+        
+        if(!empty($this->params['named']['unload']))
+        {
+            CakePlugin::unload(ucfirst($plugin));
         }
         
         $this->set('aModules', $this->aModules);
@@ -205,10 +212,12 @@ class ModuleController extends ModuleAppController
             $this->redirect($this->referer());
         }
         
+        
         $aModule = $this->Module->findModuleById($named['id'], array(
             'Plugin' => array(
                 'fields' => array(
                     'id',
+                    'plugin',
                     'parent_id'
                 ),
                 'ChildPlugin' => array(
@@ -246,6 +255,28 @@ class ModuleController extends ModuleAppController
         {
             $this->Session->setFlash("Le Module à mal été désinstallé !", 'alert', array('type' => AppController::TYPE_ERROR));
             $this->redirect($this->referer());
+        } else {
+            if(!empty($this->params->query['dir']) && $this->params->query['dir'] == 'true')
+            {
+                $dirPlugin = APP . 'Plugin' . DS . ucfirst($aModule['Plugin']['plugin']);
+        
+                if(file_exists($dirPlugin))
+                {
+                    App::import('Vendor', 'Tools/ToolsDirectory');
+                    
+                    if(!ToolsDirectory::delete($dirPlugin))
+                    {
+                        $this->Session->setFlash("Le dossier contenant les modules n'a pas pu être supprimer !", 'alert', array('type' => AppController::TYPE_WARNING));
+                        $this->redirect(array(
+                            'manager' => true,
+                            'plugin' => 'module',
+                            'controller' => 'module',
+                            'action' => 'index',
+                            'unload' => $aModule['Plugin']['plugin']
+                        ));
+                    }
+                }
+            }
         }
         
         $this->Session->setFlash("Le module est désinstallé", 'alert');
@@ -309,7 +340,7 @@ class ModuleController extends ModuleAppController
                 
                 $aPlugin['Plugin']['is_active'] = ($aValue == 1) ? true:false;
                 
-                if($this->Plugin->save($aPlugin, false))
+                if(!$this->Plugin->save($aPlugin, false))
                 {
                     $error = true;
                 }
