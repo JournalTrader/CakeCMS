@@ -17,7 +17,7 @@
                 <?php foreach($aElements as $aElement): ?>
                 <tr>
                     <td><?php echo $aElement['Block']['name'] ?></td>
-                    <td><?php echo $aElement['Block']['identifiant'] ?></td>
+                    <td><?php echo $aElement['Block']['alias'] ?></td>
                 </tr>
                 <?php endforeach; ?>
                 <?php else: ?>
@@ -43,7 +43,7 @@
                 <?php foreach($aMenus as $aMenu): ?>
                 <tr>
                     <td><?php echo $aMenu['Block']['name'] ?></td>
-                    <td><?php echo $aMenu['Block']['identifiant'] ?></td>
+                    <td><?php echo $aMenu['Block']['alias'] ?></td>
                 </tr>
                 <?php endforeach; ?>
                 <?php else: ?>

@@ -3,7 +3,7 @@
     {
         var $data = null;
         
-        return ($data != null) ? $data:$data = new Tools(this, params);
+        return ($data !== null) ? $data:$data = new Tools(this, params);
     }    
 
     var Tools = function(element, params)
@@ -46,18 +46,18 @@
                 $t.bind('click', function() {
                     var $loc = $(this);
                     var $href = $loc.attr('href');
-                    var $title = ($loc.attr('data-confirm-box-title') != undefined) ? $loc.attr('data-confirm-box-title'):$params.modalBox.confirmBox.title;
-                    var $content = ($loc.attr('data-confirm-box-content') != undefined) ? $loc.attr('data-confirm-box-content'):$params.modalBox.confirmBox.content;
-                    var $action = ($loc.attr('data-confirm-box-action') != undefined) ? $loc.attr('data-confirm-box-action'):$params.modalBox.confirmBox.btnAction;
-                    var $cancel = ($loc.attr('data-confirm-box-cancel') != undefined) ? $loc.attr('data-confirm-box-cancel'):$params.modalBox.confirmBox.btnCancel;
-                    var $query = ($loc.attr('data-confirm-box-query') != undefined) ? $loc.attr('data-confirm-box-query'):null;
-                    var $request = ($loc.attr('data-confirm-box-request') != undefined) ? true:false;
+                    var $title = ($loc.attr('data-confirm-box-title') !== undefined) ? $loc.attr('data-confirm-box-title'):$params.modalBox.confirmBox.title;
+                    var $content = ($loc.attr('data-confirm-box-content') !== undefined) ? $loc.attr('data-confirm-box-content'):$params.modalBox.confirmBox.content;
+                    var $action = ($loc.attr('data-confirm-box-action') !== undefined) ? $loc.attr('data-confirm-box-action'):$params.modalBox.confirmBox.btnAction;
+                    var $cancel = ($loc.attr('data-confirm-box-cancel') !== undefined) ? $loc.attr('data-confirm-box-cancel'):$params.modalBox.confirmBox.btnCancel;
+                    var $query = ($loc.attr('data-confirm-box-query') !== undefined) ? $loc.attr('data-confirm-box-query'):null;
+                    var $request = ($loc.attr('data-confirm-box-request') !== undefined) ? true:false;
                     
                     var $modal = $self.modalBox($title, $content, $action, $cancel);
                     
                     $modal.find('.btn-action').click(function() {
                         
-                        if($query != null && $request == true)
+                        if($query !== null && $request === true)
                         {
                             window.location = $href + '/?' + $query;
                         } else {
@@ -69,7 +69,7 @@
                     
                     $modal.find('.btn-cancel').click(function() {
                         
-                        if($request == true)
+                        if($request === true)
                         {
                             window.location = $href;
                         }
@@ -170,7 +170,7 @@
             
             var $footer = $('<div>').addClass('modal-footer');     
             
-            if(btnCancel != null)
+            if(btnCancel !== null)
             {
                 $footer.append($btnCancel);
             }
@@ -190,7 +190,7 @@
             var $intro = null;
             var $anchor = $el;
             
-            if(elm != undefined) { $anchor = elm;  }
+            if(elm !== undefined) { $anchor = elm;  }
             
             switch(error)
             {
@@ -213,11 +213,11 @@
                     break;
             }
             
-            if($type == null || $intro == null || message == undefined) { return false; }
+            if($type === null || $intro === null || message === undefined) { return false; }
             
             var $xhtml  = '<div class="alert alert-' + $type + '">';
                 $xhtml += '<button type="button" class="close" data-dismiss="alert">×</button>';
-                $xhtml += '<strong>' + $intro + ' !</strong> ' + message
+                $xhtml += '<strong>' + $intro + ' !</strong> ' + message;
                 $xhtml += '</div>';
                 
             if($('.alert').is('div'))
@@ -225,7 +225,7 @@
                 $('.alert').remove();
             }
             
-            if(methode == undefined) { methode = 'prepend' }
+            if(methode === undefined) { methode = 'prepend' }
             
             switch(methode)
             {

@@ -18,9 +18,17 @@
     Global.prototype = {
         init: function()
         {
-           $('a[data-confirm-box=true]').tools().confirmBox();
-           $('a[data-form-ajax=true]').tools().ajaxFormBox();
-           $('input[type=checkbox]#checkAll').tools().checkAll();
+           if(jQuery().tools)
+           {
+               $('a[data-confirm-box=true]').tools().confirmBox();
+               $('a[data-form-ajax=true]').tools().ajaxFormBox();
+               $('input[type=checkbox]#checkAll').tools().checkAll();
+           }
+           
+           if(jQuery().forms)
+           {
+               $('select.fiedlsetOpions').forms().fieldsetOptions();
+           }
            
            return this;
         }
