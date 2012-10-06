@@ -84,6 +84,34 @@ class ModuleController extends ModuleAppController
                             }
                             
                             $aModule['plugins'] = $aPlugins;
+                            
+                            $tables = $element->getElementsByTagname('table');
+                            
+                            $aModels = array();
+                            
+                            foreach($tables as $table)
+                            {
+                                $model = $table->getElementsByTagname('model')->item(0)->nodeValue;
+                                
+                                $aData = $table->getElementsByTagname('data');
+                                
+                                foreach ($aData as $data) 
+                                {
+                                    $aModel[$model] = array();
+                                    
+                                    foreach($data->childNodes  as $node)
+                                    {
+                                        if($node instanceof DOMElement)
+                                        {
+                                            $aModel[$model][$node->nodeName] = $node->nodeValue;
+                                        }
+                                    }
+                                    
+                                    $aModels[] = $aModel;
+                                }
+                            }
+                            
+                            $aModule['models'] = $aModels;
                         }
                         
                         $this->aModules[] = $aModule;
@@ -92,15 +120,18 @@ class ModuleController extends ModuleAppController
             }
         }
         
-//        CakePlugin::unload(ucfirst($aModule['Plugin']['plugin']));
+//        debug($this->aModules);
+        
+        if(!empty($this->params['named']['unload']))
+        {
+            CakePlugin::unload(ucfirst($plugin));
+        }
     }
     
     public function manager_index()
     {
         foreach($this->aModules as $aKey => $aModule)
         {
-//            debug($aModule);
-            
             foreach($aModule['plugins'] as $aPlugin)
             {
                 $bPlugin = $this->Plugin->findByStructureAndMain($aPlugin);
@@ -112,11 +143,6 @@ class ModuleController extends ModuleAppController
                     $this->aModules[$aKey]['plugins_id'] = $bPlugin['Module']['plugins_id'];
                 }
             }
-        }
-        
-        if(!empty($this->params['named']['unload']))
-        {
-            CakePlugin::unload(ucfirst($plugin));
         }
         
         $this->set('aModules', $this->aModules);
@@ -156,8 +182,29 @@ class ModuleController extends ModuleAppController
         $aModule['Module']['is_active'] = $dModule['is_active'];
         
         foreach($dModule['plugins'] as $plugin)
-        {            
+        {      
+            if($plugin['Plugin']['is_main'] == true) { $pluginMain = $plugin['Plugin']['plugin']; }
             $aModule['Plugin'][] = $plugin;
+        }
+        
+        $aModule['Models'] = $dModule['models'];
+        
+        foreach($aModule['Models'] as $model)
+        {
+            $arrayKeys = array_keys($model);
+            $modaleName = ucfirst($arrayKeys[0]);
+            
+            if(!in_array(ucfirst($pluginMain) . '.' . $modaleName, $this->uses))
+            {
+                $this->uses[] = ucfirst($pluginMain) . '.' . $modaleName;
+            }
+            
+            $this->{$modaleName}->create();
+            
+            if(!$this->{$modaleName}->save($model, false))
+            {
+                $error = true;
+            }
         }
         
         foreach($aModule['Plugin'] as $aPlugin)
@@ -184,7 +231,7 @@ class ModuleController extends ModuleAppController
         $dModule['Module'] = $aModule['Module'];
         
         if($this->Module->save($dModule))
-        {
+        {   
             $this->Session->setFlash("Le module est installé !", 'alert');
             $this->redirect($this->referer());
         } else {

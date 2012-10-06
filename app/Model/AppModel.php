@@ -1,4 +1,6 @@
-<?php
+<?php 
+App::import('Vendor', 'Tools/StringTool');
+App::import('Vendor', 'Tools/AppSpecial');
 /**
  * Application model for Cake.
  *

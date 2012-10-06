@@ -12,7 +12,7 @@
  */
 class MenuController extends MenuAppController
 {
-    public function index()
+    public function manager_index()
     {
         
     }

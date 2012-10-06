@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>Module manager</name>
+    <description>Permet l'installation de modules complémentaires.</description>
+    <version>1.0.0</version>
+    <author>MORICET Nicolas</author>
+    <site>Mon super CMS</site>
+    <url>http://www.cms.com</url>
+    <plugins>
+        <plugin main="true" active="true">
+            <name>Manager Index</name>
+            <prefix>manager</prefix>
+            <plugin_name>module</plugin_name>
+            <controller>module</controller>
+            <action>installer</action>
+        </plugin>
+        <plugin active="true">
+            <name>Manager Installer</name>
+            <prefix>manager</prefix>
+            <plugin_name>module</plugin_name>
+            <controller>module</controller>
+            <action>add</action>
+        </plugin>
+        <plugin active="true">
+            <name>Manager Uninstall</name>
+            <prefix>manager</prefix>
+            <plugin_name>module</plugin_name>
+            <controller>module</controller>
+            <action>uninstall</action>
+        </plugin>
+        <plugin active="true">
+            <name>Ajax Activate</name>
+            <prefix>ajax</prefix>
+            <plugin_name>module</plugin_name>
+            <controller>module</controller>
+            <action>activate</action>
+        </plugin>
+    </plugins>
+</module>

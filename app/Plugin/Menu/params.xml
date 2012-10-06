@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>Manager menu</name>
+    <description>Permet la création de menus</description>
+    <version>1.0.0</version>
+    <author>MORICET Nicolas</author>
+    <site>Mon super CMS</site>
+    <url>http://www.cms.com</url>
+    <plugins>
+        <plugin main="true" active="true">
+            <name>Manager Index</name>
+            <prefix>manager</prefix>
+            <plugin_name>menu</plugin_name>
+            <controller>menu</controller>
+            <action>index</action>
+        </plugin>
+    </plugins>
+</module>
