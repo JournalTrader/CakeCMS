@@ -68,6 +68,11 @@
             <?php echo $this->Session->flash(); ?>
         </div>
 	<div class="row-fluid">
+            <?php if(!empty($title)): ?>
+            <div class="page-header">
+                <h1><?php echo $title ?></h1>
+            </div>
+            <?php endif ?>
             <?php echo $this->fetch('content'); ?>
         </div>
 	

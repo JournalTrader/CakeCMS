@@ -130,6 +130,8 @@ class ModuleController extends ModuleAppController
     
     public function manager_index()
     {
+        $this->set('title', "Gestionnaire de module");
+        
         foreach($this->aModules as $aKey => $aModule)
         {
             foreach($aModule['plugins'] as $aPlugin)

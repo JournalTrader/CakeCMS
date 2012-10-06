@@ -12,9 +12,15 @@
  */
 class BlockController extends BlockAppController
 {
-    public function index()
+    public function manager_index()
     {
+        $this->set('title', "Gestionnaire de blocks");
         
+        $aMenus = $this->Block->getAllMenus();
+        $aElements = $this->Block->getAllElements();
+        
+        $this->set('aMenus', $aMenus);
+        $this->set('aElements', $aElements);
     }
 }
 
