@@ -12,6 +12,23 @@
  */
 class BlockController extends BlockAppController
 {
+    public function block_index()
+    {
+        
+    }
+    
+    public function block_menu()
+    {
+        $params = $this->request->params;
+        
+        if(!empty($params['named']['alias']))
+        {
+            return $this->render(false);
+        }
+        
+        debug($this->request);
+    }
+    
     public function manager_index()
     {
         $this->set('title', "Gestionnaire de blocks");

@@ -113,7 +113,8 @@
 	Configure::write('Routing.prefixes', array(
             'manager',
             'public',
-            'ajax'
+            'ajax',
+            'block'
         ));
 
 /**

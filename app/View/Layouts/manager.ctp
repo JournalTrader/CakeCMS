@@ -60,9 +60,10 @@
     <div id="container">
         <div class="navbar">
             <div class="navbar-inner">
-                <ul class="nav">
+                <?php echo $this->Block->menu('menu_manager') ?>
+<!--                <ul class="nav">
                     <li class="active"><a href="#">Accueil</a></li>
-                </ul>
+                </ul>-->
             </div>
         </div>
         <div class="row-fluid">

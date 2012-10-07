@@ -41,19 +41,16 @@ class AppController extends Controller
     
     const TYPE_ERROR = 3;
     
+    public $helpers = array(
+        'Block.Block'
+    );
+    
     public function beforeFilter()
     {
         switch($this->params['prefix'])
         {
-            case 'manager':
-                $this->layout = 'manager';
-                break;
-            case 'public':
-                $this->layout = 'public';
-                break;
-            case 'ajax':
-                $this->layout = 'ajax';
-                break;
+            default:
+                $this->layout = strtolower($this->params['prefix']);
         }
     }
 }
