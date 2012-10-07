@@ -96,16 +96,20 @@ class Menu extends AppModel
         {
             if(!empty($this->data))
             {
-                $orderMax = $this->getMaxOrder();
-                
-                if(empty($orderMax)) 
-                { 
-                    $orderMax = 1; 
-                } else { 
-                    $orderMax = $orderMax + 1; 
+                if(empty($this->data['Menu']['order']) || $this->data['Menu']['order'] == 0)
+                {
+                    $orderMax = $this->getMaxOrder();
+                    
+                    if(empty($orderMax)) 
+                    { 
+                        $orderMax = 1; 
+                    } else { 
+                        $orderMax = $orderMax + 1; 
+                    }
+                    
+                    $this->data['Menu']['order'] = $orderMax;
                 }
                 
-                $this->data['Menu']['order'] = $orderMax;
                 
                 $this->data['Menu']['name'] = AppSpecial::ucfirst($this->data['Menu']['name']);
             }

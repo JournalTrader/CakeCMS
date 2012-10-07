@@ -215,17 +215,17 @@
             
             if($type === null || $intro === null || message === undefined) { return false; }
             
-            var $xhtml  = '<div class="alert alert-' + $type + '">';
+            var $xhtml  = '<div id="alert-js" class="alert alert-' + $type + '">';
                 $xhtml += '<button type="button" class="close" data-dismiss="alert">×</button>';
                 $xhtml += '<strong>' + $intro + ' !</strong> ' + message;
                 $xhtml += '</div>';
-                
-            if($('.alert').is('div'))
+            
+            if($('div#alert-js').is('div'))
             {
-                $('.alert').remove();
+                $('div#alert-js').remove();
             }
             
-            if(methode === undefined) { methode = 'prepend' }
+            if(methode === undefined) { methode = 'prepend'; }
             
             switch(methode)
             {

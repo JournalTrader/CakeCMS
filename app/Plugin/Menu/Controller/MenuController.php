@@ -18,6 +18,49 @@ class MenuController extends MenuAppController
         'Menu.Menu'
     );
     
+    public function ajax_orderingUpdate()
+    {
+        $error = false;
+        
+        if(!empty($this->data))
+        {
+            foreach($this->data['Menu'] as $order => $id)
+            {
+                $data = array();
+
+                $data = $this->Menu->find('first', array(
+                    'conditions' => array(
+                        'id' => $id['id']
+                    )
+                ));
+                
+                $data['Menu']['order'] = $order + 1;
+                
+                $this->Menu->create();
+                
+                if(!$this->Menu->save($data, false))
+                {
+                    $error = true;
+                }
+            }
+        
+            if(!$error)
+            {
+                echo json_encode(array(
+                    'message' => "Ordre sauvegardé !",
+                    'error' => AppController::TYPE_SUCCESS
+                ));
+            } else {
+                echo json_encode(array(
+                    'message' => "L'ordre n'est pas correctement enregistré !",
+                    'error' => AppController::TYPE_WARNING
+                ));
+            }
+        }
+        
+        return $this->render(false);
+    }
+    
     public function manager_index()
     {
         $aMenus = $this->Block->getMenuBlockForTable();

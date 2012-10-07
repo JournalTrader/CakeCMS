@@ -4,7 +4,14 @@
 </div>
 
 <?php if(!empty($aMenus)): ?>
-<?php echo $this->Form->create('Menu') ?>
+<?php echo $this->Form->create('Menu', array(
+    'url' => array(
+        'ajax' => true,
+        'plugin' => 'menu',
+        'controller' => 'menu',
+        'action' => 'orderingUpdate'
+    )
+)) ?>
     <?php foreach($aMenus as $aMenu): ?>
     <table class="table table-bordered table-striped table-hover">
         <thead>
@@ -118,3 +125,34 @@
     </div>
 <?php echo $this->Form->end() ?>
 <?php endif; ?>
+
+<script type="text/javascript">
+    jQuery(function($) {
+        $('ul.sortable-table,tbody.sortable-table').sortable({
+            axis: 'y',
+            handle: '.icon-move',
+            helper: function(e, ui) {
+                ui.children().each(function() {
+                    $(this).width($(this).width());
+                });
+                
+                return ui;
+            },        
+            stop: function(e, ui)
+            {      
+                var $action = $('form').attr('action');
+                
+                $.ajax({
+                    url: $action,
+                    type: 'POST',
+                    data: $('form').serialize(),
+                    success: function(response) {
+                        var $response = jQuery.parseJSON(response);
+        
+                        $('div#container').tools().alert($response.message, $response.error);
+                    }              
+                });
+            }
+        });
+    });
+</script>
