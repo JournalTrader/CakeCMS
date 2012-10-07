@@ -12,6 +12,11 @@ body>#container {
     text-align: center;
 }
 
+ul.no-puce
+{
+    margin: 0;
+    list-style: none;
+}
 /** FORMS
 -------------------------------------------------------------------------- */
 form fieldset.options

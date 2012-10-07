@@ -16,7 +16,7 @@
 
     <div class="row-fluid">
         <?php if(!empty($aMenu['Menus'])): ?>
-            <ul class="sortable-table">
+            <ul class="no-puce sortable-table">
             <?php foreach($aMenu['Menus'] as $menu): ?>
                 <li>
                     <table class="table table-bordered table-striped table-hover">

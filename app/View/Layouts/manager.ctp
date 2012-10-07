@@ -32,6 +32,7 @@
 		echo $this->Html->css('bootstrap-responsive.min');
 		echo $this->Html->css('style');
 		echo $this->Html->script('jquery');
+                echo $this->Html->script('jquery-ui.min');
                 echo $this->Html->script('bootstrap.min');
                 echo $this->Html->script('tools/i18n/fre');
                 echo $this->Html->script('tools/tools');

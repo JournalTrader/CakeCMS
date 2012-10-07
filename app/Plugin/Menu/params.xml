@@ -14,5 +14,12 @@
             <controller>menu</controller>
             <action>index</action>
         </plugin>
+        <plugin active="true">
+            <name>Manager add</name>
+            <prefix>manager</prefix>
+            <plugin_name>menu</plugin_name>
+            <controller>menu</controller>
+            <action>add</action>
+        </plugin>
     </plugins>
 </module>
