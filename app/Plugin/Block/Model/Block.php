@@ -19,13 +19,46 @@ class Block extends AppModel
         )
     );
     
-    public function getAllMenus()
+    public function getAllMenus($alias = null)
     {
-        return $this->find('all', array(
+        $select = 'all';
+        
+        $conditions = array(
+            'type' => Block::TYPE_MENU
+        );
+        
+        if(!is_null($alias))
+        {
+            $conditions['alias'] = $alias;
+            $select = 'first';
+        }
+        
+        return $this->find($select, array(
+            'conditions' => $conditions
+        ));
+    }
+    
+    public function getBlockMenus($alias = null)
+    {
+        $aBlocks = $this->getAllMenus($alias);
+        
+        $aMenus = $this->Menus->find('all', array(
             'conditions' => array(
-                'type' => Block::TYPE_MENU
+                'blocks_id' => $aBlocks['Block']['id'],
+                'parent_id' => 0
             )
         ));
+        
+        foreach($aMenus as $aKey => $aMenu)
+        {
+            $aMenus[$aKey]['Menus']['ChildMenus'] = $this->Menus->find('all', array(
+                'conditions' => array(
+                    'parent_id' => $aMenu['Menus']['id']
+                )
+            ));
+        }
+        
+        return $aMenus;
     }
     
     public function getAllMenusForSelect()

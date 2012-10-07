@@ -21,12 +21,15 @@ class BlockController extends BlockAppController
     {
         $params = $this->request->params;
         
-        if(!empty($params['named']['alias']))
+        if(empty($params['named']['alias']))
         {
             return $this->render(false);
         }
         
-        debug($this->request);
+//        debug($this->request);
+        $blocks = $this->Block->getBlockMenus($params['named']['alias']);
+        
+        debug($blocks);
     }
     
     public function manager_index()
