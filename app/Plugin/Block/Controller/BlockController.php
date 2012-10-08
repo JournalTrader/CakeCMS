@@ -26,10 +26,10 @@ class BlockController extends BlockAppController
             return $this->render(false);
         }
         
-//        debug($this->request);
-        $blocks = $this->Block->getBlockMenus($params['named']['alias']);
+        $aBlocks = $this->Block->getBlockMenus($params['named']['alias']);
         
-        debug($blocks);
+        $this->set('aBlocks', $aBlocks);
+        $this->set('aRequests', $params['named']);
     }
     
     public function manager_index()
@@ -41,6 +41,36 @@ class BlockController extends BlockAppController
         
         $this->set('aMenus', $aMenus);
         $this->set('aElements', $aElements);
+    }
+    
+    public function manager_add()
+    {
+        $params = $this->request->params;
+        $isEdit = false;
+        
+        if(!empty($this->data))
+        {
+            if($this->Block->save($this->data))
+            {
+                $this->Session->setFlash("Le block est sauvagardé", 'alert');
+                $this->redirect($this->referer());
+            }
+        }
+        
+        if(!empty($params['named']['id']))
+        {
+            $aBlock = $this->Block->findById($params['named']['id']);
+            
+            if(!empty($aBlock))
+            {
+                $isEdit = true;
+            }
+        }
+        
+        if($isEdit)
+        {
+            $this->set('aBlock', $aBlock);
+        }
     }
 }
 

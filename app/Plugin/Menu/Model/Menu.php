@@ -37,13 +37,13 @@ class Menu extends AppModel
 			'fields' => '',
 			'order' => ''
 		),
-//		'Plugins' => array(
-//			'className' => 'Plugins',
-//			'foreignKey' => 'plugins_id',
-//			'conditions' => '',
-//			'fields' => '',
-//			'order' => ''
-//		),
+		'Plugins' => array(
+			'className' => 'Plugin',
+			'foreignKey' => 'plugins_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 //		'Contents' => array(
 //			'className' => 'Contents',
 //			'foreignKey' => 'contents_id',
@@ -92,7 +92,7 @@ class Menu extends AppModel
             return $oMax[0]['OrderMax'];
         }
         
-        public function beforeSave() 
+        public function beforeSave($options = array()) 
         {
             if(!empty($this->data))
             {

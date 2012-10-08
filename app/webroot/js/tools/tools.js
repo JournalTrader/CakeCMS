@@ -109,7 +109,7 @@
                                    success: function(reponse) {
                                        var $response = jQuery.parseJSON(reponse);
                                        
-                                       $self.alert($response.message, $response.error, $('div#container'));
+                                       $self.alert($response.message, $response.error, $('div#container-alert'));
                                    }
                                });
                            });

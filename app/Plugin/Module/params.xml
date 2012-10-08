@@ -12,14 +12,14 @@
             <prefix>manager</prefix>
             <plugin_name>module</plugin_name>
             <controller>module</controller>
-            <action>installer</action>
+            <action>index</action>
         </plugin>
         <plugin active="true">
             <name>Manager Installer</name>
             <prefix>manager</prefix>
             <plugin_name>module</plugin_name>
             <controller>module</controller>
-            <action>add</action>
+            <action>insatller</action>
         </plugin>
         <plugin active="true">
             <name>Manager Uninstall</name>

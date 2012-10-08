@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    <div id="container">
+    <div id="container-alert" class="container-fluid">
         <div class="navbar">
             <div class="navbar-inner">
                 <?php echo $this->Block->menu('menu_manager') ?>
@@ -78,12 +78,14 @@
             <?php echo $this->fetch('content'); ?>
         </div>
 	
-        <footer class="footer">
-            footer
-        </footer>
-        
-        <?php echo $this->element('sql_dump'); ?>
     </div>
-	
+    
+    <footer class="footer">
+        <div class="container">
+            footer
+        </div>
+    </footer>
+        
+    <?php echo $this->element('sql_dump'); ?>
 </body>
 </html>

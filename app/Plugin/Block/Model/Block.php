@@ -52,6 +52,15 @@ class Block extends AppModel
         ),
     );
     
+    public function findById($iId)
+    {
+        return $this->find('first', array(
+            'conditions' => array(
+                'id' => (int) $iId
+            )
+        ));
+    }
+    
     public function getAllMenus($alias = null)
     {
         $select = 'all';

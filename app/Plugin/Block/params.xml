@@ -14,6 +14,13 @@
             <controller>block</controller>
             <action>index</action>
         </plugin>
+        <plugin active="true">
+            <name>Block Add</name>
+            <prefix>manager</prefix>
+            <plugin_name>block</plugin_name>
+            <controller>block</controller>
+            <action>add</action>
+        </plugin>
     </plugins>
     <database>
         <table>

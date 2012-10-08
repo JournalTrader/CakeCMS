@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    <div id="container">
+    <div class="container">
         <div class="row-fluid">
             <?php echo $this->Session->flash(); ?>
         </div>
@@ -60,12 +60,12 @@
             <?php echo $this->fetch('content'); ?>
         </div>
 	
-        <footer class="footer">
-            footer
-        </footer>
-        
-        <?php echo $this->element('sql_dump'); ?>
     </div>
-	
+    
+    <footer class="footer">
+            footer
+    </footer>
+        
+    <?php echo $this->element('sql_dump'); ?>
 </body>
 </html>

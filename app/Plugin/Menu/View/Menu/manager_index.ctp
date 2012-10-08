@@ -22,9 +22,9 @@
     </table>
 
     <div class="row-fluid">
-        <?php if(!empty($aMenu['Menus'])): ?>
+        <?php if(!empty($aMenu['Menu'])): ?>
             <ul class="no-puce sortable-table">
-            <?php foreach($aMenu['Menus'] as $menu): ?>
+            <?php foreach($aMenu['Menu'] as $menu): ?>
                 <li>
                     <table class="table table-bordered table-striped table-hover">
                         <thead>
@@ -69,11 +69,11 @@
                                         <i class="icon-move"></i>
                                         <?php echo $this->Form->input('.id', array(
                                             'type' => 'hidden',
-                                            'value' => $aChildMenu['Menus']['id']
+                                            'value' => $aChildMenu['Menu']['id']
                                         )) ?>
                                     </td>
                                     <td class="index center">-</td>
-                                    <td><?php echo $aChildMenu['Menus']['name'] ?></td>
+                                    <td><?php echo $aChildMenu['Menu']['name'] ?></td>
                                     <td class="index"><div class="btn-group">
                                         <a href="#" class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
                                             <span class="caret"></span>
@@ -84,14 +84,14 @@
                                                 'plugin' => 'menu',
                                                 'controller' => 'menu',
                                                 'action' => 'add', 
-                                                'id' => $aChildMenu['Menus']['id']
+                                                'id' => $aChildMenu['Menu']['id']
                                             )) ?>"><i class="icon-edit"></i> Modifier</a></li>
                                             <li><a href="<?php echo $this->Html->url(array(
                                                 'manager' => true,
                                                 'plugin' => 'menu',
                                                 'controller' => 'menu',
                                                 'action' => 'delete', 
-                                                'id' => $aChildMenu['Menus']['id']
+                                                'id' => $aChildMenu['Menu']['id']
                                             )) ?>" class="confirmModalBox" 
                                                    data-box-title="Confirmation" 
                                                    data-box-content="Voulez-vous supprimer ce module ?" 

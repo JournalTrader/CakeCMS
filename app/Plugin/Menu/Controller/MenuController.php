@@ -63,6 +63,7 @@ class MenuController extends MenuAppController
     
     public function manager_index()
     {
+        $this->set('title', "Gestionnaire de menus");
         $aMenus = $this->Block->getMenuBlockForTable();
         
         $this->set('aMenus', $aMenus);
