@@ -45,6 +45,8 @@ class AppController extends Controller
         'Block.Block'
     );
     
+    public $recursive = -1;
+    
     public function beforeFilter()
     {
         switch($this->params['prefix'])

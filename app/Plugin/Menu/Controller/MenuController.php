@@ -72,8 +72,8 @@ class MenuController extends MenuAppController
     public function manager_add()
     {
         if(!empty($this->data))
-        {
-            if($this->Menu->save($this->data, false))
+        {            
+            if($this->Menu->save($this->data))
             {
                 $this->Session->setFlash("Le menu est sauvegardé !", 'alert');
                 $this->redirect(array(
@@ -87,11 +87,13 @@ class MenuController extends MenuAppController
         
         $this->set('title', "Ajout d'un menu");
         
-        $aParents = array(
-            0 => "Menus parents"
-        );
+        $aParents[0] = "Menus parents";
         
-        $aParents = array_merge($aParents, $this->Menu->generateTreeList(null, null, null, '--'));
+        $aParents += $this->Menu->generateTreeList(null, '{n}.Menu.id','{n}.Menu.name', '--');
+        
+        
+        
+//        ksort($aParents);
         
         $aModules = $this->Module->findModulesTreeForSelect(array(
             'Plugin' => array(

@@ -91,6 +91,7 @@ class ModuleController extends ModuleAppController
                             
                             foreach($tables as $table)
                             {
+                                $aModel = array();
                                 $model = $table->getElementsByTagname('model')->item(0)->nodeValue;
                                 
                                 $aData = $table->getElementsByTagname('data');
@@ -194,16 +195,16 @@ class ModuleController extends ModuleAppController
         foreach($aModule['Models'] as $model)
         {
             $arrayKeys = array_keys($model);
-            $modaleName = ucfirst($arrayKeys[0]);
-            
-            if(!in_array(ucfirst($pluginMain) . '.' . $modaleName, $this->uses))
+            $modelName = ucfirst($arrayKeys[0]);
+                        
+            if(!in_array(ucfirst($pluginMain) . '.' . $modelName, $this->uses))
             {
-                $this->uses[] = ucfirst($pluginMain) . '.' . $modaleName;
+                $this->uses[] = ucfirst($pluginMain) . '.' . $modelName;
             }
             
-            $this->{$modaleName}->create();
+            $this->{$modelName}->create();
             
-            if(!$this->{$modaleName}->save($model, false))
+            if(!$this->{$modelName}->save($model, false))
             {
                 $error = true;
             }

@@ -12,6 +12,11 @@
  */
 class BlockController extends BlockAppController
 {
+    public $uses = array(
+        'Menu.Menu',
+        'Block.Block'
+    );
+    
     public function block_index()
     {
         
@@ -102,10 +107,10 @@ class BlockController extends BlockAppController
         
         foreach($aBlock['Menu'] as $aMenu)
         {
-            // $this->Menu->delete($aMenu['id']);
+            $this->Menu->delete($aMenu['id']);
         }
         
-        
+        $this->Block->delete($aBlock['Block']['id']);
         
         return $this->render(false);
     }

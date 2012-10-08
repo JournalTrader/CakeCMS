@@ -22,4 +22,61 @@
             <action>add</action>
         </plugin>
     </plugins>
+    <database>
+        <table>
+            <model>Menu</model>
+            <default>
+                <data>
+                    <name>Modules</name>
+                    <blocks_id>1</blocks_id>
+                    <plugins_id>1</plugins_id>
+                    <is_active>1</is_active>
+                    <parent_id>0</parent_id>
+                </data>
+                <data>
+                    <name>Blocks</name>
+                    <blocks_id>1</blocks_id>
+                    <plugins_id>5</plugins_id>
+                    <is_active>1</is_active>
+                    <parent_id>0</parent_id>
+                </data>
+                <data>
+                    <name>Menus</name>
+                    <blocks_id>1</blocks_id>
+                    <plugins_id>7</plugins_id>
+                    <is_active>1</is_active>
+                    <parent_id>0</parent_id>
+                </data>
+                <data>
+                    <name>Gestion de menus</name>
+                    <blocks_id>1</blocks_id>
+                    <plugins_id>7</plugins_id>
+                    <is_active>1</is_active>
+                    <parent_id>3</parent_id>
+                </data>
+                <data>
+                    <name>Ajouter un menu</name>
+                    <blocks_id>1</blocks_id>
+                    <plugins_id>8</plugins_id>
+                    <is_active>1</is_active>
+                    <parent_id>3</parent_id>
+                </data>
+                
+                <data>
+                    <name>Gestion de blocks</name>
+                    <blocks_id>1</blocks_id>
+                    <plugins_id>5</plugins_id>
+                    <is_active>1</is_active>
+                    <parent_id>2</parent_id>
+                </data>
+                <data>
+                    <name>Ajouter un block</name>
+                    <blocks_id>1</blocks_id>
+                    <plugins_id>6</plugins_id>
+                    <is_active>1</is_active>
+                    <parent_id>2</parent_id>
+                </data>
+            </default>
+        </table>
+    </database>
 </module>
