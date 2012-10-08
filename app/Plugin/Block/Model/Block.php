@@ -13,10 +13,43 @@ class Block extends AppModel
     public $displayField = 'name';
     
     public $hasMany = array(
-        'Menus' => array(
+        'Menu' => array(
             'className' => 'Menu',
             'foreignKey' => 'blocks_id'
         )
+    );
+    
+    public $validate = array(
+        'name' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                //'message' => 'Your custom message here',
+                //'allowEmpty' => false,
+                //'required' => false,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            ),
+        ),
+        'alias' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                //'message' => 'Your custom message here',
+                //'allowEmpty' => false,
+                //'required' => false,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            ),
+        ),
+        'type' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                //'message' => 'Your custom message here',
+                //'allowEmpty' => false,
+                //'required' => false,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            ),
+        ),
     );
     
     public function getAllMenus($alias = null)
@@ -42,20 +75,53 @@ class Block extends AppModel
     {
         $aBlocks = $this->getAllMenus($alias);
         
-        $aMenus = $this->Menus->find('all', array(
+        $aMenus = $this->Menu->find('all', array(
             'conditions' => array(
                 'blocks_id' => $aBlocks['Block']['id'],
                 'parent_id' => 0
+            ),
+            'order' => array(
+                'order' => 'asc'
             )
         ));
         
         foreach($aMenus as $aKey => $aMenu)
-        {
-            $aMenus[$aKey]['Menus']['ChildMenus'] = $this->Menus->find('all', array(
+        {                    
+            $plugin = ClassRegistry::init('Module.Plugin');
+            
+            $aPlugin = $plugin->find('first', array(
                 'conditions' => array(
-                    'parent_id' => $aMenu['Menus']['id']
+                    'id' => $aMenu['Menu']['plugins_id'],
+                    'parent_id' => 0
                 )
             ));
+            
+            $aMenus[$aKey]['Menu']['Plugin'] = $aPlugin['Plugin'];
+            
+            $aMenus[$aKey]['Menu']['ChildMenus'] = $this->Menu->find('all', array(
+                'conditions' => array(
+                    'parent_id' => $aMenu['Menu']['id']
+                ),
+                'order' => array(
+                    'order' => 'asc'
+                )
+            ));
+            
+            if(!empty($aMenus[$aKey]['Menu']['ChildMenus']))
+            {
+                foreach($aMenus[$aKey]['Menu']['ChildMenus'] as $bKey => $aChildMenus)
+                {
+                    $aPlugin = $plugin->find('first', array(
+                        'conditions' => array(
+                            'id' => $aChildMenus['Menu']['plugins_id']
+                        )
+                    ));
+                    
+                    $aMenus[$aKey]['Menu']['ChildMenus'][$bKey]['Plugin'] = $aPlugin['Plugin'];
+                }
+                
+                // ksort($aMenus[$aKey]['Menu']['ChildMenus']);
+            }
         }
         
         return $aMenus;
@@ -91,7 +157,7 @@ class Block extends AppModel
         
         $aBlocks = $this->find('all', array(
             'contain' => array(
-                'Menus' => array(
+                'Menu' => array(
                     'conditions' => array(
                         'parent_id' => 0
                     ),
@@ -107,11 +173,11 @@ class Block extends AppModel
         
         foreach($aBlocks as $aKey => $aBlock)
         {
-            if(!empty($aBlock['Menus']))
+            if(!empty($aBlock['Menu']))
             {
-                foreach($aBlock['Menus'] as $bKey => $aMenu)
+                foreach($aBlock['Menu'] as $bKey => $aMenu)
                 {
-                    $aBlocks[$aKey]['Menus'][$bKey]['ChildMenus'] =  $this->Menus->find('all', array(
+                    $aBlocks[$aKey]['Menu'][$bKey]['ChildMenus'] =  $this->Menu->find('all', array(
                         'conditions' => array(
                             'parent_id' => $aMenu['id']
                         ),
@@ -126,7 +192,7 @@ class Block extends AppModel
         return $aBlocks;
     }
     
-    public function beforeSave()
+    public function beforeSave($options = array())
     {
         if(!empty($this->data))
         {
@@ -134,6 +200,13 @@ class Block extends AppModel
             
             $this->data['Block']['name'] = AppSpecial::ucfirst($this->data['Block']['name']);
             $this->data['Block']['alias'] = strtolower(Inflector::slug($this->data['Block']['name'], '_'));
+            
+            if($this->data['Block']['type'] == 0) 
+            { 
+                $this->data['Block']['type'] == self::TYPE_ELEMENT;
+            }
         }
+        
+        return true;
     }
 }
