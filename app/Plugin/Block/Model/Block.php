@@ -16,6 +16,10 @@ class Block extends AppModel
         'Menu' => array(
             'className' => 'Menu',
             'foreignKey' => 'blocks_id'
+        ),
+        'Element' => array(
+            'className' => 'Element',
+            'foreignKey' => 'blocks_id'
         )
     );
     
