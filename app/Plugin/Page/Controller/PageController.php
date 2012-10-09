@@ -10,18 +10,20 @@
  *
  * @author nicolasmoricet
  */
-class PagesController extends PagesAppController
+class PageController extends PageAppController
 {
     public function manager_index()
     {
+        $aPages = $this->Page->find('all');
         
+        $this->set('aPages', $aPages);
     }
     
     public function manager_add()
     {
         if (!empty($this->data)) 
         {
-            debug($this->data);
+            $this->Page->save($this->data);
         }
         
         $this->set('aParents', $this->Page->getParentsPages());
