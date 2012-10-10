@@ -44,6 +44,54 @@ class Module extends ModuleAppModel
         ));
     }
     
+    public function findBlocks()
+    {
+        $aModules = $this->find('all', array(
+            'contain' => array(
+                'Plugin' => array(
+                    'ChildPlugin' => array(
+                        'conditions' => array(
+                            'prefix' => 'block'
+                        )
+                    )
+                )
+            )
+        ));
+        
+        $aBlocks = array();
+        
+        foreach($aModules as $aModule)
+        {
+            if(!empty($aModule['Plugin']['ChildPlugin']))
+            {
+                $aBlocks[] = $aModule;
+            }
+        }
+        
+        return $aBlocks;
+    }
+    
+    public function getFindBlocksForSelect()
+    {
+        $aList = array(
+            0 => 'Choisir un block'
+        );
+        
+        $aBlocks = $this->findBlocks();
+        
+        foreach($aBlocks as $aBlock)
+        {
+            $aList[$aBlock['Module']['name']] = array();
+            
+            foreach($aBlock['Plugin']['ChildPlugin'] as $aChildPlugin)
+            {
+                $aList[$aBlock['Module']['name']][] = $aChildPlugin['name'];
+            }
+        }
+        
+        return $aList;
+    }
+    
     public function findModulesTreeForSelect($contain = array(), $fields = array())
     {
         $aData = array();

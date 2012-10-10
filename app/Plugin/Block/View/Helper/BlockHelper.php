@@ -18,13 +18,23 @@ class BlockHelper extends AppHelper
     
     public function menu($alias)
     {
+        return $this->requestMethod($alias, 'menu');
+    }
+    
+    public function element($alias)
+    {
+        return $this->requestMethod($alias, 'element');
+    }
+    
+    private function requestMethod($alias, $type)
+    {
         $params = $this->request->params;
         
         return $this->requestAction(array(
             'block' => true,
             'plugin' => 'block',
             'controller' => 'block',
-            'action' => 'menu'
+            'action' => $type
         ), array(
             'return',
             'named' => array(

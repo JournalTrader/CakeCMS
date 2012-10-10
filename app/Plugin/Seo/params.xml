@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>Seo manager</name>
+    <description>Permet l'installation de module pour la gestion du référencement.</description>
+    <version>1.0.0</version>
+    <author>MORICET Nicolas</author>
+    <site>Mon super CMS</site>
+    <url>http://www.cms.com</url>
+    <plugins>
+        <plugin main="true" active="true">
+            <name>Seo Index</name>
+            <prefix>manager</prefix>
+            <plugin_name>seo</plugin_name>
+            <controller>seo</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Block add in form</name>
+            <prefix>block</prefix>
+            <plugin_name>seo</plugin_name>
+            <controller>seo</controller>
+            <action>form</action>
+        </plugin>
+    </plugins>
+</module>

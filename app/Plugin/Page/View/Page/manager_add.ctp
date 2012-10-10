@@ -64,6 +64,8 @@
          ?>
 <?php endif ?>
 
+<?php echo $this->Block->element('page_manager_add') ?>
+
 <div class="form-actions">
     <?php
     echo $this->Form->input("Envoyer", array(

@@ -14,7 +14,8 @@ class BlockController extends BlockAppController
 {
     public $uses = array(
         'Menu.Menu',
-        'Block.Block'
+        'Block.Block',
+        'Module.Module'
     );
     
     public function block_index()
@@ -37,6 +38,18 @@ class BlockController extends BlockAppController
         $this->set('aRequests', $params['named']);
     }
     
+    public function block_element()
+    {
+        $params = $this->request->params;
+        
+        if(empty($params['named']['alias']))
+        {
+            return $this->render(false);
+        }
+        
+        return $this->render(false);
+    }
+    
     public function manager_index()
     {
         $this->set('title', "Gestionnaire de blocks");
@@ -50,6 +63,7 @@ class BlockController extends BlockAppController
     
     public function manager_add()
     {
+        $this->set('title', "Ajout d'un block");
         $params = $this->request->params;
         $isEdit = false;
         
@@ -58,7 +72,12 @@ class BlockController extends BlockAppController
             if($this->Block->save($this->data))
             {
                 $this->Session->setFlash("Le block est sauvagardé", 'alert');
-                $this->redirect($this->referer());
+                $this->redirect(array(
+                    'manager' => true,
+                    'plugin' => 'block',
+                    'controller' => 'block',
+                    'action' => 'index'
+                ));
             }
         }
         
@@ -76,6 +95,13 @@ class BlockController extends BlockAppController
         {
             $this->set('aBlock', $aBlock);
         }
+    }
+    
+    public function manager_add_element()
+    {
+        $this->set('title', "Liaison d'un élément à un block");
+        
+        $this->set('aBlocks', $this->Module->getFindBlocksForSelect());
     }
     
     public function manager_delete()

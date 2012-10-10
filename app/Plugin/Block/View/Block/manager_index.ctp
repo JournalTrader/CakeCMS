@@ -26,6 +26,13 @@
                                 'manager' => true,
                                 'plugin' => 'block',
                                 'controller' => 'block',
+                                'action' => 'add_element', 
+                                'id' => $aElement['Block']['id']
+                            )) ?>"><i class="icon-plus"></i> Ajouter un élement</a></li>
+                            <li><a href="<?php echo $this->Html->url(array(
+                                'manager' => true,
+                                'plugin' => 'block',
+                                'controller' => 'block',
                                 'action' => 'add', 
                                 'id' => $aElement['Block']['id']
                             )) ?>"><i class="icon-edit"></i> Modifier</a></li>
