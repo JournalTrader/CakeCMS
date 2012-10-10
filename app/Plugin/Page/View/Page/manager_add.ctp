@@ -6,7 +6,8 @@
         echo $this->Form->input("title", array(
             'label' => false,
             'div' => false,
-            'class' => 'span12'
+            'class' => 'span12',
+            'value' => (isset($aPage) && !empty($aPage['Page']['title'])) ? $aPage['Page']['title']:null
         ))
         ?>
     </div>
@@ -18,7 +19,8 @@
         echo $this->Form->input("content", array(
             'label' => false,
             'div' => false,
-            'class' => 'span12'
+            'class' => 'span12',
+            'value' => (isset($aPage) && !empty($aPage['Page']['content'])) ? $aPage['Page']['content']:null
         ))
         ?>
     </div>
@@ -31,11 +33,21 @@
             'label' => false,
             'div' => false,
             'class' => 'span12',
-            'options' => $aParents
+            'options' => $aParents,
+            'value' => (isset($aPage) && !empty($aPage['Page']['parent_id'])) ? $aPage['Page']['parent_id']:0
         ))
         ?>
     </div>
 </div>
+
+<?php if(isset($isEdit)): ?>
+        <?php
+            echo $this->Form->input('id', array(
+                'type' => 'hidden',
+                'value' => (isset($aPage) && !empty($aPage['Page']['id']))
+            ));
+         ?>
+<?php endif ?>
 
 <div class="form-actions">
     <?php

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>Page manager</name>
+    <description>Permet l'installation de modules pour le gestion des pages.</description>
+    <version>1.0.0</version>
+    <author>MORICET Nicolas</author>
+    <site>Mon super CMS</site>
+    <url>http://www.cms.com</url>
+    <plugins>
+        <plugin main="true" active="true">
+            <name>Page Index</name>
+            <prefix>manager</prefix>
+            <plugin_name>page</plugin_name>
+            <controller>page</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Page add</name>
+            <prefix>manager</prefix>
+            <plugin_name>page</plugin_name>
+            <controller>page</controller>
+            <action>add</action>
+        </plugin>
+    </plugins>
+</module>

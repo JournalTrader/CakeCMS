@@ -17,6 +17,15 @@ class Page extends PageAppModel
         'Tree'
     );
     
+    public function getParentsPages()
+    {
+        $aPages = array(
+            0 => 'Choisir une page'
+        );
+        
+        return $aPages;
+    }
+    
     public function beforeSave($options = array())
     {
         if(!empty($this->data['Page']))
@@ -25,18 +34,14 @@ class Page extends PageAppModel
             {
                 $this->data['Page']['title'] = AppSpecial::ucfirst($this->data['Page']['title']);
             }
+            
+            if(empty($this->data['Page']['parent_id']))
+            {
+                $this->data['Page']['parent_id'] = 0;
+            }
         }
         
         return true;
-    }
-    
-    public function getParentsPages()
-    {
-        $aPages = array(
-            0 => 'Choisir une page'
-        );
-        
-        return $aPages;
     }
 }
 
