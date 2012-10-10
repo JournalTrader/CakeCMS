@@ -91,10 +91,6 @@ class MenuController extends MenuAppController
         
         $aParents += $this->Menu->generateTreeList(null, '{n}.Menu.id','{n}.Menu.name', '--');
         
-        
-        
-//        ksort($aParents);
-        
         $aModules = $this->Module->findModulesTreeForSelect(array(
             'Plugin' => array(
                 'ChildPlugin'

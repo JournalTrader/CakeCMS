@@ -11,7 +11,7 @@
  * @author nicolasmoricet
  */
 class PageController extends PageAppController
-{
+{    
     public function manager_index()
     {
         $aPages = $this->Page->find('all');
@@ -40,7 +40,7 @@ class PageController extends PageAppController
         
         if (!empty($this->data)) 
         {
-            if($this->Page->save($this->data))
+            if($this->Page->save($this->data, false))
             {
                 $this->Session->setFlash("La page est enregistrée !", 'alert');
                 $this->redirect(array(

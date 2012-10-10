@@ -1,4 +1,6 @@
-<?php echo $this->Form->create() ?>
+<?php echo  $this->Form->create('Page', array(
+    'class' => 'form-horizontal'
+)) ?>
 <div class="control-group">
     <label class="control-label" for="PageTitle"> Titre de la page : </label>
     <div class="controls required">
@@ -35,6 +37,19 @@
             'class' => 'span12',
             'options' => $aParents,
             'value' => (isset($aPage) && !empty($aPage['Page']['parent_id'])) ? $aPage['Page']['parent_id']:0
+        ))
+        ?>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="PageContent"> Publier la page : </label>
+    <div class="controls required">
+        <?php
+        echo $this->Form->input("status", array(
+            'label' => false,
+            'div' => false,
+            'class' => 'span12',
+            'checked' => (isset($aPage) && $aPage['Page']['status'] == 1) ? true:false
         ))
         ?>
     </div>
