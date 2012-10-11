@@ -205,6 +205,81 @@ class Block extends AppModel
         return $aBlocks;
     }
     
+    public function getElementBlockForTable($iId)
+    {
+        $aElements = $this->find('first', array(
+            'contain' => array(
+                'Element'
+            ),
+            'conditions' => array(
+                'type' => Block::TYPE_ELEMENT,
+                'id' => $iId
+            )
+        ));
+        
+        return $aElements;
+    }
+    
+    public function getElementsBlockByAlias($alias)
+    {
+        $hasPlugin = false;
+        
+        $aElements = $this->find('first', array(
+            'fields' => array(
+                'id',
+                'type'
+            ),
+            'contain' => array(
+                'Element' => array(
+                    'fields' => array(
+                        'id',
+                        'plugins_id',
+                        'blocks_id'
+                    )
+                )
+            ),
+            'conditions' => array(
+                'type' => Block::TYPE_ELEMENT,
+                'alias' => $alias
+            )
+        ));
+        
+        if(!empty($aElements['Element']))
+        {
+            foreach($aElements['Element'] as $aKey => $aElement)
+            {
+                $plugin = ClassRegistry::init('Module.Plugin');
+
+                $aPlugin = $plugin->find('first', array(
+                    'fields' => array(
+                        'id',
+                        'prefix',
+                        'plugin',
+                        'controller',
+                        'action'
+                    ),
+                    'conditions' => array(
+                        'id' => $aElement['plugins_id'],
+                        'is_active' => true
+                    )
+                ));
+
+                if(!empty($aPlugin))
+                {
+                    $hasPlugin = true;
+                    $aElements['Element'][$aKey]['Plugin'] = $aPlugin['Plugin'];
+                }
+            }
+        }
+                
+        if($hasPlugin)
+        {
+            return $aElements;
+        }
+        
+        return false;
+    }
+    
     public function beforeSave($options = array())
     {
         if(!empty($this->data))
@@ -216,7 +291,7 @@ class Block extends AppModel
             
             if($this->data['Block']['type'] == 0) 
             { 
-                $this->data['Block']['type'] == self::TYPE_ELEMENT;
+                $this->data['Block']['type'] = self::TYPE_ELEMENT;
             }
         }
         

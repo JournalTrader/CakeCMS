@@ -19,7 +19,30 @@ class SeoController extends SeoAppController
     
     public function block_form()
     {
+        $isEdit = false;
+        $params = $this->request->params;
         
+        if ($this->data) 
+        {
+            $this->Seo->save($this->data);
+        }
+        
+        if(!empty($params['named']['id']))
+        {
+            $isEdit = true;
+            
+            $aSeo = $this->Seo->find('first', array(
+                'conditions' => array(
+                    'table_id' => $params['named']['id']
+                )
+            ));
+        }
+        
+        if($isEdit)
+        {
+            $this->set('isEdit', $isEdit);
+            $this->set('aSeo', $aSeo);
+        }
     }
 }
 

@@ -10,7 +10,7 @@
             echo $this->Form->input("name", array(
                 'label' => false,
                 'div' => false,
-                'value' => ""
+                'value'=> (!empty($aElement['Element']['name'])) ? $aElement['Element']['name']:null
             ))
             ?>
         </div>
@@ -23,11 +23,28 @@
             echo $this->Form->input("plugins_id", array(
                 'label' => false,
                 'div' => false,
-                'options' => $aBlocks
+                'options' => $aBlocks,
+                'value'=> (!empty($aElement['Element']['plugins_id'])) ? $aElement['Element']['plugins_id']:null
             ))
             ?>
         </div>
     </div>
+    
+    <?php if(!empty($iId)): ?>
+        <?php echo $this->Form->input('blocks_id', array(
+            'type' => 'hidden',
+            'value' => $iId
+        )) ?>
+    <?php endif ?>
+    
+    <?php if(isset($isEdit)): ?>
+        <?php
+             echo $this->Form->input('id', array(
+                 'type' => 'hidden',
+                 'value' => $aElement['Element']['id']
+             ));
+         ?>
+    <?php endif ?>
     
     <div class="form-actions">
         <?php

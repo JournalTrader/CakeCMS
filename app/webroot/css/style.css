@@ -30,7 +30,7 @@ form fieldset.options
 -------------------------------------------------------------------------- */
 div.tab-content
 {
-    padding-bottom: 60px;
+    overflow: visible;
 }
 
 /** TABLE

@@ -42,12 +42,27 @@ class PageController extends PageAppController
         {
             if($this->Page->save($this->data, false))
             {
+                $data = $this->data;
+                
+                $data['Table']['name'] = 'page';
+                $data['Table']['table_id'] = $this->Page->id;
+                
+                $this->requestAction(array(
+                    'manager' => true,
+                    'plugin' => 'block',
+                    'controller' => 'block',
+                    'action' => 'post'
+                ), array(
+                    'data' => $data
+                ));
+
                 $this->Session->setFlash("La page est enregistrée !", 'alert');
                 $this->redirect(array(
                     'manager' => true,
                     'plugin' => 'page',
                     'controller' => 'page',
-                    'action' => 'index'
+                    'action' => 'add',
+                    'id' => 'page_' . $this->Page->id
                 ));
             }
         }

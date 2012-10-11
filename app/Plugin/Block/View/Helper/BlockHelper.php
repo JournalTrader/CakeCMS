@@ -30,6 +30,16 @@ class BlockHelper extends AppHelper
     {
         $params = $this->request->params;
         
+        $named = array(
+            'alias' => $alias,
+            'rPrefix' => $params['prefix'],
+            'rPlugins' => $params['plugin'],
+            'rController' => $params['controller'],
+            'rAction' => $params['action']
+        );
+        
+        $named += $params['named'];
+        
         return $this->requestAction(array(
             'block' => true,
             'plugin' => 'block',
@@ -37,13 +47,7 @@ class BlockHelper extends AppHelper
             'action' => $type
         ), array(
             'return',
-            'named' => array(
-                'alias' => $alias,
-                'rPrefix' => $params['prefix'],
-                'rPlugins' => $params['plugin'],
-                'rController' => $params['controller'],
-                'rAction' => $params['action']
-            )
+            'named' => $named
         ));
     }
 }

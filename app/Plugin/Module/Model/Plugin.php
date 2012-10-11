@@ -28,6 +28,13 @@ class Plugin extends ModuleAppModel
             'conditions' => '',
             'fields' => '',
             'order' => ''
+	),
+	'Element' => array(
+            'className' => 'Block.Element',
+            'foreignKey' => 'id',
+            'conditions' => '',
+            'fields' => '',
+            'order' => ''
 	)
     );
     

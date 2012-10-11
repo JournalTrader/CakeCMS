@@ -85,7 +85,7 @@ class Module extends ModuleAppModel
             
             foreach($aBlock['Plugin']['ChildPlugin'] as $aChildPlugin)
             {
-                $aList[$aBlock['Module']['name']][] = $aChildPlugin['name'];
+                $aList[$aBlock['Module']['name']][$aChildPlugin['id']] = $aChildPlugin['name'];
             }
         }
         
