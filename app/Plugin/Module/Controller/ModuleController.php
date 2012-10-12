@@ -238,13 +238,18 @@ class ModuleController extends ModuleAppController
         
         $dModule['Module'] = $aModule['Module'];
         
-        if($this->Module->save($dModule))
-        {   
-            $this->Session->setFlash("Le module est installé !", 'alert');
-            $this->redirect($this->referer());
-        } else {
-            $this->Session->setFlash("Le module n'a pas pu être enregistré !", 'alert', array('type' => AppController::TYPE_ERROR));
-            $this->redirect($this->referer());
+        $reponse = $this->installTables($dModule);
+        
+        if ($reponse['error'] == AppController::TYPE_SUCCESS) 
+        {
+            if($this->Module->save($dModule))
+            {   
+                $this->Session->setFlash("Le module est installé !", 'alert');
+                $this->redirect($this->referer());
+            } else {
+                $this->Session->setFlash("Le module n'a pas pu être enregistré !", 'alert', array('type' => AppController::TYPE_ERROR));
+                $this->redirect($this->referer());
+            }   
         }
         
         if(!$error)
@@ -254,6 +259,70 @@ class ModuleController extends ModuleAppController
         }
         
         return $this->render(false);
+    }
+    
+    private function installTables($aModule)
+    {
+        $response = array(
+            'error' => AppController::TYPE_SUCCESS
+        );
+        
+        App::uses('CakeSchema', 'Model');
+        App::uses('ConnectionManager', 'Model');
+        
+        $db = ConnectionManager::getDataSource('default');
+        $brokenSequence = $db instanceof Postgres;
+        
+        foreach($aModule['plugins'] as $aPlugin)
+        {
+            if($aPlugin['Plugin']['is_main'] === true)
+            {
+                $pluginName = ucfirst($aPlugin['Plugin']['plugin']);
+                $pluginPath = APP . 'Plugin' . DS . $pluginName . DS;
+                $pluginSchema = $pluginPath . 'Config' . DS . 'Schema' . DS;
+                
+                $aSchemas = glob($pluginSchema . '*.php');
+                
+                foreach($aSchemas as $aSchema)
+                {
+                    $ex = explode(DS, $aSchema);
+                    $f = end($ex);
+
+                    $fileName = explode('.', $f);
+                    $fileName = $fileName[0];
+                    
+                    require_once $aSchema;
+                    
+                    $className = $fileName . 'Schema';
+            
+                    $obj = new $className;
+
+                    $schema =& new CakeSchema(array(
+                        'name' => $obj->name,
+                        'path' => $obj->path,
+                        'file' => $obj->file,
+                        'plugin' => $obj->plugin,
+                        'tables' => $obj->tables,
+                    ));
+                    
+                    $schema = $schema->load();
+                    
+                    foreach ($schema->tables as $table => $fields)
+                    {
+                        $create = $db->createSchema($schema, $table);
+
+                        try {
+                            $db->execute($create);
+                        } catch (PDOException $e) { 
+                            $response['error'] = AppController::TYPE_ERROR;
+                            $response['message'][] = sprintf("la table %s n'a pas pu être installé", $table);
+                        }
+                    }
+                }
+             }
+        }
+        
+        return $response;
     }
     
     public function manager_uninstall()
