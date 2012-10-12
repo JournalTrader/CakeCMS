@@ -40,6 +40,13 @@
             return this;
         },
         confirmBox: function() {
+            var $isForm = false;
+            var $selfEl = $el;
+            if($el.parents('form:first').is('form'))
+            {
+                $isForm = true;
+            }
+            
             $el.each(function(i, el) {
                 var $t = $(el);
                 
@@ -59,9 +66,23 @@
                         
                         if($query !== null && $request === true)
                         {
-                            window.location = $href + '/?' + $query;
+                            if(!$isForm)
+                            {
+                                window.location = $href + '/?' + $query;
+                                return;
+                            }
+                            
+                            $selfEl.parents('form:first').attr('action', $href);
+                            $selfEl.parents('form:first').submit();
                         } else {
-                            window.location = $href;
+                            if(!$isForm)
+                            {
+                                window.location = $href;
+                                return;
+                            }
+                            
+                            $selfEl.parents('form:first').attr('action', $href);
+                            $selfEl.parents('form:first').submit();
                         }
                         
                         return false;
@@ -239,6 +260,25 @@
                     $anchor.after($xhtml);
                     break;
             }
+        },
+        getSlug: function(url) {
+            var $val = $el.val();
+            
+            $val = $val.replace(/^\s+|\s+$/g, '');
+            $val = $val.toLowerCase();
+            
+            var $from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+            var $to   = "aaaaeeeeiiiioooouuuunc------";
+            
+            for (var i=0, l=$from.length ; i<l ; i++) {
+                $val = $val.replace(new RegExp($from.charAt(i), 'g'), $to.charAt(i));
+            }
+        
+            $val = $val.replace(/[^a-z0-9 -]/g, '')
+                       .replace(/\s+/g, '-')
+                       .replace(/-+/g, '-');
+               
+            return $val;
         }
     }
 })(jQuery);

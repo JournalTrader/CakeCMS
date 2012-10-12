@@ -51,6 +51,10 @@ class Plugin extends ModuleAppModel
 		'exclusive' => '',
 		'finderQuery' => '',
 		'counterQuery' => ''
+        ),
+        'Element' => array(
+            'className' => 'Module.Plugin',
+            'foreignKey' => 'plugins_id'
         )
     );
 

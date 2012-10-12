@@ -1,4 +1,4 @@
-<?php debug($aSeo); ?>
+<?php // debug($aSeo); ?>
 
 <div class="control-group">
     <label class="control-label" for="SeoTitle"> Titre du document : </label>
@@ -40,3 +40,33 @@
         ?>
     </div>
 </div>
+<div class="control-group">
+    <label class="control-label" for="SeoTitle"> Slug : </label>
+    <div class="controls required">
+        <?php
+            echo $this->Form->input("Seo.slug", array(
+                'label' => false,
+                'div' => false,
+                'class' => 'span12',
+                'value' => (!empty($aSeo['Seo']['slug'])) ? $aSeo['Seo']['slug']:null
+            ))
+        ?>
+    </div>
+</div>
+
+<?php if(isset($isEdit)): ?>
+    <?php
+        echo $this->Form->input('Seo.id', array(
+            'type' => 'hidden',
+            'value' => $aSeo['Seo']['id']
+        ));
+    ?>
+    <?php
+        echo $this->Form->input('Seo.table_id', array(
+            'type' => 'hidden',
+            'value' => $aSeo['Seo']['table_id']
+        ));
+    ?>
+<?php endif ?>
+
+<?php echo $this->Html->script('/seo/js/script') ?>

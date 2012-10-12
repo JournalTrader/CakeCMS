@@ -26,9 +26,11 @@ class PageController extends PageAppController
         
         if(!empty($params['named']['id']))
         {
+            $ex = explode('_', $params['named']['id']);
+            
             $aPage = $this->Page->find('first', array(
                 'conditions' => array(
-                    'id' => $params['named']['id']
+                    'id' => $ex[1]
                 )
             ));
             
@@ -48,7 +50,8 @@ class PageController extends PageAppController
                 $data['Table']['table_id'] = $this->Page->id;
                 
                 $this->requestAction(array(
-                    'manager' => true,
+                    'manager' => false,
+                    'block' => true,
                     'plugin' => 'block',
                     'controller' => 'block',
                     'action' => 'post'
@@ -80,10 +83,29 @@ class PageController extends PageAppController
     {
         $params = $this->request->params;
         
+        
         if (!empty($params['named']['id'])) 
         {
-            $iId = $params['named']['id'];
+            $ex = explode('_', $params['named']['id']);
+            $iId = $ex[1];
             
+            $data['Table']['name'] = 'page';
+            $data['Table']['table_id'] = $params['named']['id'];
+
+            $data += $this->data;
+            
+            $this->requestAction(array(
+                'manager' => false,
+                'block' => true,
+                'plugin' => 'block',
+                'controller' => 'block',
+                'action' => 'delete'
+            ), array(
+                'data' => $data
+            ));
+            
+            
+
             if($this->Page->delete($iId))
             {
                 $this->Session->setFlash("La page est supprimée !", 'alert');

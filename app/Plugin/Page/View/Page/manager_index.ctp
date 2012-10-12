@@ -1,4 +1,5 @@
 <?php // debug($aPages); ?>
+<?php echo $this->Form->create() ?>
 <table class="table table-striped table-bordered table-hover table-condensed">
     <thead>
         <tr>
@@ -20,16 +21,16 @@
                         'plugin' => 'page',
                         'controller' => 'page',
                         'action' => 'add', 
-                        'id' => $aPage['Page']['id']
+                        'id' => 'page_' . $aPage['Page']['id']
                     )) ?>"><i class="icon-edit"></i> Modifier</a></li>
                     <li><a href="<?php echo $this->Html->url(array(
                         'manager' => true,
                         'plugin' => 'page',
                         'controller' => 'page',
                         'action' => 'delete', 
-                        'id' => $aPage['Page']['id']
+                        'id' => 'page_' . $aPage['Page']['id']
                     )) ?>" data-confirm-box="true"
-                           data-confirm-box-content="Voulez-vous supprimer ce module ?" 
+                           data-confirm-box-content="Voulez-vous supprimer la page ?" 
                            data-confirm-box-cancel="Annuler" 
                            data-confirm-box-action="Ok"><i class="icon-remove"></i> Supprimer</a></li>
                 </ul>
@@ -46,3 +47,10 @@
         <?php endif ?>
     </tbody>
 </table>
+<?php
+    echo $this->Form->input('blocks', array(
+        'type' => 'hidden',
+        'value' => 'manager_content_add'
+    ));
+?>
+<?php echo $this->Form->end() ?>

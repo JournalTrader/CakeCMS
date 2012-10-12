@@ -8,6 +8,7 @@
         echo $this->Form->input("title", array(
             'label' => false,
             'div' => false,
+            'id' => 'title',
             'class' => 'span12',
             'value' => (isset($aPage) && !empty($aPage['Page']['title'])) ? $aPage['Page']['title']:null
         ))
@@ -56,12 +57,12 @@
 </div>
 
 <?php if(isset($isEdit)): ?>
-        <?php
-            echo $this->Form->input('id', array(
-                'type' => 'hidden',
-                'value' => (isset($aPage) && !empty($aPage['Page']['id']))
-            ));
-         ?>
+    <?php
+        echo $this->Form->input('id', array(
+            'type' => 'hidden',
+            'value' => (isset($aPage) && !empty($aPage['Page']['id']))
+        ));
+     ?>
 <?php endif ?>
 
 <?php echo $this->Block->element('manager_content_add') ?>

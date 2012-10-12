@@ -44,6 +44,16 @@ class SeoController extends SeoAppController
             $this->set('aSeo', $aSeo);
         }
     }
+    
+    public function block_delete()
+    {
+        if(!empty($this->data['Table']['table_id']))
+        {
+            $this->Seo->deleteAll(array(
+                'table_id' => $this->data['Table']['table_id']
+            ));
+        }
+    }
 }
 
 ?>

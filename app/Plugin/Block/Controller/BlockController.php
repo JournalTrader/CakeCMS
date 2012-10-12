@@ -16,6 +16,7 @@ class BlockController extends BlockAppController
         'Menu.Menu',
         'Block.Block',
         'Block.Element',
+        'Module.Plugin',
         'Module.Module'
     );
     
@@ -62,7 +63,7 @@ class BlockController extends BlockAppController
         return $this->render(false);
     }
     
-    public function manager_post()
+    public function block_post()
     {
         if(!empty($this->data['BlockAlias']))
         {   
@@ -73,7 +74,7 @@ class BlockController extends BlockAppController
                 if($t == 'Table' || $t == 'BlockAlias') { continue; } 
                 
                 $d['table'] = $data['Table']['name'];
-                $d['table_id'] = $data['Table']['table_id'];
+                $d['table_id'] = $data['Table']['name'] . '_' . $data['Table']['table_id'];
                 
                 $data[$t] = $d;
             }
@@ -90,6 +91,36 @@ class BlockController extends BlockAppController
                         'plugin' => $aBlock['Plugin']['plugin'],
                         'controller' => $aBlock['Plugin']['controller'],
                         'action' => $aBlock['Plugin']['action']
+                    ), array(
+                        'data' => $data
+                    ));
+                }
+            }
+        }
+    }
+    
+    public function block_delete()
+    {
+        $data = $this->data;
+        
+        foreach($data as $aKey => $d)
+        {
+            if($aKey == 'Table') { continue; }
+            
+            $exBlocks = explode(',', $d['blocks']);
+            
+            foreach($exBlocks as $block)
+            {
+                $aBlocks = $this->Block->getElementsBlockByAlias($block);
+                
+                foreach($aBlocks['Element'] as $aBlock)
+                {
+                    $this->requestAction(array(
+                        'manager' => false,
+                        $aBlock['Plugin']['prefix'] => true,
+                        'plugin' => $aBlock['Plugin']['plugin'],
+                        'controller' => $aBlock['Plugin']['controller'],
+                        'action' => 'delete'
                     ), array(
                         'data' => $data
                     ));
