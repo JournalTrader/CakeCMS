@@ -83,7 +83,6 @@ class PageController extends PageAppController
     {
         $params = $this->request->params;
         
-        
         if (!empty($params['named']['id'])) 
         {
             $ex = explode('_', $params['named']['id']);
@@ -104,8 +103,6 @@ class PageController extends PageAppController
                 'data' => $data
             ));
             
-            
-
             if($this->Page->delete($iId))
             {
                 $this->Session->setFlash("La page est supprimée !", 'alert');

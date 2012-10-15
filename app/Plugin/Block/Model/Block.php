@@ -99,13 +99,32 @@ class Block extends AppModel
         ));
         
         foreach($aMenus as $aKey => $aMenu)
-        {                    
+        {                 
             $plugin = ClassRegistry::init('Module.Plugin');
+            
+            $aPluginDisplay = $plugin->find('first', array(
+                'conditions' => array(
+                    'id' => $aMenu['Menu']['display']
+                 )
+            ));
+            
+            if(!empty($aPluginDisplay))
+            {
+                $aChidPluginDisplay = $plugin->find('all', array(
+                    'conditions' => array(
+                        'parent_id' => $aPluginDisplay['Plugin']['id']
+                    )
+                ));
+                
+                $aPluginDisplay['Plugin']['ChildPlugin'] = $aChidPluginDisplay;
+            }
+            
+            $aMenus[$aKey]['Menu']['Display'] = $aPluginDisplay['Plugin'];
             
             $aPlugin = $plugin->find('first', array(
                 'conditions' => array(
-                    'id' => $aMenu['Menu']['plugins_id'],
-                    'parent_id' => 0
+                    'id' => $aMenu['Menu']['plugins_id']/*,
+                    'parent_id' => 0*/
                 )
             ));
             
@@ -234,7 +253,9 @@ class Block extends AppModel
                     'fields' => array(
                         'id',
                         'plugins_id',
-                        'blocks_id'
+                        'blocks_id',
+                        'display',
+                        'display_absolute'
                     )
                 )
             ),
@@ -249,6 +270,25 @@ class Block extends AppModel
             foreach($aElements['Element'] as $aKey => $aElement)
             {
                 $plugin = ClassRegistry::init('Module.Plugin');
+                
+                $aPluginDisplay = $plugin->find('first', array(
+                    'conditions' => array(
+                        'id' => $aElement['display']
+                     )
+                ));
+
+                if(!empty($aPluginDisplay))
+                {
+                    $aChidPluginDisplay = $plugin->find('all', array(
+                        'conditions' => array(
+                            'parent_id' => $aPluginDisplay['Plugin']['id']
+                        )
+                    ));
+
+                    $aPluginDisplay['Plugin']['ChildPlugin'] = $aChidPluginDisplay;
+                }
+
+                $aElements['Element'][$aKey]['Display'] = $aPluginDisplay['Plugin'];
 
                 $aPlugin = $plugin->find('first', array(
                     'fields' => array(
@@ -284,12 +324,13 @@ class Block extends AppModel
     {
         if(!empty($this->data))
         {
+            
             if(empty($this->data['Block']['name'])) { return false; }
             
             $this->data['Block']['name'] = AppSpecial::ucfirst($this->data['Block']['name']);
             $this->data['Block']['alias'] = strtolower(Inflector::slug($this->data['Block']['name'], '_'));
             
-            if($this->data['Block']['type'] == 0) 
+            if(empty($this->data['Block']['type'])) 
             { 
                 $this->data['Block']['type'] = self::TYPE_ELEMENT;
             }

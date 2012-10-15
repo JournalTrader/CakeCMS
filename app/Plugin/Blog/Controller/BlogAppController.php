@@ -1,6 +1,7 @@
 <?php
 
-class BlogAppController extends AppController {
-
+class BlogAppController extends AppController 
+{
+    
 }
 

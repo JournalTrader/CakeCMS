@@ -21,5 +21,54 @@
             <controller>blog</controller>
             <action>add</action>
         </plugin>
+        <plugin active="true">
+            <name>Article Manager Index</name>
+            <prefix>manager</prefix>
+            <plugin_name>blog</plugin_name>
+            <controller>article</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Article Manager add</name>
+            <prefix>manager</prefix>
+            <plugin_name>blog</plugin_name>
+            <controller>article</controller>
+            <action>add</action>
+        </plugin>
+        <plugin active="true">
+            <name>Category Manager Index</name>
+            <prefix>manager</prefix>
+            <plugin_name>blog</plugin_name>
+            <controller>category</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Category Manager add</name>
+            <prefix>manager</prefix>
+            <plugin_name>blog</plugin_name>
+            <controller>category</controller>
+            <action>add</action>
+        </plugin>
+        <plugin active="true">
+            <name>Category Manager add</name>
+            <prefix>block</prefix>
+            <plugin_name>blog</plugin_name>
+            <controller>category</controller>
+            <action>category</action>
+        </plugin>
+        <plugin active="true">
+            <name>Tag Manager Index</name>
+            <prefix>manager</prefix>
+            <plugin_name>blog</plugin_name>
+            <controller>tag</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Tag Manager add</name>
+            <prefix>manager</prefix>
+            <plugin_name>blog</plugin_name>
+            <controller>tag</controller>
+            <action>add</action>
+        </plugin>
     </plugins>
 </module>

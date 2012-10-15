@@ -60,10 +60,14 @@
     <div id="container-alert" class="container-fluid">
         <div class="navbar">
             <div class="navbar-inner">
-                <?php echo $this->Block->menu('menu_manager') ?>
-<!--                <ul class="nav">
-                    <li class="active"><a href="#">Accueil</a></li>
-                </ul>-->
+                <div class="container">
+                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <?php echo $this->Block->menu('menu_manager') ?>
+                </div>
             </div>
         </div>
         <div class="row-fluid">
@@ -75,9 +79,18 @@
                 <h1><?php echo $title ?></h1>
             </div>
             <?php endif ?>
-            <?php echo $this->fetch('content'); ?>
+            <div class="row-fluid">
+                <div class="span2">
+                    <?php echo $this->block->menu('menu_block_1') ?>
+                </div>
+                <div class="span8">
+                    <?php echo $this->fetch('content'); ?>
+                </div>
+                <div class="span2">
+                    <?php echo $this->block->element('block_2') ?>
+                </div>
+            </div>
         </div>
-	
     </div>
     
     <footer class="footer">

@@ -56,6 +56,7 @@ class BlockController extends BlockAppController
         
         if($aBlocks)
         {
+            $this->set('aRequests', $params['named']);
             $this->set('aElements', $aBlocks['Element']);
             return $this->render('block_element');
         }
@@ -235,6 +236,14 @@ class BlockController extends BlockAppController
                 ));
             }
         }
+        
+        $aModules = $this->Module->findModulesTreeForSelect(array(
+            'Plugin' => array(
+                'ChildPlugin'
+            )
+        ));
+        
+        $this->set('aModules', $aModules);
         
         $this->set('iId', $iId);
         $this->set('aBlocks', $this->Module->getFindBlocksForSelect());

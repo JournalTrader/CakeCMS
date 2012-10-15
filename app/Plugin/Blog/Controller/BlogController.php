@@ -12,13 +12,13 @@
  */
 class BlogController extends BlogAppController
 {
+//    public $uses = array(
+//        'Blog.Article'
+//    );
+    
     public function manager_index()
     {
-        
-    }
-    
-    public function manager_add()
-    {
+        $this->set('title', "Gestion du blog");
         
     }
 }

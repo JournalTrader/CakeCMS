@@ -71,6 +71,23 @@ class MenuController extends MenuAppController
     
     public function manager_add()
     {
+        $isEdit = false;
+        $params = $this->request->params;
+        
+        if(!empty($params['named']['id']))
+        {
+            $aMenu = $this->Menu->find('first', array(
+                'conditions' => array(
+                    'id' => $params['named']['id']
+                )
+            ));
+            
+            if(!empty($aMenu))
+            {
+                $isEdit = true;
+            }
+        }
+        
         if(!empty($this->data))
         {            
             if($this->Menu->save($this->data))
@@ -100,6 +117,33 @@ class MenuController extends MenuAppController
         $this->set('aBlocks', $this->Block->getAllMenusForSelect());
         $this->set('aModules', $aModules);
         $this->set('aParents', $aParents);
+        
+        if($isEdit)
+        {
+            $this->set('isEdit', $isEdit);
+            $this->set('aMenu', $aMenu);
+        }
+    }
+    
+    public function manager_delete()
+    {
+        $params = $this->request->params;
+        
+        if (!empty($params['named']['id'])) 
+        {
+            if($this->Menu->delete($params['named']['id']))
+            {
+                $this->Session->setFlash("Le menu est supprimé !", 'alert');
+                $this->redirect(array(
+                    'manager' => true,
+                    'plugin' => 'menu',
+                    'controller' => 'menu',
+                    'action' => 'index'
+                ));
+            }
+        }
+        
+        return $this->render(false);
     }
 }
 

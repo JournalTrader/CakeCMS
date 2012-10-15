@@ -1,3 +1,4 @@
+<?php // debug($aMenu); ?>
 <?php echo $this->Form->create('Menu', array(
     'class' => 'form-horizontal'
 )) ?>
@@ -10,7 +11,7 @@
             echo $this->Form->input("name", array(
                 'label' => false,
                 'div' => false,
-                'value' => ""
+                'value' => (!empty($aMenu['Menu']['name'])) ? $aMenu['Menu']['name']:null
             ))
             ?>
         </div>
@@ -23,7 +24,7 @@
                 'label' => false,
                 'div' => false,
                 'options' => $aParents,
-                'value' => ""
+                'value' => (!empty($aMenu['Menu']['parent_id'])) ? $aMenu['Menu']['parent_id']:null
             ))
             ?>
         </div>
@@ -36,7 +37,7 @@
                 'label' => false,
                 'div' => false,
                 'options' => $aBlocks,
-                'value' => ""
+                'value' => (!empty($aMenu['Menu']['blocks_id'])) ? $aMenu['Menu']['blocks_id']:null
             ))
             ?>
         </div>
@@ -52,7 +53,7 @@
                 'type' => 'checkbox',
                 'label' => false,
                 'div' => false,
-                'value' => ""
+                'checked' => (!empty($aMenu['Menu']['is_active']) && $aMenu['Menu']['is_active'] == 1) ? true:false
             ))
             ?>
         </div>
@@ -70,13 +71,14 @@
                     'module' => 'Vers un module'
 //                    'page' => 'Vers une page',
 //                    'article' => 'Vers une article'
-                )
+                ),
+                'value' => (!empty($aMenu['Menu']['plugins_id'])) ? 'module':null
             ))
             ?>
         </div>
     </div>
 </fieldset>
-<fieldset id="module" class="options">
+<fieldset id="module" class="options" <?php echo (!empty($aMenu['Menu']['plugins_id'])) ? 'style="display: block;"':null ?>>
     <div class="control-group">
         <label class="control-label" for="MenuBlockId">Lier à un module : </label>
         <div class="controls required">
@@ -85,7 +87,7 @@
                 'label' => false,
                 'div' => false,
                 'options' => $aModules,
-                'value' => ""
+                'value' => (!empty($aMenu['Menu']['plugins_id'])) ? $aMenu['Menu']['plugins_id']:null
             ))
             ?>
         </div>
@@ -123,6 +125,40 @@
         </div>
     </div>
 </fieldset>-->
+<fieldset>
+    <legend>Affichage</legend>
+    <div class="control-group">
+        <label class="control-label" for="MenuDisplay">Affichage du menu : </label>
+        <div class="controls required">
+            <?php
+            echo $this->Form->input("display", array(
+                'label' => false,
+                'div' => false,
+                'options' => $aModules,
+                'value' => (!empty($aMenu['Menu']['display'])) ? $aMenu['Menu']['display']:null
+            ))
+            ?>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="MenuDisplay">Affichage absolu : </label>
+        <div class="controls required">
+            <?php
+            echo $this->Form->input("display_absolute", array(
+                'label' => false,
+                'div' => false,
+                'checked' => (!empty($aMenu['Menu']['display_absolute']) && $aMenu['Menu']['display_absolute'] == 1) ? true:false
+            ))
+            ?>
+        </div>
+    </div>
+</fieldset>
+<?php if(isset($isEdit)): ?>
+    <?php echo $this->Form->input('id', array(
+        'type' => 'hidden',
+        'value' => $aMenu['Menu']['id']
+    )) ?>
+<?php endif ?>
     <div class="form-actions">
         <?php echo $this->Form->input("Envoyer", array(
             'type' => 'button',

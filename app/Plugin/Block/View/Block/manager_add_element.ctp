@@ -30,6 +30,33 @@
         </div>
     </div>
     
+    <legend>Affichage</legend>
+    <div class="control-group">
+        <label class="control-label" for="MenuDisplay">Affichage du menu : </label>
+        <div class="controls required">
+            <?php
+            echo $this->Form->input("display", array(
+                'label' => false,
+                'div' => false,
+                'options' => $aModules,
+                'value' => (!empty($aElement['Element']['display'])) ? $aElement['Element']['display']:null
+            ))
+            ?>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="MenuDisplay">Affichage absolu : </label>
+        <div class="controls required">
+            <?php
+            echo $this->Form->input("display_absolute", array(
+                'label' => false,
+                'div' => false,
+                'checked' => (!empty($aElement['Element']['display_absolute']) && $aElement['Element']['display_absolute'] == 1) ? true:false
+            ))
+            ?>
+        </div>
+    </div>
+    
     <?php if(!empty($iId)): ?>
         <?php echo $this->Form->input('blocks_id', array(
             'type' => 'hidden',
@@ -57,5 +84,4 @@
         ?>
     </div>
 </fieldset>
-
 <?php echo $this->Form->end() ?>
