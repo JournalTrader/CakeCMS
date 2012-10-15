@@ -2,7 +2,7 @@
 
 <?php if(!empty($aBlocks)): ?>
 <div class="nav-collapse collapse">
-    <ul class="nav">
+    <ul class="nav<?php echo $sClass ?>">
         <?php foreach($aBlocks as $aBlock): ?>
         <?php
             $active = null;

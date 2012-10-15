@@ -27,6 +27,7 @@ class BlockController extends BlockAppController
     
     public function block_menu()
     {
+        $sClass = null;
         $params = $this->request->params;
         
         if(empty($params['named']['alias']))
@@ -38,6 +39,15 @@ class BlockController extends BlockAppController
         
         $this->set('aBlocks', $aBlocks);
         $this->set('aRequests', $params['named']);
+        
+        switch($params['named']['options']['type'])
+        {
+            case 'collapse-nav-bar':
+                $sClass = ' nav-tabs nav-stacked';  
+                break;
+        }
+        
+        $this->set('sClass', $sClass);
     }
     
     public function block_element()

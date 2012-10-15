@@ -16,9 +16,9 @@ class BlockHelper extends AppHelper
         'Block.Block'
     );
     
-    public function menu($alias)
+    public function menu($alias, $options = array('type' => 'horizontal-nav-bar'))
     {
-        return $this->requestMethod($alias, 'menu');
+        return $this->requestMethod($alias, 'menu', $options);
     }
     
     public function element($alias)
@@ -26,12 +26,13 @@ class BlockHelper extends AppHelper
         return $this->requestMethod($alias, 'element');
     }
     
-    private function requestMethod($alias, $type)
+    private function requestMethod($alias, $type, $options = array())
     {
         $params = $this->request->params;
         
         $named = array(
             'alias' => $alias,
+            'options' => $options,
             'rPrefix' => $params['prefix'],
             'rPlugins' => $params['plugin'],
             'rController' => $params['controller'],

@@ -81,7 +81,9 @@
             <?php endif ?>
             <div class="row-fluid">
                 <div class="span2">
-                    <?php echo $this->block->menu('menu_block_1') ?>
+                    <?php echo $this->block->menu('menu_block_1', array(
+                        'type' => 'collapse-nav-bar'
+                    )) ?>
                 </div>
                 <div class="span8">
                     <?php echo $this->fetch('content'); ?>

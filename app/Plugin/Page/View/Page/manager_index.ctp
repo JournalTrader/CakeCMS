@@ -41,7 +41,12 @@
         <?php else: ?>
         <tr>
             <td colspan="3">
-                <p class="help-block"><i class="icon-warning-sign"></i> Créez votre première page !</p>
+                <p class="help-block"><i class="icon-warning-sign"></i> <?php echo $this->Html->link("Créez votre première page !", array(
+                    'manager' => true,
+                    'plugin' => 'page',
+                    'controller' => 'page',
+                    'action' => 'add'
+                )) ?></p>
             </td>
         </tr>
         <?php endif ?>
