@@ -4,7 +4,16 @@
             <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-            <li><a href="#"><i class="icon-edit"></i> Modifier</a></li>
+            <li><a class="ajax-tr" href="<?php echo $this->Html->url(array(
+                'manager' => false,
+                'ajax' => true,
+                'plugin' => 'tinymce',
+                'controller' => 'tinymce',
+                'action' => 'edit',
+                'field' => $aData->field,
+                'plugins_id' => $aData->plugin,
+                'order' => $aCount
+            )) ?>"><i class="icon-edit"></i> Modifier</a></li>
             <li><a href="<?php echo $this->Html->url(array(
                 'manager' => true,
                 'plugin' => 'tinymce',

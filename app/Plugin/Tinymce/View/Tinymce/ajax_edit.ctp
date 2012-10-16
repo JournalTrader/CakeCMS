@@ -19,7 +19,7 @@
             echo $this->Form->input("Option.field", array(
                 'label' => false,
                 'div' => false,
-                'value' => ""
+                'value' => (!empty($field)) ? $field:null
             ))
             ?>
     </div></td>
@@ -29,9 +29,9 @@
             'label' => false,
             'div' => false,
             'options' => $aModules,
-            'value' => ""
+            'value' => (!empty($plugins_id)) ? $plugins_id:null
         ))
-        ?>  
+        ?>
         <?php
         echo $this->Form->input('Option.order', array(
             'type' => 'hidden',

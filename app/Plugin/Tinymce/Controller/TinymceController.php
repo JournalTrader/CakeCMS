@@ -21,15 +21,20 @@ class TinymceController extends TinymceAppController
     {
         $aLists = json_decode($this->Option->getOption('tinymce'));
         
-        foreach($aLists as $aKey => $aList)
+        if(!empty($aLists))
         {
-            $aLists[$aKey]->Plugin = $this->Plugin->getById($aList->plugin, array(
-                'id',
-                'name'
-            ));
-        }
+            foreach($aLists as $aKey => $aList)
+            {
+                $aLists[$aKey]->Plugin = $this->Plugin->getById($aList->plugin, array(
+                    'id',
+                    'name'
+                ));
+            }
+        }        
         
-        $this->set('aLists', $aLists);        
+        $this->set('aLists', $aLists); 
+        
+        $this->set('maxCount', count($aLists));
         
     }
     
@@ -37,66 +42,65 @@ class TinymceController extends TinymceAppController
     
     public function ajax_new_line()
     {
+        $params = $this->request->params;
+        
         $aModules = $this->Module->findModulesTreeForSelect(array(
             'Plugin' => array(
                 'ChildPlugin'
             )
         ));
         
+        $this->set('order', ($params['named']['order'] + 1));
         $this->set('aModules', $aModules);
     }
     
     public function ajax_new_option()
-    {
+    {        
         $find = false;
+        
+        $aData = array();
         
         if(!empty($this->data))
         {
             $aLists = json_decode($this->Option->getOption('tinymce'));
             
-            foreach($aLists as $aList)
+            if(!empty($aLists) && array_key_exists(($this->data['Option']['order'] - 1), $aLists))
             {
-                $sData = $aList->field . $aList->plugin;
-                
-                if($sData == $this->data['Option']['field'].$this->data['Option']['plugin'])
-                {
-                    $find = true;
-                }
-            }
-            
-            if(!$find)
-            {
+                $aLists[($this->data['Option']['order'] - 1)]->field = $this->data['Option']['field'];
+                $aLists[($this->data['Option']['order'] - 1)]->plugin = $this->data['Option']['plugin'];
+            } else {
                 $obj = new stdClass();
                 $obj->field = $this->data['Option']['field'];
                 $obj->plugin = $this->data['Option']['plugin'];
                 
                 $aLists[] = $obj;
                 
-                $data['Option'] = array(
-                    'key' => 'tinymce',
-                    'value' => json_encode($aLists)
-                );
-                
-                if($this->Option->updateAll(array(
-                    'Option.value' => '\'' . $data['Option']['value'] . '\''
-                ), array(
-                    'Option.key' => $data['Option']['key']
-                )))
-                {
-                    echo json_encode(array(
-                        'error' => AppController::TYPE_SUCCESS,
-                        'message' => "L'option est sauvegardée !",
-                        'data' => $data
-                    ));
-                    
-                    return $this->render(false);
-                }
-                
-                echo json_encode(array(
-                    'error' => AppController::TYPE_WARNING,
-                    'message' => "L'option n'a pas pu être sauvegardée !"
-                ));
             }
+            
+            $data['Option'] = array(
+                'key' => 'tinymce',
+                'value' => json_encode($aLists)
+            );
+            
+            if($this->Option->updateAll(array(
+                'Option.value' => '\'' . $data['Option']['value'] . '\''
+            ), array(
+                'Option.key' => $data['Option']['key']
+            )))
+            {
+                echo json_encode(array(
+                    'error' => AppController::TYPE_SUCCESS,
+                    'message' => "L'option est sauvegardée !",
+                    'data' => $data
+                ));
+
+                return $this->render(false);
+            }
+            
+            echo json_encode(array(
+                'error' => AppController::TYPE_WARNING,
+                'message' => "L'option n'a pas pu être sauvegardée !"
+            ));
         }
         
         return $this->render(false);
@@ -109,6 +113,8 @@ class TinymceController extends TinymceAppController
             return $this->render(false);
         }
         
+        $aLists = json_decode($this->Option->getOption('tinymce'));
+        
         $aData = json_decode($this->data['Data']);
         
         $d = json_decode($aData->data->Option->value);
@@ -120,6 +126,7 @@ class TinymceController extends TinymceAppController
             'name'
         ));
         
+        $this->set('aCount', count($aLists));
         $this->set('aData', $end);
     }
     
@@ -167,7 +174,23 @@ class TinymceController extends TinymceAppController
     
     public function ajax_edit()
     {
+        $params = $this->request->params;
         
+        if(empty($params['named']['field']) || empty($params['named']['plugins_id']))
+        {
+            return $this->render(false);
+        }
+        
+        $aModules = $this->Module->findModulesTreeForSelect(array(
+            'Plugin' => array(
+                'ChildPlugin'
+            )
+        ));
+        
+        $this->set('aModules', $aModules);
+        $this->set('field', $params['named']['field']);
+        $this->set('plugins_id', $params['named']['plugins_id']);
+        $this->set('order', $params['named']['order']);
     }
 }
 
