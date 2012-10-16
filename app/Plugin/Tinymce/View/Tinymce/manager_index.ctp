@@ -87,7 +87,7 @@
             return false;
         });
         
-        $('table').find('.add-line').live('click', function() {
+        $('table').find('.add-line').click(function() {
             if($('table').find('#newLine').is('tr')) { return false; }
             var $id = $(this).attr('id');
             var $order = $id.split('_');
@@ -154,7 +154,7 @@
                     {
                         if($json.error !== 0)
                         {
-                            $('div#container-alert').tools().alert($json.message, $json.error);
+                            $('div#container-alert .row-fluid:first').tools().alert($json.message, $json.error);
 
                             return false;
                         }
@@ -170,7 +170,7 @@
                                 {
                                     $('table').find('#end-table').before(response);
 
-                                    $('div#container-alert').tools().alert($json.message, $json.error);
+                                    $('div#container-alert .row-fluid:first').tools().alert($json.message, $json.error);
                                 }
                             });
 
