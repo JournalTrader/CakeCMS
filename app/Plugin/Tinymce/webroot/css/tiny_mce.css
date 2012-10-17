@@ -1,0 +1,81 @@
+/* 
+    Document   : tiny_mce.css
+    Created on : 30 sept. 2012, 10:10:27
+    Author     : Admin
+    Description:
+        Purpose of the stylesheet follows.
+*/
+.tools ul
+{
+    list-style: none;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.tools>ul>li
+{
+    float: left;
+}
+
+.tools>ul>li.btn-group
+{
+    margin-left: 5px;
+}
+
+.iframe
+{
+    margin-top: 10px;
+    background-color: white;
+    border-collapse: separate;
+    border: 1px solid #CCC;
+    clear: none;
+    display: inline-block;
+    float: none;
+    outline: #555 none 0px;
+    outline-offset: 0px;
+    /*padding: 4px;*/
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    z-index: auto;
+    vertical-align: top;
+    text-align: start;
+    box-sizing: content-box;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+    box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.format-activate
+{
+    background-image: none;
+    -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+#list-links
+{
+    margin: 0;
+    list-style: none;
+}
+
+#list-links>li
+{
+    
+}
+
+#list-links>li:hover
+{
+    background-color: #e8e7e7;
+}
+
+#list-links>li>a.btn
+{
+    margin: 1px 2px 2px 2px;
+}

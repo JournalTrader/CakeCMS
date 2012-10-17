@@ -1,9 +1,9 @@
+<?php echo $this->Html->css('Tinymce.tiny_mce'); ?>
 <?php echo $this->Html->script('Tinymce.tiny_mce/jquery.tinymce.js'); ?>
+<?php echo $this->Html->script('Tinymce.custom.js'); ?>
 
 <script type="text/javascript">
     jQuery(function($) {
-        $('textarea').tinymce({
-            script_url : '/tinymce/js/tiny_mce/tiny_mce_src.js'
-        });
-    });
+        $('<?php echo $aSelector ?>').tinyEditor();
+    });    
 </script>

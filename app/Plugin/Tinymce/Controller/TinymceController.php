@@ -14,7 +14,8 @@ class TinymceController extends TinymceAppController
 {
     public $uses = array(
         'Module.Module',
-        'Module.Plugin'
+        'Module.Plugin',
+        'Seo.Seo'
     );
     
     public function manager_index() 
@@ -38,7 +39,40 @@ class TinymceController extends TinymceAppController
         
     }
     
-    public function block_head() { }
+    public function block_head() 
+    {
+        $params = $this->request->params;
+        
+        $aData = json_decode($this->Option->getOption('tinymce'));
+        
+        $data = array();
+        
+        foreach($aData as $aD)
+        {
+            $aPlugin = $this->Plugin->getById($aD->plugin, array(
+                'prefix',
+                'plugin',
+                'controller',
+                'action'
+            ));
+            
+            if ($aPlugin['Plugin']['prefix'] == $params['named']['rPrefix']
+                && $aPlugin['Plugin']['plugin'] == $params['named']['rPlugins']
+                && $aPlugin['Plugin']['controller'] == $params['named']['rController']
+                && $aPlugin['Plugin']['prefix'] . '_' . $aPlugin['Plugin']['action'] == $params['named']['rAction']) 
+            {
+                $jQuerySelector[] = '#' . $aD->field;
+                
+                $data = array(
+                    'selector' => implode(', ', $jQuerySelector)
+                );
+            }
+            
+        }
+        
+        $this->set('aSelector', $data['selector']);
+        
+    }
     
     public function ajax_new_line()
     {
@@ -191,6 +225,20 @@ class TinymceController extends TinymceAppController
         $this->set('field', $params['named']['field']);
         $this->set('plugins_id', $params['named']['plugins_id']);
         $this->set('order', $params['named']['order']);
+    }
+    
+    public function ajax_insert_link()
+    {
+        $aSeos = $this->Seo->find('all', array(
+            'fields' => array(
+                'id',
+                'title',
+                'slug',
+                'table_id'
+            )
+        ));
+        
+        $this->set('aSeos', $aSeos);
     }
 }
 
