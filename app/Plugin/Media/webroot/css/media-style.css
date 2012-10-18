@@ -4,3 +4,8 @@
     text-align: center;
     padding: 20px;
 }
+
+#upload.drag-hover
+{
+    border-color: #83b4d8;
+}
