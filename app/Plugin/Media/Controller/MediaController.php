@@ -223,17 +223,13 @@ class MediaController extends MediaAppController
                 $response['message'] = "Le média est supprimé, mais le fichier n'a pas pu être supprimé !";
             }
             
-            $this->Session->setFlash($response['message'], 'alert', array(
-                'type' => $response['error']
-            ));
+            $this->Session->setFlash($response['message'], 'alert', array('type' => $response['error']));
             $this->redirect(array(
                 'manager' => true,
                 'plugin' => 'media',
                 'controller' => 'media',
                 'action' => 'index'
             ));
-            
-            echo json_encode($response);
         }
         
         return $this->render(false);

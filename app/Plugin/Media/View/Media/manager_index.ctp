@@ -33,8 +33,7 @@
                                     'id' => $aMedia['Media']['id']
                                 )) ?>"><i class="icon-edit"></i> Modifier</a></li>
                                 <li><a class="delete-action" href="<?php echo $this->Html->url(array(
-                                    'manager' => false,
-                                    'ajax' => true,
+                                    'manager' => true,
                                     'plugin' => 'media',
                                     'controller' => 'media',
                                     'action' => 'delete',
