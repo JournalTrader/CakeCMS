@@ -108,7 +108,7 @@
                 $elm.find('.edit-action').attr('href', $json.Media.edit_link);
                 $elm.find('.delete-action').attr('href', $json.Media.delete_link);
                 
-                $elm.find('.edit-action').click($plup.editMedia());
+                $plup.editMedia($elm);
                 $plup.deleteMedia($elm);
                 
                 $elm.find('.progress').fadeOut(3000, function() {
@@ -126,8 +126,41 @@
             });
         },
           
-        editMedia: function() {
-            
+        editMedia: function(el) {
+            el.find('.edit-action').click(function() {
+                $.ajax({
+                    url: el.find('.edit-action').attr('href'),
+                    type: 'GET',
+                    success:function(response) {
+                        var $modal = $('body').tools().modalBox("Ajouter un lien", response, "Inserer");
+                        
+                        $modal.find('.btn-action').click(function() {
+                            var $data = $modal.find('form').serialize();
+                            
+                            $.ajax({
+                                url: el.find('.edit-action').attr('href'),
+                                type: 'POST',
+                                data: $data,
+                                success: function(response) {
+                                    var $data = jQuery.parseJSON(response);
+                                    
+                                    el.find('.file-name').html($data.data.Media.name);
+                                    
+                                    if(!el.find('.description').is('li'))
+                                    {
+                                        el.find('td>ul').append('<li class="description">' + $data.data.Media.description + '</li>');
+                                    } else {
+                                        el.find('.description').html($data.data.Media.description);
+                                    }
+                                    
+                                }
+                            });
+                        });
+                    }
+                });       
+                
+                return false;
+            });
             
             return false;
         },        
@@ -180,7 +213,6 @@
             $xhtml += '<strong><a href="/manager/media/media/add/type:picture/id:1" class="file-name">' + file.name + '</a></strong>';
             $xhtml += '<ul>';
             $xhtml += '<li class="type">--</li>';
-            // $xhtml += '<li>Description de l\'image avec pas plus de 250 caractères.</li>';
             $xhtml += '</ul>';
             $xhtml += '<div class="progress progress-success progress-striped active">';
             $xhtml += '<div class="bar" style="width: 1%"></div>';

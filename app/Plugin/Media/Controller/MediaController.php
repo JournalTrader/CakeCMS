@@ -18,7 +18,9 @@ class MediaController extends MediaAppController
     
     public function manager_index()
     {
+        $aMedias = $this->Media->find('all');
         
+        $this->set('aMedias', $aMedias);
     }
     
     public function manager_add()
@@ -126,12 +128,17 @@ class MediaController extends MediaAppController
             $aMedia['Media']['name'] = $this->data['Media']['name'];
             $aMedia['Media']['description'] = $this->data['Media']['description'];
             
-            if($this->media->save($aMedia))
+            if($this->Media->save($aMedia))
             {
                 $response['error'] = AppController::TYPE_SUCCESS; 
                 $response['message'] = "Le média est sauvegradé !";
-                $response['message'] = $aMedia;
+                $response['data'] = $aMedia;
+            } else {
+                $response['error'] = AppController::TYPE_WARNING; 
+                $response['message'] = "Le média n'est pas sauvegradé !";
             }
+            
+            echo json_encode($response);
             
             return $this->render(false);
         }
@@ -178,6 +185,53 @@ class MediaController extends MediaAppController
             {
                 $response['message'] = "Le média est supprimé, mais le fichier n'a pas pu être supprimé !";
             }
+            
+            echo json_encode($response);
+        }
+        
+        return $this->render(false);
+    }
+    
+    public function manager_delete()
+    {
+        $params = $this->request->params;
+        $response = array();
+        $error = false;
+        
+        if(!empty($params['named']['id']))
+        {
+            $aMedia = $this->Media->getById($params['named']['id']);
+            
+            if($aMedia['Media']['location'] == 'local')
+            {
+                $filePath = APP . $aMedia['Media']['src'];
+                
+                if(!unlink($filePath))
+                {
+                    $error = true;
+                }
+            }
+            
+            if($this->Media->delete($params['named']['id']))
+            {
+                $response['error'] = AppController::TYPE_SUCCESS;
+                $response['message'] = "Le média est supprimé !";
+            }
+            
+            if($error)
+            {
+                $response['message'] = "Le média est supprimé, mais le fichier n'a pas pu être supprimé !";
+            }
+            
+            $this->Session->setFlash($response['message'], 'alert', array(
+                'type' => $response['error']
+            ));
+            $this->redirect(array(
+                'manager' => true,
+                'plugin' => 'media',
+                'controller' => 'media',
+                'action' => 'index'
+            ));
             
             echo json_encode($response);
         }
