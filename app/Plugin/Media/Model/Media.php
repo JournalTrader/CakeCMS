@@ -12,6 +12,12 @@ App::uses('AppModel', 'Model');
  */
 class Media extends AppModel
 {    
+    const TYPE_PICTURE = 'picture';
+    
+    const TYPE_VIDEO = 'video';
+    
+    const TYPE_FILE = 'file';
+    
     public function getById($iId)
     {
         return $this->find('first', array(
@@ -19,6 +25,24 @@ class Media extends AppModel
                 'id' => $iId
             )
         ));
+    }
+    
+    public function getAllByGroup()
+    {
+        $aList = array();
+        $aMedias = $this->find('all');
+        
+        foreach($aMedias as $aMedia)
+        {
+            switch($aMedia['Media']['category'])
+            {
+                case self::TYPE_PICTURE:
+                    $aList[self::TYPE_PICTURE][] = $aMedia;
+                    break;
+            }
+        }
+        
+        return $aList;
     }
     
     public function beforeSave($options = array()) 

@@ -46,7 +46,8 @@ class AppController extends Controller
     );
     
     public $helpers = array(
-        'Block.Block'
+        'Block.Block',
+        'Tools'
     );
     
     public $recursive = -1;

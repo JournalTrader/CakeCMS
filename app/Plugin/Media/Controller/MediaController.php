@@ -12,13 +12,38 @@
  */
 class MediaController extends MediaAppController
 {   
+    const TYPE_PICTURE = 'picture';
+    
+    const TYPE_VIDEO = 'video';
+    
+    const TYPE_FILE = 'file';
+    
     public $uses = array(
         'Media.Media'
     );
     
+    public $helpers = array(
+        'Media.Media',
+        'Media.Video'
+    );
+    
+    private $filesType = array(
+        'jpg' => self::TYPE_PICTURE,
+        'jpeg' => self::TYPE_PICTURE,
+        'png' => self::TYPE_PICTURE,
+        'gif' => self::TYPE_PICTURE,
+        'flv' => self::TYPE_VIDEO,
+        'avi' => self::TYPE_VIDEO,
+        'mp4' => self::TYPE_VIDEO,
+        'zip' => self::TYPE_FILE,
+        'rar' => self::TYPE_FILE,
+        'pdf' => self::TYPE_FILE
+    );
+    
     public function manager_index()
     {
-        $aMedias = $this->Media->find('all');
+        $aMedias = $this->Media->getAllByGroup();
+//        $aMedias = $this->Media->find('all');
         
         $this->set('aMedias', $aMedias);
     }
@@ -71,14 +96,15 @@ class MediaController extends MediaAppController
             }
             
             if(move_uploaded_file($dFile['file_tmp'], APP . $dFile['path_file']))
-            {
+            {                
                 $aMedia = array(
                     'Media' => array(
                         'name'      => $name,
                         'src'       => $dFile['path_file'],
                         'size'      => $size,
                         'type'      => $dFile['ext'],
-                        'location' => 'local'
+                        'location' => 'local',
+                        'category' => $this->filesType[strtolower($dFile['ext'])]
                     )
                 );
                 
@@ -88,6 +114,7 @@ class MediaController extends MediaAppController
                     
                     $view = new View($this);
                     $html = $view->loadHelper('Html');
+                    $tools = $view->loadHelper('Tools');
                     
                     $aMedia['Media']['edit_link'] = $html->url(array(
                         'manager' => false,
@@ -106,6 +133,8 @@ class MediaController extends MediaAppController
                         'action' => 'delete',
                         'id' => $aMedia['Media']['id']
                     ));
+                    
+                    $aMedia['Media']['time_ago'] = $tools->timeAgo(time());
                     
                     echo json_encode($aMedia);
                 }

@@ -47,6 +47,7 @@
             $pluploader = new plupload.Uploader({
                runtimes : 'html5,flash',
                container: $el.attr('id'),
+               drop_element: $el.attr('id'),
                browse_button: $plup.$params.browserBtn,
                url: $plup.$params.url_upload,
                flash_swf_url : $plup.$params.flash_swf_url,

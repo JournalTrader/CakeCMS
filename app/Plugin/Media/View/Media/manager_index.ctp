@@ -17,7 +17,7 @@
             <tbody>
                 <?php // debug($aMedias); ?>
                 <?php if(!empty($aMedias)): ?>
-                    <?php foreach($aMedias as $aMedia): ?>
+                    <?php foreach($aMedias[MediaController::TYPE_PICTURE] as $aMedia): ?>
                     <tr id="file_<?php echo $aMedia['Media']['id'] ?>">
                         <td><div class="btn-group">
                             <a href="#" class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
@@ -52,7 +52,9 @@
                                 'action' => 'add',
                                 'type' => 'picture',
                                 'id' => 1
-                            )) ?>"><img src="http://placehold.it/140x140" alt="Preview" class="img-rounded img-polaroid" width="80"/></a>
+                            )) ?>"><?php echo $this->Media->picture($aMedia, 80, null, array(
+                                'class' => 'img-rounded img-polaroid'
+                            )) ?></a>
                         </td>
                         <td>
                             <strong><a class="file-name" href="<?php echo $this->Html->url(array(
@@ -71,7 +73,7 @@
                                 
                             </ul>
                         </td>
-                        <td>Il y 3 heures</td>
+                        <td><?php echo $this->Tools->timeAgo($aMedia['Media']['created']) ?></td>
                     </tr>
                     <?php endforeach; ?>
                 <?php endif ?>
