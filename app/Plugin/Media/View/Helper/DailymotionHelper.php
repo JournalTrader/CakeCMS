@@ -5,7 +5,7 @@ class DailymotionHelper extends HtmlHelper
     var $apis = array( 
         'data'  => 'https://api.dailymotion.com/video/%s', // Location of dailymotion images 
         'image'  => 'http://www.dailymotion.com/thumbnail/video/%s', // Location of dailymotion images 
-        'player' => 'http://www.dailymotion.com/video/%s'   // Location of dailymotion player 
+        'player' => 'http://www.dailymotion.com/embed/video/%s'   // Location of dailymotion player 
     );
     
     public function thumbnail($url, $options)
@@ -44,6 +44,13 @@ class DailymotionHelper extends HtmlHelper
         $video_id = $this->getVideoId($url);
         
         return sprintf($this->apis['image'], $video_id); 
+    }
+    
+    public function getUrlVideo($url)
+    {      
+        $video_id = $this->getVideoId($url);
+        
+        return sprintf($this->apis['player'], $video_id);
     }
 }
 

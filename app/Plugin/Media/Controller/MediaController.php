@@ -391,7 +391,22 @@ class MediaController extends MediaAppController
         
         return $error;
     }
-            
+    
+    public function ajax_get_player()
+    {
+        $params = $this->request->params;
+        
+        if(empty($params['named']['id']))
+        {
+            return $this->render(false);
+        }
+        
+        $aMedia = $this->Media->getById($params['named']['id']);
+        
+        $this->set('aMedia', $aMedia);
+        
+        return $this->render('ajax_get_player');
+    }
 }
 
 ?>

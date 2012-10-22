@@ -17,9 +17,18 @@ class MediaHelper extends AppHelper
         'Media.Video'
     );
     
-    public function getUrl($url)
+    public function getUrl($url, $opt = 'picture')
     {
-        $newUrl = $this->Video->getUrlThumbnail($url);
+        switch ($opt)
+        {
+            case 'picture';
+                $newUrl = $this->Video->getUrlThumbnail($url);
+                break;
+            case 'video';
+                $newUrl = $this->Video->getUrlVideo($url);
+                break;
+        }
+        
         
         if(is_null($newUrl))
         {
@@ -102,7 +111,7 @@ class MediaHelper extends AppHelper
             $src = $relativePath . '/' . $newFileName;
             
         } else {
-            $src = $media['Media']['src'];
+            $src = $this->getUrl($media['Media']['src']);
         }
         
         return $this->Html->image($src, $options);

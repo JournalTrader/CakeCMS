@@ -6,7 +6,7 @@ class YoutubeHelper extends HtmlHelper
     var $apis = array( 
         'data'  => 'https://gdata.youtube.com/feeds/api/videos?q=surfing&v=%s&alt=jsonc', // Location of youtube images 
         'image'  => 'http://i.ytimg.com/vi/%s/%s.jpg', // Location of youtube images 
-        'player' => 'http://www.youtube.com/v/%s?%s'   // Location of youtube player 
+        'player' => 'http://www.youtube.com/embed/%s'   // Location of youtube player 
     ); 
 
     // All these settings can be changed on the fly using the $player_variables option in the video function 
@@ -112,6 +112,13 @@ class YoutubeHelper extends HtmlHelper
         $video_id = $this->getVideoId($url);
         
         return sprintf($this->apis['image'], $video_id, $this->accepted_sizes[$size]);
+    }
+    
+    public function getUrlVideo($url)
+    {      
+        $video_id = $this->getVideoId($url);
+        
+        return sprintf($this->apis['player'], $video_id);
     }
 } 
 ?>

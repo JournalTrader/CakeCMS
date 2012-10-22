@@ -90,7 +90,7 @@
                     url: el.find('.edit-action').attr('href'),
                     type: 'GET',
                     success:function(response) {
-                        var $modal = $('body').tools().modalBox("Ajouter un lien", response, "Inserer");
+                        var $modal = $('body').tools().modalBox("Modifier le média", response, "Inserer");
                         
                         $modal.find('.btn-action').click(function() {
                             var $data = $modal.find('form').serialize();
@@ -116,6 +116,22 @@
                                     
                                 }
                             });
+                        });
+                        
+                        $modal.find('img.video').click(function() {
+                            var $t = $(this);
+                            
+                            $media.playMedia($t);
+                        });
+                        
+                        console.log($modal.find('.modal-body'))
+                        
+                        $modal.css({
+                            top: '35%'
+                        });
+                        
+                        $modal.find('.modal-body').css({
+                            maxHeight: '600px'
                         });
                     }
                 });       
@@ -153,7 +169,32 @@
                 
                 return false;
             });  
-        } ,
+        },
+        
+        playMedia: function(el)
+        {
+            var $elm = $(el);
+            var $iId = $elm.attr('data-id');
+            
+            $.ajax({
+                url: '/ajax/media/media/get_player/id:' + $iId,
+                type: 'GET',
+                success: function(response) {
+                    var $response = $(response);
+                    var $height = $elm.parents(':first').css('height');
+                    
+//                    $elm.parents(':first').css({
+//                        minHeight: $height + 'px'
+//                    });
+                    
+                    $elm.fadeOut(500, function() {
+                        $elm.parents(':first').prepend(response);
+                    });
+                    
+                    $elm.fadeOut();
+                }
+            });
+        },
         
         tableLine: function(file) {
             var $xhtml = '';

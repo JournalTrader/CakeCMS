@@ -77,5 +77,17 @@ class VideoHelper extends HtmlHelper
         
         return null;
     }
+    
+    public function getUrlVideo($url)
+    {
+        $defaultDomaine = $this->getHelperByHost($url);
+        
+        if(!is_null($defaultDomaine))
+        {
+            return $this->$defaultDomaine->getUrlVideo($url);
+        }
+        
+        return null;
+    }
 }
 ?>
