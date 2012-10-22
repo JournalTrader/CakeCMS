@@ -70,6 +70,8 @@ class TinymceController extends TinymceAppController
             
         }
         
+        if(!isset($data['selector'])) { return $this->render(false); }
+        
         $this->set('aSelector', $data['selector']);
         
     }
@@ -90,6 +92,7 @@ class TinymceController extends TinymceAppController
     
     public function ajax_new_option()
     {        
+        $isEdit = false;
         $find = false;
         
         $aData = array();
@@ -97,6 +100,11 @@ class TinymceController extends TinymceAppController
         if(!empty($this->data))
         {
             $aLists = json_decode($this->Option->getOption('tinymce'));
+            
+            if(!is_null($aLists))
+            {
+                $isEdit = true;
+            }
             
             if(!empty($aLists) && array_key_exists(($this->data['Option']['order'] - 1), $aLists))
             {
@@ -108,7 +116,6 @@ class TinymceController extends TinymceAppController
                 $obj->plugin = $this->data['Option']['plugin'];
                 
                 $aLists[] = $obj;
-                
             }
             
             $data['Option'] = array(
@@ -116,20 +123,35 @@ class TinymceController extends TinymceAppController
                 'value' => json_encode($aLists)
             );
             
-            if($this->Option->updateAll(array(
-                'Option.value' => '\'' . $data['Option']['value'] . '\''
-            ), array(
-                'Option.key' => $data['Option']['key']
-            )))
+            if($isEdit)
             {
-                echo json_encode(array(
-                    'error' => AppController::TYPE_SUCCESS,
-                    'message' => "L'option est sauvegardée !",
-                    'data' => $data
-                ));
+                if($this->Option->updateAll(array(
+                    'Option.value' => '\'' . $data['Option']['value'] . '\''
+                ), array(
+                    'Option.key' => $data['Option']['key']
+                )))
+                {
+                    echo json_encode(array(
+                        'error' => AppController::TYPE_SUCCESS,
+                        'message' => "L'option est sauvegardée !",
+                        'data' => $data
+                    ));
 
-                return $this->render(false);
+                    return $this->render(false);
+                }
+            } else {
+                if($this->Option->save($data))
+                {
+                    echo json_encode(array(
+                        'error' => AppController::TYPE_SUCCESS,
+                        'message' => "L'option est sauvegardée !",
+                        'data' => $data
+                    ));
+
+                    return $this->render(false);                    
+                }
             }
+            
             
             echo json_encode(array(
                 'error' => AppController::TYPE_WARNING,

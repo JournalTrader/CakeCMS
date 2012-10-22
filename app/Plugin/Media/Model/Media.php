@@ -55,6 +55,15 @@ class Media extends AppModel
         return $aList;
     }
     
+    public function getByCategory($category)
+    {
+        return $this->find('all', array(
+            'conditions' => array(
+                'category' => $category
+            )
+        ));
+    }
+    
     public function beforeSave($options = array()) 
     {
         if($this->data)

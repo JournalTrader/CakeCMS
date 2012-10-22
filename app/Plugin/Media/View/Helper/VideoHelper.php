@@ -56,7 +56,7 @@ class VideoHelper extends HtmlHelper
         {
             foreach ($domain as $value) 
             {
-                if($host['host'] === $value)
+                if(isset($host['host']) && $host['host'] === $value)
                 {
                     $defaultDomaine = ucfirst($key);
                 }

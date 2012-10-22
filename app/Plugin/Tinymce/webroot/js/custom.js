@@ -12,7 +12,7 @@
         
         this.$params = $.extend({
             script_url: '/tinymce/js/tiny_mce/tiny_mce_src.js',
-            content_css : '/tinymce/css/bootstrap.css'
+            content_css : '/css/bootstrap.css,/tinymce/css/editor.css'
             
         }, params);
         
@@ -41,7 +41,9 @@
         {
             $($el).tinymce({
                 script_url : $params.script_url,
-                content_css: '/css/bootstrap.css',
+                relative_urls: false,
+                extended_valid_elements: 'img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|data-*]',
+                content_css: $params.content_css,
                 execcommand_callback : $tiny.tinyCustomCommandHandler,
                 theme: function(editor, target) {
                     var dom = tinymce.DOM, editorContainer;
@@ -237,7 +239,14 @@
                             });
                         }
                     });
-                    break;    
+                    break; 
+                case 'insertVideo':
+                    $tiny.insertVideo($inst);
+                    break;
+                case 'insertPicture':
+                    console.log($inst)
+                    $tiny.insertPicture($inst);
+                    break;
             }
         },
         
@@ -253,6 +262,77 @@
             $a += '>' + anchor + '</a>';
             
             return $a;
+        },
+                
+        insertPicture: function($timymce)
+        {
+            var $iId = null;
+            var $thumbnail = null;
+            var $src = null;
+            var $category = null;
+                    
+            if($timymce.selection.getNode().nodeName === 'IMG')
+            {
+                var $node = $($timymce.selection.getNode());
+                $iId = $node.attr('data-id');
+                $thumbnail = $node.attr('src');
+                $src = $node.attr('data-src');
+                $category = $node.attr('data-category');
+            }
+            
+            
+            
+            $.ajax({
+                url: '/ajax/media/media/get_media/category:picture',
+                type:'GET',
+                success: function(response)
+                {
+                    var $modal = $self.modalBox("Ajouter une image", response, "Inserer");
+                    
+                    var $radios = $modal.find('table tbody input[type=radio]');
+                    
+                    $radios.each(function(i, el) {
+                        var $t = $(el);
+                        
+                        if($iId !== null && $t.val() === $iId)
+                        {
+                            $t.attr('checked', true);
+                        }
+                        
+                        $t.bind('click', function() {
+                            var $elm = $(this);
+                            
+                            $iId = $elm.val();
+                            $thumbnail = $elm.attr('data-thumbnail');
+                            $src = $elm.attr('data-src');
+                            $category = $elm.attr('data-category');
+                        });
+                    });
+                    
+                    $modal.find('.btn-action').click(function() {
+                        var $alignOptions = $modal.find('#align-options input[type=radio]:checked').val();
+//                        console.log($thumbnail, $src, $category, $iId, $alignOptions)
+                        var $xhtml = '<span class="' + $alignOptions + '"><img src="' + $thumbnail + '" data-src="' + $src + '" data-category="' + $category + '" data-id="' + $iId + '" /></span>';
+                        
+                        tinyMCE.execCommand('insertHTML', false, $xhtml);
+                    });
+                }
+            });
+            
+        },
+                
+        insertVideo: function()
+        {
+            $.ajax({
+                url: '/ajax/media/media/get_media/category:video',
+                type:'GET',
+                success: function(response)
+                {
+                    var $modal = $self.modalBox("Ajouter une vidéo", response, "Inserer");
+                    
+                    
+                }
+            });
         }
     }
 })(jQuery);

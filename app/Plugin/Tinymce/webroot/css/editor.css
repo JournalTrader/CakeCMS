@@ -1,0 +1,16 @@
+.align-left
+{
+    display: block;
+    float: left;
+}
+.align-center
+{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.align-right
+{
+    display: block;
+    float: right;
+}

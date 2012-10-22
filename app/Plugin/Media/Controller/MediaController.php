@@ -407,6 +407,33 @@ class MediaController extends MediaAppController
         
         return $this->render('ajax_get_player');
     }
+    
+    public function ajax_get_media()
+    {
+        $params = $this->request->params;
+        
+        
+        if(isset($params['named']['category']) && !empty($params['named']['category']))
+        {
+            switch($params['named']['category'])
+            {
+                default:
+                case self::TYPE_PICTURE:
+                    $aMedias = $this->Media->getByCategory(self::TYPE_PICTURE);
+                    break;
+                case self::TYPE_VIDEO:
+                    $aMedias = $this->Media->getByCategory(self::TYPE_VIDEO);
+                    break;
+                case self::TYPE_FILE:
+                    $aMedias = $this->Media->getByCategory(self::TYPE_FILE);
+                    break;
+            }
+        } else {
+            $aMedias = $this->Media->getByCategory(self::TYPE_PICTURE);
+        }
+        
+        $this->set('aMedias', $aMedias);
+    }
 }
 
 ?>

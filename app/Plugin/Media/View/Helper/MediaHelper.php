@@ -79,6 +79,18 @@ class MediaHelper extends AppHelper
         return $img;
     }
     
+    public function getPictureUrl($url)
+    {
+        $url = $this->getUrl($url);
+        
+        if(substr($url, 0, 7))
+        {
+            return substr($url, 7);
+        }
+        
+        return $url;
+    }
+    
     public function picture($media, $width, $height = null, $options)
     {
         $options['width'] = $width;
