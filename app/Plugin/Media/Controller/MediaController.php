@@ -42,21 +42,88 @@ class MediaController extends MediaAppController
     
     public function manager_index()
     {
+        $this->set('title', "Gestion des média");
         $aMedias = $this->Media->getAllByGroup();
-//        $aMedias = $this->Media->find('all');
         
         $this->set('aMedias', $aMedias);
     }
     
     public function manager_add()
     {
+        $this->set('title', "Ajouter des média");
+    }
+    
+    public function ajax_add_to_web()
+    {
+        if(!empty($this->data))
+        {
+            $view = new View($this);
+            $media = $view->loadHelper('Media.Media');
+            
+            $ex = explode('.', $this->data['Media']['src']);
+            $ext = end($ex);
+            
+            $n = strlen($ext);
+            
+            if($n > 4)
+            {
+                $ext = 'jpg';
+                $category = self::TYPE_VIDEO;
+            } else {
+                $category = $this->filesType[strtolower($ext)];
+            }
+            
+            $aMedia = array(
+                'Media' => array(
+                    'name'      => $this->data['Media']['name'],
+                    'src'       => $this->data['Media']['src'],
+                    'description' => $this->data['Media']['description'],
+                    'size'      => 0,
+                    'type'      => $ext,
+                    'location'  => 'extern',
+                    'category'  => $category
+                )
+            );
+            
+            if($this->Media->save($aMedia))
+            {
+                $aMedia['Media']['id'] = $this->Media->id;
+                
+                $aMedia['Media']['src'] = $media->getUrl($this->data['Media']['src']);
+                
+                $html = $view->loadHelper('Html');
+                $tools = $view->loadHelper('Tools');
+                
+                $aMedia['Media']['edit_link'] = $html->url(array(
+                    'manager' => false,
+                    'ajax' => true,
+                    'plugin' => 'media',
+                    'controller' => 'media',
+                    'action' => 'edit',
+                    'id' => $aMedia['Media']['id']
+                ));
+
+                $aMedia['Media']['delete_link'] = $html->url(array(
+                    'manager' => false,
+                    'ajax' => true,
+                    'plugin' => 'media',
+                    'controller' => 'media',
+                    'action' => 'delete',
+                    'id' => $aMedia['Media']['id']
+                ));
+
+                $aMedia['Media']['time_ago'] = $tools->timeAgo(time());
+            }
+            
+            echo json_encode($aMedia);
+        }
+        
+        return $this->render(false);
     }
     
     public function ajax_upload()
     {
         $file       = $_FILES['file'];
-        
-//        debug($file);
         
         $name       = $file['name'];
         $type       = $file['type'];
@@ -79,6 +146,17 @@ class MediaController extends MediaAppController
             $dFile['month_dir'] = date('m');
             $dFile['path_dir'] = $dFile['base_dir'] . $dFile['year_dir'] . DS . $dFile['month_dir'];
             $dFile['path_file'] = $dFile['path_dir'] . DS . $dFile['file_name_ext'];
+
+            
+            if(!array_key_exists(strtolower($dFile['ext']), $this->filesType))
+            {
+                echo json_encode(array(
+                    'error' => AppController::TYPE_WARNING,
+                    'message' => "Le media que vous souhaiter uploader, n'a pas une extention valide !"
+                ));
+                
+                return $this->render(false);
+            }                   
             
             if(!file_exists(APP . $dFile['base_dir']))
             {
@@ -110,11 +188,14 @@ class MediaController extends MediaAppController
                 
                 if($this->Media->save($aMedia))
                 {
-                    $aMedia['Media']['id'] = $this->Media->id;
-                    
                     $view = new View($this);
+                    
                     $html = $view->loadHelper('Html');
                     $tools = $view->loadHelper('Tools');
+                    $media = $view->loadHelper('Media.Media');
+                    
+                    $aMedia['Media']['id'] = $this->Media->id;
+                    
                     
                     $aMedia['Media']['edit_link'] = $html->url(array(
                         'manager' => false,
@@ -134,13 +215,41 @@ class MediaController extends MediaAppController
                         'id' => $aMedia['Media']['id']
                     ));
                     
+//                    $aMedia['Media']['img'] = $media->picture($aMedia, 80, null, array(
+//                        'class' => 'img-rounded img-polaroid'
+//                    ));
+                    
                     $aMedia['Media']['time_ago'] = $tools->timeAgo(time());
+                    $aMedia['error'] = AppController::TYPE_SUCCESS;
+                    
+                    switch($aMedia['Media']['category'])
+                    {
+                        case self::TYPE_PICTURE:
+                            $media = $view->loadHelper('Media.Media');
+                        
+                            $aMedia['Media']['img'] = $media->picture($aMedia, 80, null, array(
+                                'class' => 'img-rounded img-polaroid'
+                            ));
+                            break;
+                        case self::TYPE_FILE:
+                            $media = $view->loadHelper('Media.Media');
+                            
+                            $aMedia['Media']['img'] = $media->pictureFile($aMedia, 80, null, array(
+                                'class' => 'img-rounded img-polaroid'
+                            ));
+                            break;
+                        case self::TYPE_VIDEO:
+                            $media = $view->loadHelper('Media.Media');
+                            
+                            $aMedia['Media']['img'] = $media->pictureFile($aMedia, 80, null, array(
+                                'class' => 'img-rounded img-polaroid'
+                            ));
+                            break;
+                    }
                     
                     echo json_encode($aMedia);
                 }
             }
-            
-//            debug($dFile);
         }
         
         return $this->render(false);
@@ -196,12 +305,7 @@ class MediaController extends MediaAppController
             
             if($aMedia['Media']['location'] == 'local')
             {
-                $filePath = APP . $aMedia['Media']['src'];
-                
-                if(!unlink($filePath))
-                {
-                    $error = true;
-                }
+                $error = $this->deleteFiles($aMedia['Media']['src']);
             }
             
             if($this->Media->delete($params['named']['id']))
@@ -233,12 +337,7 @@ class MediaController extends MediaAppController
             
             if($aMedia['Media']['location'] == 'local')
             {
-                $filePath = APP . $aMedia['Media']['src'];
-                
-                if(!unlink($filePath))
-                {
-                    $error = true;
-                }
+                $error = $this->deleteFiles($aMedia['Media']['src']);
             }
             
             if($this->Media->delete($params['named']['id']))
@@ -262,6 +361,35 @@ class MediaController extends MediaAppController
         }
         
         return $this->render(false);
+    }
+    
+    private function deleteFiles($src)
+    {
+        $error = false;
+        
+        $exPath = explode(DS, $src);
+        $file = end($exPath);
+
+        unset($exPath[count($exPath) - 1]);
+
+        $exFile = explode('.', $file);
+
+        $ext = end($exFile);
+        $fileName = $exFile[0];
+
+        $path = implode(DS, $exPath);
+
+        $pathes = glob(APP . $path . DS . '{' . $fileName . ',' . $fileName . '-*-*}.' . $ext, GLOB_BRACE);
+
+        foreach($pathes as $path)
+        {
+            if(!unlink($path))
+            {
+                $error = true;
+            }
+        }
+        
+        return $error;
     }
             
 }

@@ -111,7 +111,7 @@ class YoutubeHelper extends HtmlHelper
         
         $video_id = $this->getVideoId($url);
         
-        $image_url = sprintf($this->apis['image'], $video_id, $this->accepted_sizes[$size]);
+        return sprintf($this->apis['image'], $video_id, $this->accepted_sizes[$size]);
     }
 } 
 ?>

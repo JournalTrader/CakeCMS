@@ -30,7 +30,11 @@ class Media extends AppModel
     public function getAllByGroup()
     {
         $aList = array();
-        $aMedias = $this->find('all');
+        $aMedias = $this->find('all', array(
+            'order' => array(
+                'created' => 'DESC'
+            )
+        ));
         
         foreach($aMedias as $aMedia)
         {
@@ -38,6 +42,12 @@ class Media extends AppModel
             {
                 case self::TYPE_PICTURE:
                     $aList[self::TYPE_PICTURE][] = $aMedia;
+                    break;
+                case self::TYPE_VIDEO:
+                    $aList[self::TYPE_VIDEO][] = $aMedia;
+                    break;
+                case self::TYPE_FILE:
+                    $aList[self::TYPE_FILE][] = $aMedia;
                     break;
             }
         }

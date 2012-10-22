@@ -23,6 +23,8 @@
     Plupload.prototype = {
         $el: null,
         
+        $dropZone: null,
+        
         $params: null,
         
         $plup: null,
@@ -34,6 +36,8 @@
         init: function()
         {
            $el = this.$el;
+           $dropZone = this.$el;
+           
            $plup = this;
            
            this.pluploder();
@@ -79,8 +83,9 @@
                     
                     $listMedia.find('table tbody').append(line);
                 }
+                console.log($dropZone)
                 
-                $el.removeClass('drag-hover');
+                $dropZone.removeClass('drag-hover');
                 
                 $pluploader.start();
                 $pluploader.refresh();
@@ -107,10 +112,15 @@
                 $elm.find('.type').html($json.Media.type);
                 
                 $elm.find('.edit-action').attr('href', $json.Media.edit_link);
-                $elm.find('.delete-action').attr('href', $json.Media.delete_link);
+                $elm.find('.dropdown-menu .delete-action').attr('href', $json.Media.delete_link);
+                
+                $elm.find('.preview .edit-action').html($json.Media.img);
+                $elm.find('.time-helper').html($json.Media.time_ago);
                 
                 $plup.editMedia($elm);
                 $plup.deleteMedia($elm);
+                
+                $dropZone.removeClass('drag-hover');
                 
                 $elm.find('.progress').fadeOut(3000, function() {
                     $(this).remove();
@@ -122,7 +132,7 @@
             $pluploader.bind('Error', function(up, error) {
                 // créer un alert
                 
-                $el.removeClass('drag-hover');
+                $dropZone.removeClass('drag-hover');
                 $pluploader.refresh();
             });
         },
@@ -147,13 +157,15 @@
                                     
                                     el.find('.file-name').html($data.data.Media.name);
                                     
-                                    if(!el.find('.description').is('li'))
+                                    if($data.data.Media.description !== '')
                                     {
-                                        el.find('td>ul').append('<li class="description">' + $data.data.Media.description + '</li>');
-                                    } else {
-                                        el.find('.description').html($data.data.Media.description);
+                                        if(!el.find('.description').is('li'))
+                                        {
+                                            el.find('td>ul').append('<li class="description">' + $data.data.Media.description + '</li>');
+                                        } else {
+                                            el.find('.description').html($data.data.Media.description);
+                                        }
                                     }
-                                    
                                 }
                             });
                         });
@@ -207,11 +219,11 @@
             $xhtml += '<li><a class="delete-action" href="#" data-confirm-box="true" data-confirm-box-content="Voulez-vous supprimer la page ?" data-confirm-box-cancel="Annuler" data-confirm-box-action="Ok"><i class="icon-remove"></i> Supprimer</a></li>';
             $xhtml += '</ul>';
             $xhtml += '</div></td>';
-            $xhtml += '<td style="width: 90px;">';
-            $xhtml += '<a href="/manager/media/media/add/type:picture/id:1"><img src="http://placehold.it/140x140" alt="Preview" class="img-rounded img-polaroid" width="80"></a>';
+            $xhtml += '<td class="preview" style="width: 90px;">';
+            $xhtml += '<a class="edit-action" href="#"><img src="/media/img/picture-128-128.png" alt="Preview" class="img-rounded img-polaroid" width="80"></a>';
             $xhtml += '</td>';
             $xhtml += '<td>';
-            $xhtml += '<strong><a href="/manager/media/media/add/type:picture/id:1" class="file-name">' + file.name + '</a></strong>';
+            $xhtml += '<strong><a href="#" class="edit-action file-name">' + file.name + '</a></strong>';
             $xhtml += '<ul>';
             $xhtml += '<li class="type">--</li>';
             $xhtml += '</ul>';
@@ -219,7 +231,7 @@
             $xhtml += '<div class="bar" style="width: 1%"></div>';
             $xhtml += '</div>';
             $xhtml += '</td>';
-            $xhtml += '<td>Il y 3 heures</td>';
+            $xhtml += '<td class="time-helper">Il y un instant</td>';
             $xhtml += '</tr>';
             
             return $xhtml;

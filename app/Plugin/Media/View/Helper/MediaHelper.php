@@ -29,7 +29,7 @@ class MediaHelper extends AppHelper
         return $newUrl;
     }
     
-    public function pictureFile($media, $width)
+    public function pictureFile($media, $width, $height, $options)
     {
         $img = '';
         
@@ -38,21 +38,21 @@ class MediaHelper extends AppHelper
             case 'pdf':
                 $img = $this->Html->image('Media.pdf-128-128.png', array(
                     'alt' => 'Fichier PDF',
-                    'class' => 'img-rounded img-polaroid',
+                    'class' => $options['class'],
                     'width' => $width
                 ));
                 break;
             case 'zip':
                 $img = $this->Html->image('Media.zip-128-128.png', array(
                     'alt' => 'Fichier ZIP',
-                    'class' => 'img-rounded img-polaroid',
+                    'class' => $options['class'],
                     'width' => $width
                 ));
                 break;
             case 'rar':
                 $img = $this->Html->image('Media.rar-128-128.png', array(
                     'alt' => 'Fichier RAR',
-                    'class' => 'img-rounded img-polaroid',
+                    'class' => $options['class'],
                     'width' => $width
                 ));
                 break;
@@ -61,7 +61,7 @@ class MediaHelper extends AppHelper
             case 'flv':
                 $img = $this->Html->image('Media.video-128-128.png', array(
                     'alt' => 'Fichier Video',
-                    'class' => 'img-rounded img-polaroid',
+                    'class' => $options['class'],
                     'width' => $width
                 ));
                 break;

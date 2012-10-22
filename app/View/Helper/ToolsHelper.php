@@ -4,6 +4,8 @@ class ToolsHelper extends AppHelper
 {
     public function timeAgo($time)
     {
+        $pattern = '';
+        
         $text = 'Il y a';
         
         $now = time();
@@ -47,9 +49,9 @@ class ToolsHelper extends AppHelper
         
         if($m == 1)
         {
-            $min = " %s minunte";
+            $min = " %s minute";
         } else {
-            $min = " %s minuntes";
+            $min = " %s minutes";
         }
         
         if($m == 1)
@@ -66,22 +68,24 @@ class ToolsHelper extends AppHelper
             $day = " %s jours";
         }
         
+        $pattern = $text . " un instant";
+        
         if($d == 0)
         {
-            $text .= sprintf($hour, $h) . sprintf($min, $m);
+            $pattern = $text . sprintf($hour, $h) . sprintf($min, $m);
         }
         
         if($d == 0 && $h == 0)
         {
-            $text .= sprintf($min, $m) . sprintf($sec, $s);
+            $pattern = $text . sprintf($min, $m) . sprintf($sec, $s);
         }
         
         if($d == 0 && $h == 0 && $m == 0)
         {
-            $text .= sprintf($sec, $s);
+            $pattern = $text . sprintf($sec, $s);
         }
         
-        return $text;
+        return $pattern;
     }
 }
 ?>

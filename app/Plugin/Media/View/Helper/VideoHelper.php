@@ -72,7 +72,7 @@ class VideoHelper extends HtmlHelper
         
         if(!is_null($defaultDomaine))
         {
-            return $this->$defaultDomaine->getUrlThumbnail($url, $data);
+            return $this->$defaultDomaine->getUrlThumbnail($url);
         }
         
         return null;

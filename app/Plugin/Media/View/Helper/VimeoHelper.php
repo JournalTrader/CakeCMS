@@ -3,7 +3,7 @@
 class VimeoHelper extends HtmlHelper 
 {
     private $apis = array( 
-        'data'  => 'http://vimeo.com/api/v2/video/%s.php', // Location of vimeo images 
+        'data'  => 'http://vimeo.com/api/v2/video/%s.json', // Location of vimeo images 
         'image'  => 'http://vimeo.com/api/v2/video/%s.php', // Location of vimeo images 
         'player' => 'http://player.vimeo.com/video/video/%s'   // Location of vimeo player 
     );
@@ -45,9 +45,19 @@ class VimeoHelper extends HtmlHelper
     public function getDatas($video_id)
     {
         $dataUrl = sprintf($this->apis['data'], $video_id);
-        $hash = unserialize(file_get_contents($dataUrl));
+        $hash = json_decode(file_get_contents($dataUrl));
         
-        return $hash;
+        return $hash[0];
+    }
+    
+    public function getUrlThumbnail($url)
+    {      
+        $size = 'small';
+        $video_id = $this->getVideoId($url);
+        
+        $data = $this->getDatas($video_id);
+        
+        return $data->{$this->thumbnail[$size]};
     }
 }
 
