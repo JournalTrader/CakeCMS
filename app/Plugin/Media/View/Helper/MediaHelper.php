@@ -96,7 +96,7 @@ class MediaHelper extends AppHelper
             
             if(!file_exists($newPath . DS . $newFileName))
             {
-                $this->thumbnail(APP . DS . $media['Media']['src'], $newPath, $fileName, $width);
+                $this->thumbnail(APP . $media['Media']['src'], $newPath, $fileName, $width);
             }
             
             $src = $relativePath . '/' . $newFileName;
@@ -149,26 +149,31 @@ class MediaHelper extends AppHelper
      */
     public function thumbnail($picture, $path, $name, $width = 100, $height = null, $autoRename = true)
     {
+//        chmod($path, 0777);
+        $ext = null;
         // On supprime l'extension du nom
         // $name = substr($name,0,-4);
         // 
         // On récupère les dimensions de l'image
         $size = getimagesize($picture);
         
+        $ex = explode('.', strtolower($picture));
+        $ext = end($ex);
+        
         // On crer une image à partir du fichier récupéré
-        switch(substr(strtolower($picture), -4))
+        switch($ext)
         {
-            case '.jpg':
+            case 'jpeg':
+            case 'jpg':
                 $pict = imagecreatefromjpeg($picture);
                 break;
-            case '.png':
+            case 'png':
                 $pict = imagecreatefrompng($picture);
                 break;
-            case '.gif':
+            case 'gif':
                 $pict = imagecreatefromgif($picture);
                 break;
             default:
-                // impossible de redimentionner l'image
                 return false;
         }
         
@@ -218,8 +223,20 @@ class MediaHelper extends AppHelper
             $name = $name . '-' . $width . '-' . $height;
         }
         
-        // On sauvegarde tout
-        imagejpeg($thumbnail, $path . DS . $name . '.jpg', 100);
+        switch($ext)
+        {
+            case 'jpg':
+            case 'jpeg':
+                imagejpeg($thumbnail, $path . DS . $name . '.' . $ext, 90);
+                break;
+            case 'png':
+                imagepng($thumbnail, $path . DS . $name . '.' . $ext, 90);
+                break;
+            case 'gif':
+                imagegif($thumbnail, $path . DS . $name . '.' . $ext, 90);
+                break;
+        }
+        
         
         /**
          * Libération de la memoire 

@@ -1,8 +1,8 @@
 <div class="tabbable">
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#picture" data-toggle="tab"><i class="icon-picture"></i> Images</a></li>
-    <li><a href="#video" data-toggle="tab"><i class="icon-film"></i> Vidéos</a></li>
-    <li><a href="#files" data-toggle="tab"><i class="icon-file"></i> Fichiers</a></li>
+      <li class="active"><a href="#picture" data-toggle="tab"><i class="icon-picture"></i> Images <?php echo (isset($aMedias[MediaController::TYPE_PICTURE]) && count($aMedias[MediaController::TYPE_PICTURE]) > 0) ? '(' . count($aMedias[MediaController::TYPE_PICTURE]) . ')':'' ?></a></li>
+    <li><a href="#video" data-toggle="tab"><i class="icon-film"></i> Vidéos <?php echo (isset($aMedias[MediaController::TYPE_VIDEO]) && count($aMedias[MediaController::TYPE_VIDEO]) > 0) ? '(' . count($aMedias[MediaController::TYPE_VIDEO]) . ')':'' ?></a></li>
+    <li><a href="#files" data-toggle="tab"><i class="icon-file"></i> Fichiers <?php echo (isset($aMedias[MediaController::TYPE_FILE]) && count($aMedias[MediaController::TYPE_FILE]) > 0) ? '(' . count($aMedias[MediaController::TYPE_FILE]) . ')':'' ?></a></li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="picture">
