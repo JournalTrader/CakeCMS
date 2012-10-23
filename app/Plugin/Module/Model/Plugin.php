@@ -58,6 +58,16 @@ class Plugin extends ModuleAppModel
         )
     );
 
+    public function getById($iId, $fields = array())
+    {
+        return $this->find('first', array(
+            'fields' => $fields,
+            'conditions' => array(
+                'id' => $iId
+            )
+        ));
+    }
+    
     public function findByStructureAndMain($dStructure)
     {            
         $aPlugin = $this->find('first', array(
