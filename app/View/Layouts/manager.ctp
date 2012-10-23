@@ -41,6 +41,8 @@
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+                
+                echo $this->block->element('head_block');
 	?>
 </head>
 <body>
@@ -81,7 +83,7 @@
             <?php endif ?>
             <div class="row-fluid">
                 <div class="span2">
-                    <?php echo $this->block->menu('menu_block_1', array(
+                    <?php echo $this->block->menu('menu_1', array(
                         'type' => 'collapse-nav-bar'
                     )) ?>
                 </div>

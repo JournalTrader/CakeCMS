@@ -41,7 +41,11 @@ class ModuleController extends ModuleAppController
                         $aModule = array();
                         
                         $dom = new DOMDocument();
-                        $dom->load($fileParams);
+                        
+                        if(!@$dom->load($fileParams))
+                        {
+                            continue;
+                        }
                         
                         $elements = $dom->getElementsByTagName('module');
                         

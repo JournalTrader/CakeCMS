@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>Tinymce manager</name>
+    <description>Permet de gérer Tinymce.</description>
+    <version>1.0.0</version>
+    <author>MORICET Nicolas</author>
+    <site>Mon super CMS</site>
+    <url>http://www.cms.com</url>
+    <plugins>
+        <plugin main="true" active="true">
+            <name>Tinymce Index</name>
+            <prefix>manager</prefix>
+            <plugin_name>tinymce</plugin_name>
+            <controller>tinymce</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Block head tinymce</name>
+            <prefix>block</prefix>
+            <plugin_name>tinymce</plugin_name>
+            <controller>tinymce</controller>
+            <action>head</action>
+        </plugin>
+    </plugins>
+</module>

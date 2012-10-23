@@ -1,0 +1,18 @@
+.align-left
+{
+    display: block;
+    float: left;
+    margin: 0 10px 0 0;
+}
+.align-center
+{
+    vertical-align: middle;
+    display: block;
+    margin: 0 auto;
+}
+.align-right
+{
+    display: block;
+    float: right; 
+    margin: 0 0 0 10px;   
+}

@@ -23,6 +23,7 @@
             'label' => false,
             'div' => false,
             'class' => 'span12',
+            'rows' => '30',
             'value' => (isset($aArticle) && !empty($aArticle['Article']['content'])) ? $aArticle['Article']['content']:null
         ))
         ?>
