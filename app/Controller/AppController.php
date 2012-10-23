@@ -41,8 +41,13 @@ class AppController extends Controller
     
     const TYPE_ERROR = 3;
     
+    public $uses = array(
+        'Option'
+    );
+    
     public $helpers = array(
-        'Block.Block'
+        'Block.Block',
+        'Tools'
     );
     
     public $recursive = -1;

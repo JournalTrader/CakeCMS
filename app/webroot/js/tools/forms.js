@@ -52,6 +52,31 @@
                     $($id).fadeIn();
                 });
             });
+        },
+        valid: function()
+        {
+            var $isValid = true;
+            
+            $el.find('input,textarea').each(function(i, el) {
+                var $elm = $(el);
+                
+                if($elm.is('input[type=text]'))
+                {
+                    if(($elm.parents('div:first').hasClass('required')|| $elm.hasClass('required')) && $elm.val() === '')
+                    {
+                        $isValid = false;
+                        var $groupControl = $elm.parents('.control-group:first');
+
+                        $groupControl.addClass('error');
+
+                        $elm.bind('keyup', function() {
+                            $groupControl.removeClass('error');
+                        });
+                    }
+                }
+            });
+            
+            return $isValid;
         }
     }
 })(jQuery);

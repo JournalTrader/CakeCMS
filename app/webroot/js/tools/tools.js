@@ -190,8 +190,8 @@
             var $btnAction = $('<a>').attr('href', '#').addClass('btn btn-primary btn-action').attr('data-dismiss', 'modal').text(btnAction);
             
             var $footer = $('<div>').addClass('modal-footer');     
-            
-            if(btnCancel !== null)
+                        
+            if(btnCancel !== null && btnCancel !== undefined)
             {
                 $footer.append($btnCancel);
             }

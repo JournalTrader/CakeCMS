@@ -120,23 +120,27 @@ class BlockController extends BlockAppController
             
             $exBlocks = explode(',', $d['blocks']);
             
-            foreach($exBlocks as $block)
+            if(!empty($exBlocks))
             {
-                $aBlocks = $this->Block->getElementsBlockByAlias($block);
-                
-                foreach($aBlocks['Element'] as $aBlock)
+                foreach($exBlocks as $block)
                 {
-                    $this->requestAction(array(
-                        'manager' => false,
-                        $aBlock['Plugin']['prefix'] => true,
-                        'plugin' => $aBlock['Plugin']['plugin'],
-                        'controller' => $aBlock['Plugin']['controller'],
-                        'action' => 'delete'
-                    ), array(
-                        'data' => $data
-                    ));
+                    $aBlocks = $this->Block->getElementsBlockByAlias($block);
+
+                    foreach($aBlocks['Element'] as $aBlock)
+                    {
+                        $this->requestAction(array(
+                            'manager' => false,
+                            $aBlock['Plugin']['prefix'] => true,
+                            'plugin' => $aBlock['Plugin']['plugin'],
+                            'controller' => $aBlock['Plugin']['controller'],
+                            'action' => 'delete'
+                        ), array(
+                            'data' => $data
+                        ));
+                    }
                 }
             }
+            
         }
     }
     
