@@ -36,7 +36,7 @@
             
            return this;
         },
-        
+
         editor: function()
         {
             $($el).tinymce({
@@ -44,6 +44,10 @@
                 relative_urls: false,
                 extended_valid_elements: 'img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|data-*]',
                 content_css: $params.content_css,
+                theme_advanced_resizing : true,
+//                paste_remove_styles: true,
+//                paste_remove_spans: true,
+//                paste_strip_class_attributes: "all",
                 execcommand_callback : $tiny.tinyCustomCommandHandler,
                 theme: function(editor, target) {
                     var dom = tinymce.DOM, editorContainer;
@@ -169,6 +173,7 @@
                         success: function(response) {   
                             var $response = $(response);
                             
+                            $response.find('#LinkSlug').val($slug);
                             $response.find('#LinkTitle').val($title);
                             
                             if($blank !== null) { $response.find('#LinkBlank').attr('checked', true); }
@@ -206,7 +211,7 @@
                                 $blank = null;
                                 $external = null;
                                 
-                                if($slug !== $.trim($response.find('input#LinkSlug').val())) { $url = '/' + $.trim($response.find('input#LinkSlug').val()); }
+                                if($slug !== $.trim($response.find('input#LinkSlug').val())) { $url = $.trim($response.find('input#LinkSlug').val()); }
                                 
                                 $title = $response.find('#LinkTitle').val();
                                 
@@ -270,6 +275,9 @@
             var $thumbnail = null;
             var $src = null;
             var $category = null;
+            var $class = null;
+            var $width = null;
+            var $height = null;
                     
             if($timymce.selection.getNode().nodeName === 'IMG')
             {
@@ -278,9 +286,10 @@
                 $thumbnail = $node.attr('src');
                 $src = $node.attr('data-src');
                 $category = $node.attr('data-category');
+                $class = $node.attr('class');
+                $width = $node.attr('width');
+                $height = $node.attr('height');
             }
-            
-            
             
             $.ajax({
                 url: '/ajax/media/media/get_media/category:picture',
@@ -290,6 +299,13 @@
                     var $modal = $self.modalBox("Ajouter une image", response, "Inserer");
                     
                     var $radios = $modal.find('table tbody input[type=radio]');
+                    
+                    if($class !== null)
+                    {
+                        var $alignRadios = $modal.find('#align-options li input[value=' + $class + ']');
+                        
+                        $alignRadios.attr('checked', true);
+                    }
                     
                     $radios.each(function(i, el) {
                         var $t = $(el);
@@ -310,9 +326,21 @@
                     });
                     
                     $modal.find('.btn-action').click(function() {
+                        var $options = '';
+                        
+                        if($width !== null)
+                        {
+                            $options += ' widht="' + $width + '"';
+                        }
+                        
+                        if($height !== null)
+                        {
+                            $options += ' height="' + $height + '"';
+                        }
+                        
                         var $alignOptions = $modal.find('#align-options input[type=radio]:checked').val();
 //                        console.log($thumbnail, $src, $category, $iId, $alignOptions)
-                        var $xhtml = '<span class="' + $alignOptions + '"><img src="' + $thumbnail + '" data-src="' + $src + '" data-category="' + $category + '" data-id="' + $iId + '" /></span>';
+                        var $xhtml = '<img class="' + $alignOptions + '" border="0" src="' + $thumbnail + '" data-src="' + $src + '" data-category="' + $category + '" data-id="' + $iId + '"' + $options + ' />';
                         
                         tinyMCE.execCommand('insertHTML', false, $xhtml);
                     });
@@ -321,8 +349,28 @@
             
         },
                 
-        insertVideo: function()
+        insertVideo: function($timymce)
         {
+            var $iId = null;
+            var $thumbnail = null;
+            var $src = null;
+            var $category = null;
+            var $class = null;
+            var $width = null;
+            var $height = null;
+                    
+            if($timymce.selection.getNode().nodeName === 'IMG')
+            {
+                var $node = $($timymce.selection.getNode());
+                $iId = $node.attr('data-id');
+                $thumbnail = $node.attr('src');
+                $src = $node.attr('data-src');
+                $category = $node.attr('data-category');
+                $class = $node.attr('class');
+                $width = $node.attr('width');
+                $height = $node.attr('height');
+            }
+            
             $.ajax({
                 url: '/ajax/media/media/get_media/category:video',
                 type:'GET',
@@ -330,7 +378,45 @@
                 {
                     var $modal = $self.modalBox("Ajouter une vidéo", response, "Inserer");
                     
+                    var $radios = $modal.find('table tbody input[type=radio]');   
+                        
+                    $radios.each(function(i, el) {
+                        var $t = $(el);
+
+                        if($iId !== null && $t.val() === $iId)
+                        {
+                            $t.attr('checked', true);
+                        }
                     
+                        $t.bind('click', function() {
+                            var $elm = $(this);
+
+                            $iId = $elm.val();
+                            $thumbnail = $elm.attr('data-thumbnail');
+                            $src = $elm.attr('data-src');
+                            $category = $elm.attr('data-category');
+                        });
+                    });
+                    
+                    $modal.find('.btn-action').click(function() {
+                        var $options = '';
+                        
+                        if($width !== null)
+                        {
+                            $options += ' widht="' + $width + '"';
+                        }
+                        
+                        if($height !== null)
+                        {
+                            $options += ' height="' + $height + '"';
+                        }
+                        
+                        var $alignOptions = $modal.find('#align-options input[type=radio]:checked').val();
+//                        console.log($thumbnail, $src, $category, $iId, $alignOptions)
+                        var $xhtml = '<img class="' + $alignOptions + '" border="0" src="' + $thumbnail + '" data-src="' + $src + '" data-category="' + $category + '" data-id="' + $iId + '" data-category="video"' + $options + ' />';
+                    
+                        tinyMCE.execCommand('insertHTML', false, $xhtml);
+                    });
                 }
             });
         }

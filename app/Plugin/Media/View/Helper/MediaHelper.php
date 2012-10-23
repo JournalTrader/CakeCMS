@@ -83,7 +83,7 @@ class MediaHelper extends AppHelper
     {
         $url = $this->getUrl($url);
         
-        if(substr($url, 0, 7))
+        if(substr($url, 0, 7) == 'webroot')
         {
             return substr($url, 7);
         }
