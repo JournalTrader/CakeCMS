@@ -152,6 +152,8 @@
             ?>
         </div>
     </div>
+    
+    <?php echo $this->Block->element('block_permissions') ?>
 </fieldset>
 <?php if(isset($isEdit)): ?>
     <?php echo $this->Form->input('id', array(
@@ -167,7 +169,6 @@
             'class' => 'btn btn-primary'
         )) ?>
     </div>
-
 
 <?php echo $this->Form->end() ?>
 

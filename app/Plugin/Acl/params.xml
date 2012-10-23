@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>Acl manager</name>
+    <description>Permet l'installation de module pour la gestion des permissions</description>
+    <version>1.0.0</version>
+    <author>MORICET Nicolas</author>
+    <site>Mon super CMS</site>
+    <url>http://www.cms.com</url>
+    <plugins>
+        <plugin main="true" active="true">
+            <name>ACL Index</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>acl</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>ACL Groupe</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>groupe</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>ACL Add Groupe</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>groupe</controller>
+            <action>add</action>
+        </plugin>
+        <plugin active="true">
+            <name>Block activation des permissions</name>
+            <prefix>block</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>groupe</controller>
+            <action>permission</action>
+        </plugin>
+    </plugins>
+</module>

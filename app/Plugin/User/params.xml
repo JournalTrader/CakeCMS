@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>User manager</name>
+    <description>Permet l'installation de module pour la gestion des permissions</description>
+    <version>1.0.0</version>
+    <author>MORICET Nicolas</author>
+    <site>Mon super CMS</site>
+    <url>http://www.cms.com</url>
+    <plugins>
+        <plugin main="true" active="true">
+            <name>User Index</name>
+            <prefix>manager</prefix>
+            <plugin_name>user</plugin_name>
+            <controller>user</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>User add</name>
+            <prefix>manager</prefix>
+            <plugin_name>user</plugin_name>
+            <controller>user</controller>
+            <action>add</action>
+        </plugin>
+        <plugin active="true">
+            <name>Login</name>
+            <prefix>manager</prefix>
+            <plugin_name>user</plugin_name>
+            <controller>user</controller>
+            <action>login</action>
+        </plugin>
+        <plugin active="true">
+            <name>Logout</name>
+            <prefix>manager</prefix>
+            <plugin_name>user</plugin_name>
+            <controller>user</controller>
+            <action>logout</action>
+        </plugin>
+        <plugin active="true">
+            <name>Login block vertical</name>
+            <prefix>block</prefix>
+            <plugin_name>user</plugin_name>
+            <controller>user</controller>
+            <action>vertical_login</action>
+        </plugin>
+        <plugin active="true">
+            <name>Login block horizontal</name>
+            <prefix>block</prefix>
+            <plugin_name>user</plugin_name>
+            <controller>user</controller>
+            <action>horizontal_login</action>
+        </plugin>
+    </plugins>
+</module>

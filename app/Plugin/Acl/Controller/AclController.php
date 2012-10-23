@@ -6,13 +6,16 @@
  */
 
 /**
- * Description of UserAppController
+ * Description of AclController
  *
  * @author nicolasmoricet
  */
-class UserAppController extends AppController
+class AclController extends AclAppController
 {
-    //put your code here
+    public function manager_index()
+    {
+        
+    }
 }
 
 ?>
