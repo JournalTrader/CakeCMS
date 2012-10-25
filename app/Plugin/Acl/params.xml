@@ -35,5 +35,19 @@
             <controller>groupe</controller>
             <action>permission</action>
         </plugin>
+        <plugin active="true">
+            <name>ACL Permissions</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>permission</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Block Permission Add</name>
+            <prefix>block</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>permission</controller>
+            <action>add</action>
+        </plugin>
     </plugins>
 </module>

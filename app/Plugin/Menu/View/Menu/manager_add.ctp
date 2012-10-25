@@ -153,7 +153,7 @@
         </div>
     </div>
     
-    <?php echo $this->Block->element('block_permissions') ?>
+    <?php // echo $this->Block->element('block_permissions') ?>
 </fieldset>
 <?php if(isset($isEdit)): ?>
     <?php echo $this->Form->input('id', array(

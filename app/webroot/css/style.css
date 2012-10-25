@@ -35,6 +35,26 @@ div.tab-content
 
 /** TABLE
 -------------------------------------------------------------------------- */
+table .biais-thead
+{
+    /*line-height: 125px;*/
+}
+
+table .biais-thead>span
+{
+    bottom: 0;
+    display: block;
+    /*Firefox*/
+    -moz-transform: rotate(-80deg);
+    /*Safari*/
+    -webkit-transform: rotate(-80deg);
+    /*Opera*/
+    -o-transform: rotate(-80deg);
+    /*IE*/
+    writing-mode: tb-rl;
+    filter: flipv fliph;
+}
+
 table .help-block
 {
     padding-top: 10px;

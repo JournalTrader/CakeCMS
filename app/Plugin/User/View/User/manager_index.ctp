@@ -6,6 +6,7 @@
             <th class="index center">#</th>
             <th>Nom</th>
             <th>Mail</th>
+            <th>Rôle</th>
         </tr>
     </thead>
     <tbody>
@@ -38,6 +39,7 @@
             </div></td>
             <td><?php echo $aUser['Profile']['first_name'] ?> <?php echo $aUser['Profile']['last_name'] ?></td>
             <td><?php echo $aUser['User']['mail'] ?></td>
+            <td><?php echo $aUser['Groupe']['name'] ?></td>
         </tr>
         <?php endforeach; ?>
         <?php else: ?>

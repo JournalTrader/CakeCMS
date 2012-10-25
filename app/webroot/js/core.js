@@ -30,6 +30,11 @@
                $('select.fiedlsetOpions').forms().fieldsetOptions();
            }
            
+           if(jQuery().tooltip)
+           {
+               $('a[rel=tooltip]').tooltip();
+           }
+            
            return this;
         }
     }

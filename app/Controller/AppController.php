@@ -41,7 +41,7 @@ class AppController extends Controller
     
     const TYPE_ERROR = 3;
     
-    public $components = array(       
+    public $components = array(  
         'Acl',
         'Auth' => array(
             'loginAction' => array(
@@ -49,13 +49,22 @@ class AppController extends Controller
                 'controller' => 'user',
                 'action' => 'login',
                 'manager' => false
+            ),
+            'loginRedirect' => '/',
+            'logoutRedirect' => array(
+                'plugin' => 'user',
+                'controller' => 'user',
+                'action' => 'login',
+                'manager' => false
             )
         ),
-        'Session'
+        'Session',
+        'User.UserLoging'
     );
     
     public $uses = array(
-        'Option'
+        'Option',
+        'Module.Plugin',
     );
     
     public $helpers = array(
@@ -64,11 +73,9 @@ class AppController extends Controller
     );
     
     public function beforeFilter()
-    {        
-        $this->Auth->allow('*');
-        
+    {       
         $this->layout = strtolower($this->params['prefix']);
-        
+
         if(empty($this->layout))
         {
             $this->layout = 'public';
@@ -79,14 +86,6 @@ class AppController extends Controller
             case 'manager':
                 break;
             default:
-        }
-    }
-    
-    public function isAuthorized($user = null)
-    {
-        if(!empty($this->params['prefix']) == 'block')
-        {
-            return true;
         }
     }
 }

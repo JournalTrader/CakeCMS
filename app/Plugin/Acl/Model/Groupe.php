@@ -20,7 +20,22 @@ class Groupe extends AppModel
     
     public function parentNode() 
     {
-        return null;
+        if (!$this->id)
+        {
+          return null;
+        }
+
+        $data = $this->read();
+
+        if(!$data['Group']['parent_id'])
+        {
+          return null;
+        }
+
+        return array(
+          'model' => 'Group',
+          'foreign_key' => $data['Group']['parent_id']
+        );
     }
     
     public function getById($iId)

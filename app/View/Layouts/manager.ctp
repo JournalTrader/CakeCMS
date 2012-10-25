@@ -55,6 +55,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="brand" href="/">CMS</a>
+                <?php echo $this->Block->menu('block_account') ?>
             </div>
         </div>
     </div>

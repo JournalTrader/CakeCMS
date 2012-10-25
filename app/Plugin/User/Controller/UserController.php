@@ -17,18 +17,12 @@ class UserController extends UserAppController
         'User.Profile'
     );
     
-    public function beforeFilter() 
-    {
-        parent::beforeFilter();
-        
-//        $this->Auth->allow('*');
-    }
-    
     public function manager_index()
     {
         $aUsers = $this->User->find('all', array(
             'contain' => array(
-                'Profile'
+                'Profile',
+                'Groupe'
             )
         ));
         
@@ -91,13 +85,38 @@ class UserController extends UserAppController
     
     public function login()
     {
-        
+        if(!empty($this->data))
+        {
+            $aUser = $this->User->find('first', array(
+                'contain' => array(
+                    'Profile'
+                ),
+                'conditions' => array(
+                    'mail' => $this->data['User']['mail'],
+                    'password' => $this->Auth->password($this->data['User']['password'])
+                )
+            ));
+            
+            if(!empty($aUser))
+            {
+                $aUser['User']['last_login'] = date('Y-m-d H:i:s');
+                
+                $this->Auth->login($aUser);
+                $this->redirect($this->Auth->loginRedirect);
+            }
+        }
+    }
+    
+    public function manager_logout() 
+    {
+        $this->Auth->logout();
+        $this->redirect($this->Auth->loginAction);
     }
     
     public function block_vertical_login()
     {
         
-    }
+    }   
 }
 
 ?>

@@ -53,7 +53,7 @@ class User extends AppModel
     
     public $belongsTo = array(
         'Groupe' => array(
-            'className' => 'Groupe',
+            'className' => 'Acl.Groupe',
             'foreignKey' => 'groupes_id'
         )
     );

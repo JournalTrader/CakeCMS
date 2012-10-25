@@ -14,7 +14,11 @@ class GroupeController extends AclAppController
 {
     public function manager_index()
     {
-        $aGroupes = $this->Groupe->find('all');
+        $aGroupes = $this->Groupe->find('all', array(
+            'order' => array(
+                'order' => 'ASC'
+            )
+        ));
         
         $this->set('aGroupes', $aGroupes);
     }
