@@ -143,7 +143,7 @@ Cache::config('default', array('engine' => 'File'));
  *
  */
 CakePlugin::loadAll();
-
+//CakePlugin::load(array('Extensions'), array('bootstrap' => true));
 /**
  * You can attach event listeners to the request lifecyle as Dispatcher Filter . By Default CakePHP bundles two filters:
  *
@@ -169,11 +169,13 @@ Configure::write('Dispatcher.filters', array(
  * Configures default file logging options
  */
 App::uses('CakeLog', 'Log');
+
 CakeLog::config('debug', array(
 	'engine' => 'FileLog',
 	'types' => array('notice', 'info', 'debug'),
 	'file' => 'debug',
 ));
+
 CakeLog::config('error', array(
 	'engine' => 'FileLog',
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),

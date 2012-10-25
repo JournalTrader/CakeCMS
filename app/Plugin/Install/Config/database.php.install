@@ -13,15 +13,15 @@
 class DATABASE_CONFIG 
 {
     public $default = array(
-        'datasource' => 'Database/Mysql',
+        'datasource' => '{default_datasource}',
         'persistent' => false,
-        'host' => 'localhost',
-        'login' => 'root',
-        'password' => 'root',
-        'database' => 'altal',
-        'prefix' => '',
-        'encoding' => 'UTF8',
-        'port' => ''
+        'host' => '{default_host}',
+        'login' => '{default_login}',
+        'password' => '{default_password}',
+        'database' => '{default_database}',
+        'prefix' => '{default_prefix}',
+        'encoding' => '{default_encoding}',
+        'port' => '{default_port}'
     );
 
     public function __construct()
