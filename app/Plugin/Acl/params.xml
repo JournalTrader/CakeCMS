@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>Acl manager</name>
+    <description>Permet l'intégration de nouveaux module dans la gestion des permissions, de gérer les groupes d'utilisateurs.</description>
+    <version>1.0.0</version>
+    <author>MORICET Nicolas</author>
+    <site>Mon super CMS</site>
+    <url>http://www.cms.com</url>
+    <core>true</core>
+    <plugins>
+        <plugin main="true" active="true">
+            <name>Acl Index</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>acl</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Acl Permission</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>acl</controller>
+            <action>permission</action>
+        </plugin>
+        <plugin active="true">
+            <name>Acl Scan</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>acl</controller>
+            <action>scan</action>
+        </plugin>
+        <plugin active="true">
+            <name>Acl Groupe Index</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>groupe</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Acl Groupe Add</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>groupe</controller>
+            <action>add</action>
+        </plugin>
+    </plugins>
+</module>
