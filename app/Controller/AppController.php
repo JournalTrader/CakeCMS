@@ -42,24 +42,7 @@ class AppController extends Controller
     const TYPE_ERROR = 3;
     
     public $components = array(  
-        'Acl',
-        'Auth' => array(
-            'loginAction' => array(
-                'plugin' => 'user',
-                'controller' => 'user',
-                'action' => 'login',
-                'manager' => false
-            ),
-            'loginRedirect' => '/',
-            'logoutRedirect' => array(
-                'plugin' => 'user',
-                'controller' => 'user',
-                'action' => 'login',
-                'manager' => false
-            )
-        ),
-        'Session',
-        'User.UserLoging'
+        'Session'
     );
     
     public $uses = array(
@@ -73,7 +56,7 @@ class AppController extends Controller
     );
     
     public function beforeFilter()
-    {       
+    {               
         $this->layout = strtolower($this->params['prefix']);
 
         if(empty($this->layout))
