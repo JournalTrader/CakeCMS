@@ -59,6 +59,7 @@ class ModuleController extends ModuleAppController
                             $aModule['author'] = (!empty($element->getElementsByTagname('author')->item(0)->nodeValue)) ? $element->getElementsByTagname('author')->item(0)->nodeValue:null;
                             $aModule['site'] = (!empty($element->getElementsByTagname('site')->item(0)->nodeValue)) ? $element->getElementsByTagname('site')->item(0)->nodeValue:null;
                             $aModule['url'] = (!empty($element->getElementsByTagname('url')->item(0)->nodeValue)) ? $element->getElementsByTagname('url')->item(0)->nodeValue:null;
+                            $aModule['core'] = (!empty($element->getElementsByTagname('core')->item(0)->nodeValue)) ? $element->getElementsByTagname('core')->item(0)->nodeValue:false;
                             
                             $plugins = $element->getElementsByTagname('plugin');
                             

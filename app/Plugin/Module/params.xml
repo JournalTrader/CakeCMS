@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
     <name>Module manager</name>
-    <description>Permet l'installation de modules complémentaires.</description>
+    <description>Permet l'installation et la gestion des modules.</description>
     <version>1.0.0</version>
     <author>MORICET Nicolas</author>
     <site>Mon super CMS</site>
     <url>http://www.cms.com</url>
+    <core>true</core>
     <plugins>
         <plugin main="true" active="true">
             <name>Manager Index</name>

@@ -61,6 +61,12 @@ table .help-block
     text-align: center;
 }
 
+table th.name
+{
+    position: relative;
+    min-width: 300px;
+}
+
 table td.name
 {
     position: relative;

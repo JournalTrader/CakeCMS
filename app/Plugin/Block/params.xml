@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
     <name>Manager block</name>
-    <description>Permet la création et la gestion d'emplacements à insérer dans les layouts.</description>
+    <description>Permet de créer et de gérer les emplacements pour l'insertion de menus ou d'éléments graphiques.</description>
     <version>1.0.0</version>
     <author>MORICET Nicolas</author>
     <site>Mon super CMS</site>
     <url>http://www.cms.com</url>
+    <core>true</core>
     <plugins>
         <plugin main="true" active="true">
             <name>Manager Blocks</name>
