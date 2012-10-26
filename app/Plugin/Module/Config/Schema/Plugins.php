@@ -10,9 +10,9 @@
  *
  * @author nicolasmoricet
  */
-class ArticlesSchema extends CakeSchema
+class PluginsSchema extends CakeSchema
 {
-    public $name = 'articles';
+    public $name = 'plugins';
 
     public function before($event = array()) {
             return true;
@@ -21,7 +21,7 @@ class ArticlesSchema extends CakeSchema
     public function after($event = array()) {
     }
 
-    public $articles = array(
+    public $plugins = array(
         'id' => array(
             'type' => 'integer', 
             'null' => false, 
@@ -36,29 +36,47 @@ class ArticlesSchema extends CakeSchema
             'length' => 10, 
             'key' => 'primary'
         ),
-        'title' => array(
-            'type' => 'string', 
-            'null' => false,
-            'default' => null,
-            'length' => 255
-        ),
-        'type' => array(
+        'name' => array(
             'type' => 'string', 
             'null' => false,
             'default' => null,
             'length' => 50
         ),
-        'lft' => array(
-            'type' => 'integer', 
-            'null' => true, 
-            'default' => null, 
-            'length' => 10
+        'prefix' => array(
+            'type' => 'string', 
+            'null' => false,
+            'default' => null,
+            'length' => 50
         ),
-        'rght' => array(
-            'type' => 'integer', 
-            'null' => true, 
-            'default' => null, 
-            'length' => 10
+        'plugin' => array(
+            'type' => 'string', 
+            'null' => false,
+            'default' => null,
+            'length' => 50
+        ),
+        'controller' => array(
+            'type' => 'string', 
+            'null' => false,
+            'default' => null,
+            'length' => 50
+        ),
+        'action' => array(
+            'type' => 'string', 
+            'null' => false,
+            'default' => null,
+            'length' => 50
+        ),
+        'is_main' => array(
+            'type' => 'boolean', 
+            'null' => false,
+            'default' => 0,
+            'length' => 50
+        ),
+        'is_active' => array(
+            'type' => 'boolean', 
+            'null' => false,
+            'default' => 0,
+            'length' => 50
         ),
         'indexes' => array(
             'PRIMARY' => array(
