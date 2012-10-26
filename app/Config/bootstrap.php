@@ -185,3 +185,10 @@ CakeLog::config('error', array(
  * MODULES Permet de stoker des variables système pour le fonctionnement du gestion de Modules
  */
 Configure::write('Module.filename.params', 'params.xml');
+
+$btFile = APP . DS . 'Config' . DS . 'bt.php';
+
+if(file_exists($btFile))
+{
+    require_once $btFile;
+}

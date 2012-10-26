@@ -56,7 +56,7 @@ class AppController extends Controller
     );
     
     public function beforeFilter()
-    {               
+    {           
         $this->layout = strtolower($this->params['prefix']);
 
         if(empty($this->layout))
