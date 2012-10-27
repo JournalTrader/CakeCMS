@@ -33,8 +33,7 @@ class ModulesSchema extends CakeSchema
             'type' => 'integer', 
             'null' => false, 
             'default' => null, 
-            'length' => 10, 
-            'key' => 'primary'
+            'length' => 10
         ),
         'name' => array(
             'type' => 'string', 

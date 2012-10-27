@@ -33,8 +33,7 @@ class PagesSchema extends CakeSchema
             'type' => 'integer', 
             'null' => false, 
             'default' => null, 
-            'length' => 10, 
-            'key' => 'primary'
+            'length' => 10
         ),
         'title' => array(
             'type' => 'string', 
@@ -53,12 +52,12 @@ class PagesSchema extends CakeSchema
             'default' => 0
         ),
         'created' => array(
-            'type' => 'datatime',
+            'type' => 'datetime',
             'null' => false, 
             'default' => null
         ),
         'modified' => array(
-            'type' => 'datatime',
+            'type' => 'datetime',
             'null' => false, 
             'default' => null
         ),

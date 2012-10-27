@@ -10,7 +10,7 @@
  *
  * @author Admin
  */
-class TermsTaxonomies extends CakeSchema
+class TermsTaxonomiesSchema extends CakeSchema
 {
     public $name = 'terms_taxonomies';
 
@@ -33,15 +33,13 @@ class TermsTaxonomies extends CakeSchema
             'type' => 'integer', 
             'null' => false, 
             'default' => null, 
-            'length' => 10, 
-            'key' => 'primary'
+            'length' => 10
         ),
         'model_id' => array(
             'type' => 'integer', 
             'null' => false, 
             'default' => null, 
-            'length' => 10, 
-            'key' => 'primary'
+            'length' => 10
         ),
         'model' => array(
             'type' => 'string', 
