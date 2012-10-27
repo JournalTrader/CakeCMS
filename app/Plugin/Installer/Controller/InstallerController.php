@@ -19,6 +19,10 @@ class InstallerController extends Controller
 {
     public $uses = null;
     
+    public $components = array(
+        'Auth'
+    );
+    
     public $helpers = array(
         'Html', 
         'Form'
@@ -38,10 +42,18 @@ class InstallerController extends Controller
         'port' => null,
     );
     
+    protected function _check() {
+        if (Configure::read('Install.installed') && Configure::read('Install.secured')) 
+        {
+            $this->Session->setFlash('Already Installed');
+            $this->redirect('/');
+        }
+    }
+    
     public function beforeFilter() 
     {
         parent::beforeFilter();
-        
+        $this->Auth->allow('*');
         $params = $this->params;
         
         $this->set('action', $params['action']);
@@ -49,11 +61,13 @@ class InstallerController extends Controller
     
     public function index()
     {
+        $this->_check();
         $this->set('title', "Bienvenue dans la procédure d'installation de votre CMS.");
     }
     
     public function database()
     {
+        $this->_check();
         $this->set('title', "Installation de la base de données.");
         
         if(!empty($this->data))
@@ -114,6 +128,7 @@ class InstallerController extends Controller
     
     public function module()
     {
+        $this->_check();
         $this->set('title', "Installation des modules.");
         
         $directories = scandir(APP . 'Plugin');
@@ -290,6 +305,7 @@ class InstallerController extends Controller
     
     public function admin()
     {
+        $this->_check();
         Configure::write('debug', 1);
         $this->set('title', "Création du compte administrateur.");
         
@@ -304,6 +320,7 @@ class InstallerController extends Controller
             {
                 $aUser['User'] = $this->data['User'];
                 $aUser['User']['groupes_id'] = 1;
+                $aUser['User']['password'] = $this->Auth->password($this->data['User']['password']);
                 
                 if($this->User->save($aUser))
                 {
@@ -335,6 +352,7 @@ class InstallerController extends Controller
     
     public function access()
     {
+        $this->_check();
         Configure::write('debug', 1);
         $this->set('title', "Installation terminée !");
         
