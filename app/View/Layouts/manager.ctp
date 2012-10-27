@@ -69,7 +69,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <?php echo $this->Block->menu('menu_manager') ?>
+                    <?php echo $this->Block->menu('manager_menu') ?>
                 </div>
             </div>
         </div>

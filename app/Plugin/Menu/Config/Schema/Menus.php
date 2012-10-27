@@ -83,6 +83,17 @@ class MenusSchema extends CakeSchema
             'default' => null, 
             'length' => 10
         ),
+        'display' => array(
+            'type' => 'integer', 
+            'null' => true, 
+            'default' => null, 
+            'length' => 10
+        ),
+        'display_absolute' => array(
+            'type' => 'boolean', 
+            'null' => true, 
+            'default' => null
+        ),
         'indexes' => array(
             'PRIMARY' => array(
                 'column' => 'id', 
