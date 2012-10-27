@@ -33,8 +33,7 @@ class TermsSchema extends CakeSchema
             'type' => 'integer', 
             'null' => false, 
             'default' => null, 
-            'length' => 10, 
-            'key' => 'primary'
+            'length' => 10
         ),
         'title' => array(
             'type' => 'string', 

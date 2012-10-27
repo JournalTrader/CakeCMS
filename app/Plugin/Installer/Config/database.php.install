@@ -1,0 +1,27 @@
+<?php
+
+class DATABASE_CONFIG {
+    public $default = array(
+        'datasource' => '{default_datasource}',
+        'persistent' => false,
+        'host' => '{default_host}',
+        'login' => '{default_login}',
+        'password' => '{default_password}',
+        'database' => '{default_database}',
+        'prefix' => '{default_prefix}',
+        'encoding' => '{default_encoding}',
+        'port' => '{default_port}',
+    );
+
+
+    public function __construct()
+    {
+        switch ($_SERVER['SERVER_ADDR'])
+        {
+            case '127.0.0.1':
+                $this->default = $this->default;
+                break;
+        }
+    }
+}
+?>
