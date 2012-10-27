@@ -20,7 +20,7 @@
             <prefix>manager</prefix>
             <plugin_name>module</plugin_name>
             <controller>module</controller>
-            <action>insatller</action>
+            <action>installer</action>
         </plugin>
         <plugin active="true">
             <name>Manager Uninstall</name>

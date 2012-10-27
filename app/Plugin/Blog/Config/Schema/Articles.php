@@ -46,12 +46,12 @@ class ArticlesSchema extends CakeSchema
             'default' => 0
         ),
         'created' => array(
-            'type' => 'datatime',
+            'type' => 'datetime',
             'null' => false, 
             'default' => null
         ),
         'modified' => array(
-            'type' => 'datatime',
+            'type' => 'datetime',
             'null' => false, 
             'default' => null
         ),

@@ -142,7 +142,9 @@ Cache::config('default', array('engine' => 'File'));
  * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
  *
  */
-CakePlugin::loadAll();
+//CakePlugin::loadAll();
+
+//CakePlugin::load('Index');
 
 /**
  * You can attach event listeners to the request lifecyle as Dispatcher Filter . By Default CakePHP bundles two filters:
@@ -169,6 +171,7 @@ Configure::write('Dispatcher.filters', array(
  * Configures default file logging options
  */
 App::uses('CakeLog', 'Log');
+
 CakeLog::config('debug', array(
 	'engine' => 'FileLog',
 	'types' => array('notice', 'info', 'debug'),
@@ -180,15 +183,27 @@ CakeLog::config('error', array(
 	'file' => 'error',
 ));
 
-
 /**
  * MODULES Permet de stoker des variables système pour le fonctionnement du gestion de Modules
  */
 Configure::write('Module.filename.params', 'params.xml');
 
-$btFile = APP . DS . 'Config' . DS . 'bt.php';
 
-if(file_exists($btFile))
+if (Configure::read('Security.salt') == '3df480ec6d4124b386019b214d2fd854a4e5b519' ||
+    Configure::read('Security.cipherSeed') == '2343739001385385367') 
 {
+    $_securedInstall = false;
+}
+
+Configure::write('Installer.secured', !isset($_securedInstall));
+
+if(!Configure::read('Installer.secured'))
+{
+    CakePlugin::load('Installer', array(
+        'routes' => true
+    ));
+    
+    Configure::write('debug', 0);
+} else if(($btFile = APP . DS . 'Config' . DS . 'bt.php')) {
     require_once $btFile;
 }

@@ -39,22 +39,19 @@ class ElementsSchema extends CakeSchema
             'type' => 'integer', 
             'null' => false, 
             'default' => null, 
-            'length' => 10, 
-            'key' => 'primary'
+            'length' => 10
         ),
         'blocks_id' => array(
             'type' => 'integer', 
             'null' => false, 
             'default' => null, 
-            'length' => 10, 
-            'key' => 'primary'
+            'length' => 10,
         ),
         'display' => array(
             'type' => 'integer', 
             'null' => false, 
             'default' => null, 
-            'length' => 10, 
-            'key' => 'primary'
+            'length' => 10
         ),
         'display_absolute' => array(
             'type' => 'boolean', 

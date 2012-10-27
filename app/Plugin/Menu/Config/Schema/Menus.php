@@ -39,22 +39,19 @@ class MenusSchema extends CakeSchema
             'type' => 'integer', 
             'null' => true, 
             'default' => null, 
-            'length' => 10,
-            'key' => 'primary'
+            'length' => 10
         ),
         'plugins_id' => array(
             'type' => 'integer', 
             'null' => true, 
             'default' => null, 
-            'length' => 10,
-            'key' => 'primary'
+            'length' => 10
         ),
         'articles_id' => array(
             'type' => 'integer', 
             'null' => true, 
             'default' => null, 
-            'length' => 10,
-            'key' => 'primary'
+            'length' => 10
         ),
         'order' => array(
             'type' => 'integer', 
@@ -72,8 +69,7 @@ class MenusSchema extends CakeSchema
             'type' => 'integer', 
             'null' => true, 
             'default' => null, 
-            'length' => 10,
-            'key' => 'primary'
+            'length' => 10
         ),
         'lft' => array(
             'type' => 'integer', 
