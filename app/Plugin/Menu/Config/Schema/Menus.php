@@ -68,7 +68,7 @@ class MenusSchema extends CakeSchema
         'parent_id' => array(
             'type' => 'integer', 
             'null' => true, 
-            'default' => null, 
+            'default' => 0, 
             'length' => 10
         ),
         'lft' => array(
