@@ -29,6 +29,12 @@ class GroupsSchema extends CakeSchema
             'length' => 10, 
             'key' => 'primary'
         ),
+        'parent_id' => array(
+            'type' => 'integer', 
+            'null' => false, 
+            'default' => 0, 
+            'length' => 10
+        ),
         'name' => array(
             'type' => 'string', 
             'null' => false,
@@ -39,6 +45,18 @@ class GroupsSchema extends CakeSchema
             'type' => 'integer', 
             'null' => false, 
             'default' => null, 
+            'length' => 10
+        ),
+        'lft' => array(
+            'type' => 'integer', 
+            'null' => false, 
+            'default' => 0, 
+            'length' => 10
+        ),
+        'rght' => array(
+            'type' => 'integer', 
+            'null' => false, 
+            'default' => 0, 
             'length' => 10
         ),
         'created' => array(

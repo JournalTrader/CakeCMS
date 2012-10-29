@@ -240,17 +240,14 @@ class ModuleController extends ModuleAppController
         
         $reponse = $this->installTables($dModule);
         
-        if ($reponse['error'] == AppController::TYPE_SUCCESS) 
-        {
-            if($this->Module->save($dModule))
-            {   
-                $this->Session->setFlash("Le module est installé !", 'alert');
-                $this->redirect($this->referer());
-            } else {
-                $this->Session->setFlash("Le module n'a pas pu être enregistré !", 'alert', array('type' => AppController::TYPE_ERROR));
-                $this->redirect($this->referer());
-            }   
-        }
+        if($this->Module->save($dModule))
+        {   
+            $this->Session->setFlash("Le module est installé !", 'alert');
+            $this->redirect($this->referer());
+        } else {
+            $this->Session->setFlash("Le module n'a pas pu être enregistré !", 'alert', array('type' => AppController::TYPE_ERROR));
+            $this->redirect($this->referer());
+        } 
         
         if(!$error)
         {
@@ -315,7 +312,7 @@ class ModuleController extends ModuleAppController
                             $db->execute($create);
                         } catch (PDOException $e) { 
                             $response['error'] = AppController::TYPE_ERROR;
-                            $response['message'][] = sprintf("la table %s n'a pas pu être installé", $table);
+                            $response['message'][] = sprintf("la table %s n'a pas pu être installé.", $table);
                         }
                     }
                 }

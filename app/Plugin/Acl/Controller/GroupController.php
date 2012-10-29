@@ -19,7 +19,11 @@ class GroupController extends AclAppController
     
     public function manager_add()
     {
-
+        $this->set('title', "Ajout d'un groupe utilisateur");
+        
+        $aGroups = $this->Group->getForSelect();
+        
+        $this->set('aGroups', $aGroups);
     }
 }
 

@@ -29,7 +29,7 @@ class UsersSchema extends CakeSchema
             'length' => 10, 
             'key' => 'primary'
         ),
-        'groupes_id' => array(
+        'groups_id' => array(
             'type' => 'integer', 
             'null' => false, 
             'default' => null, 

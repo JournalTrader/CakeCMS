@@ -9,7 +9,7 @@
     <core>true</core>
     <plugins>
         <plugin main="true" active="true">
-            <name>User Index</name>
+            <name>Acl Index</name>
             <prefix>manager</prefix>
             <plugin_name>acl</plugin_name>
             <controller>acl</controller>
