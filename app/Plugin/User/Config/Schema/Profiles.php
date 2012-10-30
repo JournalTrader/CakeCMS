@@ -42,6 +42,12 @@ class ProfilesSchema extends CakeSchema
             'default' => null,
             'length' => 50
         ),
+        'first_name' => array(
+            'type' => 'string', 
+            'null' => false,
+            'default' => null,
+            'length' => 50
+        ),
         'created' => array(
             'type' => 'datetime',
             'null' => false, 
