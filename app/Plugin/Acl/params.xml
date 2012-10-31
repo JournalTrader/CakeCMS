@@ -15,5 +15,47 @@
             <controller>acl</controller>
             <action>index</action>
         </plugin>
+        <plugin active="true">
+            <name>Acl Aco index</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>aco</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Acl Aco add</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>aco</controller>
+            <action>add</action>
+        </plugin>
+        <plugin active="true">
+            <name>Acl Group index</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>group</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Acl Group add</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>group</controller>
+            <action>add</action>
+        </plugin>
+        <plugin active="true">
+            <name>Acl Permission add</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>permission</controller>
+            <action>add</action>
+        </plugin>
+        <plugin active="true">
+            <name>Acl Permission add</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>permission</controller>
+            <action>add</action>
+        </plugin>
     </plugins>
 </module>

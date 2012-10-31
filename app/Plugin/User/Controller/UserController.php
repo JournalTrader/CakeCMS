@@ -22,7 +22,18 @@ class UserController extends UserAppController
     {
         if (!empty($this->data)) 
         {
-            debug($this->data);
+            $aUser = $this->User->find('first', array(
+                'conditions' => array(
+                    'password' => Security::hash($this->data['User']['password'], 'md5'),
+                    'mail' => $this->data['User']['mail']
+                )
+            ));
+            
+            if(!empty($aUser))
+            {
+                $this->Auth->login($aUser);
+                $this->redirect('/');
+            }
         }
         
 //        debug($this->Session->read('Auth.User'));
