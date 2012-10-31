@@ -6,8 +6,8 @@
     <thead>
         <tr>
             <th>Nom</th>
-            <?php foreach($aGroups as $aGroup): ?>
-            <th class="index center"><?php echo ucfirst(substr($aGroup['Group']['name'], 0, 1)) ?></th>
+            <?php foreach($aAros as $aAro): ?>
+            <th class="index center"><?php echo ucfirst(substr($aAro['Aro']['Group']['name'], 0, 1)) ?></th>
             <?php endforeach; ?>
         </tr>
     </thead>
@@ -19,12 +19,24 @@
             <thead>
                 <tr>
                     <th><?php echo $aModule['Module']['name'] ?></th>
-                    <?php foreach($aGroups as $aGroup): ?>
+                    <?php foreach($aAros as $aAro): ?>
                     <th class="index center"><?php
-                        echo $this->Form->input($aGroup['Group']['id'] . "." . $aModule['Plugin']['id'], array(
+                        $active = false;
+                        foreach($aAro['Aco'] as $aAco)
+                        {
+                            if($aModule['Plugin']['id'] == $aAco['foreign_key'])
+                            {
+                                if($aAco['Permission']['_create'] > 0)
+                                {
+                                    $active = true;
+                                }
+                            }
+                        }
+                        echo $this->Form->input($aAro['Aro']['id'] . "." . $aModule['Plugin']['Aco']['id'], array(
                             'type' => 'checkbox',
                             'label' => false,
                             'div' => false,
+                            'checked' => $active,
                             'value' => true
                         ))
                     ?></th>
@@ -35,15 +47,27 @@
                 <?php foreach($aModule['Plugin']['ChildPlugin'] as $aPlugins): ?>
                 <tr>
                     <td><?php echo $aPlugins['name'] ?></td>
-                    <?php foreach($aGroups as $aGroup): ?>
-                    <th class="index center"><?php
-                        echo $this->Form->input($aGroup['Group']['id'] . "." . $aPlugins['id'], array(
+                    <?php foreach($aAros as $aAro): ?>
+                    <td class="index center"><?php
+                        $active = false;
+                        foreach($aAro['Aco'] as $aAco)
+                        {
+                            if($aPlugins['id'] == $aAco['foreign_key'])
+                            {
+                                if($aAco['Permission']['_create'] > 0)
+                                {
+                                    $active = true;
+                                }
+                            }
+                        }
+                        echo $this->Form->input($aAro['Aro']['id'] . "." . $aPlugins['Aco']['id'], array(
                             'type' => 'checkbox',
                             'label' => false,
                             'div' => false,
+                            'checked' => $active,
                             'value' => true
                         ))
-                    ?></th>
+                    ?></td>
                     <?php endforeach ?>
                 </tr>
                 <?php endforeach; ?>                
