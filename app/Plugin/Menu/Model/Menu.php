@@ -110,6 +110,11 @@ class Menu extends AppModel
                     $this->data['Menu']['order'] = $orderMax;
                 }
                 
+                if(!isset($this->data['Menu']['parent_id']) || empty($this->data['Menu']['parent_id']))
+                {
+                    $this->data['Menu']['parent_id'] = 0;
+                }
+                
                 $this->data['Menu']['name'] = AppSpecial::ucfirst($this->data['Menu']['name']);
             }
             

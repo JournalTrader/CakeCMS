@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>User</name>
+    <description>Permet la gestion des utilisateur.</description>
+    <version>1.0.0</version>
+    <author>MORICET Nicolas</author>
+    <site>Mon super CMS</site>
+    <url>http://www.cms.com</url>
+    <core>true</core>
+    <plugins>
+        <plugin main="true" active="true">
+            <name>User Index</name>
+            <prefix>public</prefix>
+            <plugin_name>user</plugin_name>
+            <controller>user</controller>
+            <action>index</action>
+        </plugin>
+    </plugins>
+</module>
