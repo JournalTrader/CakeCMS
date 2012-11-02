@@ -19,7 +19,8 @@ class InstallerController extends Controller
 {
     public $uses = null;
     
-    public $components = array(
+   public $components = array( 
+        'Session',
         'Auth'
     );
     
@@ -305,6 +306,8 @@ class InstallerController extends Controller
     
     public function admin()
     {
+        $this->components[] = 'Acl';
+        
         $this->_check();
         Configure::write('debug', 1);
         $this->set('title', "Création du compte administrateur.");
@@ -319,7 +322,7 @@ class InstallerController extends Controller
             if($this->data['User']['password'] === $this->data['User']['confirme'])
             {
                 $aUser['User'] = $this->data['User'];
-                $aUser['User']['groupes_id'] = 1;
+                $aUser['User']['groups_id'] = 1;
                 $aUser['User']['password'] = $this->Auth->password($this->data['User']['password']);
                 
                 if($this->User->save($aUser))

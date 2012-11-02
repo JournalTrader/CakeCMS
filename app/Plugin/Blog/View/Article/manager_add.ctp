@@ -47,12 +47,12 @@
     <?php
         echo $this->Form->input('id', array(
             'type' => 'hidden',
-            'value' => (isset($aArticle) && !empty($aArticle['Article']['id']))
+            'value' => (isset($aArticle) && !empty($aArticle['Article']['id'])) ? $aArticle['Article']['id']:null
         ));
      ?>
 <?php endif ?>
 
-<?php echo $this->Block->element('manager_content_add') ?>
+<?php echo $this->Block->element('block_form') ?>
 
 <div class="form-actions">
     <?php

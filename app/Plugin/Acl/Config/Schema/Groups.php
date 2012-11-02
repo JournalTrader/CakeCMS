@@ -6,13 +6,13 @@
  */
 
 /**
- * Description of Menu
+ * Description of Groups
  *
- * @author nicolasmoricet
+ * @author Admin
  */
-class UsersSchema extends CakeSchema
+class GroupsSchema extends CakeSchema
 {
-    public $name = 'users';
+    public $name = 'groups';
 
     public function before($event = array()) {
             return true;
@@ -21,7 +21,7 @@ class UsersSchema extends CakeSchema
     public function after($event = array()) {
     }
 
-    public $users = array(
+    public $groups = array(
         'id' => array(
             'type' => 'integer', 
             'null' => false, 
@@ -29,33 +29,35 @@ class UsersSchema extends CakeSchema
             'length' => 10, 
             'key' => 'primary'
         ),
-        'groups_id' => array(
+        'parent_id' => array(
             'type' => 'integer', 
             'null' => false, 
-            'default' => null, 
+            'default' => 0, 
             'length' => 10
         ),
-        'mail' => array(
+        'name' => array(
             'type' => 'string', 
             'null' => false,
             'default' => null,
             'length' => 255
         ),
-        'password' => array(
-            'type' => 'string', 
-            'null' => false,
-            'default' => null,
-            'length' => 50
-        ),
-        'last_login' => array(
-            'type' => 'datetime', 
+        'order' => array(
+            'type' => 'integer', 
             'null' => false, 
-            'default' => null
+            'default' => null, 
+            'length' => 10
         ),
-        'last_activity' => array(
-            'type' => 'datetime', 
+        'lft' => array(
+            'type' => 'integer', 
             'null' => false, 
-            'default' => null
+            'default' => 0, 
+            'length' => 10
+        ),
+        'rght' => array(
+            'type' => 'integer', 
+            'null' => false, 
+            'default' => 0, 
+            'length' => 10
         ),
         'created' => array(
             'type' => 'datetime',

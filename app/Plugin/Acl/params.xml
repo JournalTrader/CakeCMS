@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>Acl</name>
+    <description>Permet la gestion des permissions.</description>
+    <version>1.0.0</version>
+    <author>MORICET Nicolas</author>
+    <site>Mon super CMS</site>
+    <url>http://www.cms.com</url>
+    <core>true</core>
+    <plugins>
+        <plugin main="true" active="true">
+            <name>Acl Index</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>acl</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Acl Aco index</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>aco</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Acl Aco add</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>aco</controller>
+            <action>add</action>
+        </plugin>
+        <plugin active="true">
+            <name>Acl Group index</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>group</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Acl Group add</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>group</controller>
+            <action>add</action>
+        </plugin>
+        <plugin active="true">
+            <name>Acl Permission add</name>
+            <prefix>manager</prefix>
+            <plugin_name>acl</plugin_name>
+            <controller>permission</controller>
+            <action>add</action>
+        </plugin>
+    </plugins>
+</module>
