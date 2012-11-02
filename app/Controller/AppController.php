@@ -41,8 +41,26 @@ class AppController extends Controller
     
     const TYPE_ERROR = 3;
     
-    public $components = array(  
-        'Session'
+    public $components = array( 
+        'Session',
+        'Acl',
+        'Auth' => array(
+            'authenticate' => array(
+                'Form' => array(
+                    'fields' => array(
+                        'username' => 'mail',
+                        'password' => 'password'
+                    )
+                )
+            ),
+            'loginAction' => array(
+                'public' => true,
+                'plugin' => 'user',
+                'controller' => 'user',
+                'action' => 'login'
+            ),
+            'userModel' => 'User.User'
+        )        
     );
     
     public $uses = array(
@@ -56,9 +74,9 @@ class AppController extends Controller
     );
     
     public function beforeFilter()
-    {           
+    {      
         $this->layout = strtolower($this->params['prefix']);
-
+//        $this->Auth->logout();
         if(empty($this->layout))
         {
             $this->layout = 'public';
