@@ -24,7 +24,7 @@ class UserController extends UserAppController
         {
             $aUser = $this->User->find('first', array(
                 'conditions' => array(
-                    'password' => Security::hash($this->data['User']['password'], 'md5'),
+                    'password' => $this->Auth->password($this->data['User']['password']),
                     'mail' => $this->data['User']['mail']
                 )
             ));

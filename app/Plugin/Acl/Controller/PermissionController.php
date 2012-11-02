@@ -118,11 +118,6 @@ class PermissionController extends AclAppController
         $this->set('aModules', $aModules);
         $this->set('aAros', $aAros);
     }
-    
-    public function manager_add()
-    {
-        
-    }
 }
 
 ?>

@@ -55,7 +55,6 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="brand" href="/">CMS</a>
-                <?php echo $this->Block->menu('block_account') ?>
             </div>
         </div>
     </div>
@@ -84,7 +83,7 @@
             <?php endif ?>
             <div class="row-fluid">
                 <div class="span2">
-                    <?php echo $this->block->menu('menu_1', array(
+                    <?php echo $this->block->menu('menu_block_1', array(
                         'type' => 'collapse-nav-bar'
                     )) ?>
                 </div>

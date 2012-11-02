@@ -24,7 +24,23 @@ class SeoController extends SeoAppController
         
         if ($this->data) 
         {
-            $this->Seo->save($this->data);
+            $aDatas = $this->data;
+            
+            if(empty($this->data['Seo']['title']))
+            {
+                foreach($this->data as $key => $aData)
+                {
+                    if($key != 'Seo' && $key != 'BlockAlias' && $key != 'Table')
+                    {
+                        if(isset($aData['title']) && !empty($aData['title']))
+                        {
+                            $aDatas['Seo']['title'] = $aData['title'];
+                        }
+                    }
+                }
+            }
+            
+            $this->Seo->save($aDatas);
         }
         
         if(!empty($params['named']['id']))

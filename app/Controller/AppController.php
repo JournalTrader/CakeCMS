@@ -76,7 +76,7 @@ class AppController extends Controller
     public function beforeFilter()
     {      
         $this->layout = strtolower($this->params['prefix']);
-
+//        $this->Auth->logout();
         if(empty($this->layout))
         {
             $this->layout = 'public';
