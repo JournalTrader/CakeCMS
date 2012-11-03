@@ -12,6 +12,30 @@
  */
 class ArticleController extends BlogAppController
 {
+    public $helpers = array(
+        'Blog.Articles'
+    );
+    
+    public function public_index()
+    {
+        $aArticles = $this->Article->find('all', array(
+            'conditions' => array(
+                'status' => 1
+            )
+        ));
+        
+        $this->set('aArticles', $aArticles);
+    }
+
+    public function public_read()
+    {
+        $params = $this->request->params;
+        
+        $aArticle = $this->Article->getByIdForBlog($params['named']['id']);
+        
+        $this->set('aArticle', $aArticle);
+    }
+    
     public function manager_index()
     {
         $this->set('title', "Gestion des articles");

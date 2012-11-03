@@ -49,6 +49,24 @@ class Article extends BlogAppModel {
 		),
 	);
         
+        public function getByIdForBlog($iId)
+        {
+            $aArticle = $this->find('first', array(
+                'conditions' => array(
+                    'id' => (int) $iId
+                )
+            ));
+            
+//            $find = preg_match_all("#{%(.*)%}#", $aArticle['Article']['content'], $out, PREG_PATTERN_ORDER);
+//            
+//            if($find)
+//            {
+//                debug($out);
+//            }
+            
+            return $aArticle;
+        }
+        
         public function beforeSave($options = array()) 
         {
             if (!empty($this->data['Article'])) 
