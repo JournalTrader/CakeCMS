@@ -70,5 +70,19 @@
             <controller>tag</controller>
             <action>add</action>
         </plugin>
+        <plugin active="true">
+            <name>Article Public index</name>
+            <prefix>public</prefix>
+            <plugin_name>blog</plugin_name>
+            <controller>article</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Article Public read</name>
+            <prefix>public</prefix>
+            <plugin_name>blog</plugin_name>
+            <controller>article</controller>
+            <action>read</action>
+        </plugin>
     </plugins>
 </module>

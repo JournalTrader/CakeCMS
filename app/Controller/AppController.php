@@ -75,6 +75,7 @@ class AppController extends Controller
     
     public function beforeFilter()
     {      
+//        $this->Auth->allow('*');
         $this->layout = strtolower($this->params['prefix']);
 //        $this->Auth->logout();
         if(empty($this->layout))
