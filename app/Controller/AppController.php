@@ -78,20 +78,18 @@ class AppController extends Controller
     {
         parent::__construct($request, $response);
         
-        Router::connect('/', array(
-            'prefix' => 'public',
-            'plugin' => 'blog',
-            'controller' => 'article',
-            'action' => 'index'
-        ));
+//        Router::connect('/', array(
+//            'prefix' => 'public',
+//            'plugin' => 'blog',
+//            'controller' => 'article',
+//            'action' => 'index'
+//        ));
     }
     
     public function beforeFilter()
     {      
 //        $this->initAcl();
 //        $this->Auth->logout();
-        
-        
         
         $this->Auth->allow('*');
         $this->layout = strtolower($this->params['prefix']);

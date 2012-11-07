@@ -203,7 +203,7 @@ if(!Configure::read('Installer.secured'))
         'routes' => true
     ));
     
-    Configure::write('debug', 2);
+//    Configure::write('debug', 2);
 } else if(($btFile = APP . DS . 'Config' . DS . 'bt.php')) {
     require_once $btFile;
 }

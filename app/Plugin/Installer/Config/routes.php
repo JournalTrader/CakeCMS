@@ -9,5 +9,6 @@ if (strpos($request->url, 'installer') === false)
     ), array(
         'status' => 307
     ));
+    debug("ok");
 }
 ?>
