@@ -8,11 +8,25 @@
     <url>http://www.cms.com</url>
     <plugins>
         <plugin main="true" active="true">
-            <name>Index</name>
+            <name>Manager Index</name>
             <prefix>manager</prefix>
             <plugin_name>index</plugin_name>
             <controller>index</controller>
             <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Public Index</name>
+            <prefix>public</prefix>
+            <plugin_name>index</plugin_name>
+            <controller>index</controller>
+            <action>index</action>
+        </plugin>
+        <plugin active="true">
+            <name>Manager Index Options</name>
+            <prefix>manager</prefix>
+            <plugin_name>index</plugin_name>
+            <controller>index</controller>
+            <action>options</action>
         </plugin>
     </plugins>
 </module>

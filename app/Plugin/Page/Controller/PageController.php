@@ -12,6 +12,11 @@
  */
 class PageController extends PageAppController
 {    
+    public $uses = array(
+        'Seo.Seo',
+        'Page.Page'
+    );
+    
     public function manager_index()
     {
         $aPages = $this->Page->find('all');
@@ -113,9 +118,49 @@ class PageController extends PageAppController
         return $this->render(false);
     }
     
-    public function index()
+    public function public_read()
     {
+        $params = $this->request->params;        
         
+        if(empty($params['named']['id']))
+        {
+            $aSeo = $this->Seo->find('first', array(
+                'fields' => array(
+                    'table_id',
+                    'slug'
+                ),
+                'conditions' => array(
+                    'slug' => $params['slug']
+                )
+            ));
+            
+            if(empty($aSeo))
+            {
+                throw new NotFoundException("La page que vous demandez n'existe pas !");
+            }
+            
+            $iId = explode('_', $aSeo['Seo']['table_id']);
+            
+            $params['named']['id'] = (int) end($iId);
+        }
+        
+        $aPage = $this->Page->find('first', array(
+            'conditions' => array(
+                'id' => $params['named']['id']
+            )
+        ));
+        
+        if(empty($aPage))
+        {
+            throw new NotFoundException("La page que vous demandez n'existe pas !");
+        }
+        
+        if($aPage['Page']['status'] === false)
+        {
+            throw new NotFoundException("La page que vous demandez n'existe pas !");
+        }
+        
+        $this->set('aPage', $aPage);
     }
 }
 

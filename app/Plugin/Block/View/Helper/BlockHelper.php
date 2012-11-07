@@ -29,14 +29,14 @@ class BlockHelper extends AppHelper
     private function requestMethod($alias, $type, $options = array())
     {
         $params = $this->request->params;
-        
+//        debug($params);
         $named = array(
             'alias' => $alias,
             'options' => $options,
             'rPrefix' => $params['prefix'],
             'rPlugins' => $params['plugin'],
             'rController' => $params['controller'],
-            'rAction' => $params['action']
+            'rAction' => $params['action'],
         );
         
         $named += $params['named'];
@@ -48,7 +48,10 @@ class BlockHelper extends AppHelper
             'action' => $type
         ), array(
             'return',
-            'named' => $named
+            'named' => $named,
+            'pass' => $params['pass'],
+            'id' => (isset($params['id'])) ? $params['id']:null,
+            'slug' => (isset($params['slug'])) ? $params['slug']:null
         ));
     }
 }

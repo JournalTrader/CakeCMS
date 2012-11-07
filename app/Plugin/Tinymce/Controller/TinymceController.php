@@ -73,7 +73,6 @@ class TinymceController extends TinymceAppController
         if(!isset($data['selector'])) { return $this->render(false); }
         
         $this->set('aSelector', $data['selector']);
-        
     }
     
     public function ajax_new_line()

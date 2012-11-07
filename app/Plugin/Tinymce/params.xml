@@ -21,5 +21,47 @@
             <controller>tinymce</controller>
             <action>head</action>
         </plugin>
+        <plugin active="true">
+            <name>Ajax New Line Tinymce</name>
+            <prefix>ajax</prefix>
+            <plugin_name>tinymce</plugin_name>
+            <controller>tinymce</controller>
+            <action>new_line</action>
+        </plugin>
+        <plugin active="true">
+            <name>Ajax New Option Tinymce</name>
+            <prefix>ajax</prefix>
+            <plugin_name>tinymce</plugin_name>
+            <controller>tinymce</controller>
+            <action>new_option</action>
+        </plugin>
+        <plugin active="true">
+            <name>Ajax Add Line Tinymce</name>
+            <prefix>ajax</prefix>
+            <plugin_name>tinymce</plugin_name>
+            <controller>tinymce</controller>
+            <action>add_line</action>
+        </plugin>
+        <plugin active="true">
+            <name>Manager Delete Tinymce</name>
+            <prefix>manager</prefix>
+            <plugin_name>tinymce</plugin_name>
+            <controller>tinymce</controller>
+            <action>delete</action>
+        </plugin>
+        <plugin active="true">
+            <name>Ajax edit Tinymce</name>
+            <prefix>ajax</prefix>
+            <plugin_name>tinymce</plugin_name>
+            <controller>tinymce</controller>
+            <action>edit</action>
+        </plugin>
+        <plugin active="true">
+            <name>Ajax Insert Link Tinymce</name>
+            <prefix>ajax</prefix>
+            <plugin_name>tinymce</plugin_name>
+            <controller>tinymce</controller>
+            <action>insert_link</action>
+        </plugin>
     </plugins>
 </module>

@@ -75,7 +75,7 @@
 		'renderer' => 'ExceptionRenderer',
 		'log' => true
 	));
-
+        
 /**
  * Application wide charset encoding
  */
@@ -189,12 +189,12 @@
 /**
  * A random string used in security hashing methods.
  */
-	Configure::write('Security.salt', '882127e8202c7066642a09f99aea5e8e4a4d4958');
+	Configure::write('Security.salt', 'fdd61b3f96c1420b247bc08add1fc85c37c00fb4');
 
 /**
  * A random numeric string (digits only) used to encrypt/decrypt strings.
  */
-	Configure::write('Security.cipherSeed', '1018084170379856277');
+	Configure::write('Security.cipherSeed', '802661998929223225');
 
 /**
  * Apply timestamps with the last modified time to static assets (js, css, images).

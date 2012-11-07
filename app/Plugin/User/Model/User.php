@@ -39,11 +39,11 @@ class User extends AppModel
             return null;
         }
         
-        if (isset($this->data['User']['group_id'])) 
+        if (isset($this->data['User']['groups_id'])) 
         {
-            $groupId = $this->data['User']['group_id'];
+            $groupId = $this->data['User']['groups_id'];
         } else {
-            $groupId = $this->field('group_id');
+            $groupId = $this->field('groups_id');
         }
         
         if (!$groupId) 

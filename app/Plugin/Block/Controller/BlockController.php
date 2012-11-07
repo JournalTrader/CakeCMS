@@ -53,7 +53,7 @@ class BlockController extends BlockAppController
     public function block_element()
     {
         $params = $this->request->params;
-        
+//        debug($params);
         if(empty($params['named']['alias']))
         {
             return $this->render(false);
@@ -63,6 +63,9 @@ class BlockController extends BlockAppController
         
         $this->set('alias', $params['named']['alias']);
         $this->set('named', $params['named']);
+        $this->set('pass', $params['pass']);
+        $this->set('slug', $params['slug']);
+        $this->set('id', $params['id']);
         
         if($aBlocks)
         {

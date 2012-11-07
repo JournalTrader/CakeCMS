@@ -27,7 +27,8 @@
  */
 //        Router::connect('/', array('prefix' => 'public', 'plugin' => 'index', 'controller' => 'index', 'action' => 'index'));
 //	
-//	Router::connect('/manager', array('prefix' => 'manager', 'plugin' => 'index', 'controller' => 'index', 'action' => 'index'));
+	Router::connect('/manager', array('prefix' => 'manager', 'plugin' => 'index', 'controller' => 'index', 'action' => 'index'));
+        
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */

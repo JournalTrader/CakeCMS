@@ -2,6 +2,23 @@
 
 class ToolsHelper extends AppHelper
 {
+    public function singularsAndPlurials($n, $singulars, $plurials, $none = null)
+    {
+        if($n == 0)
+        {
+            if(!is_null($none)) { return $none; }
+            
+            return sprintf($singulars, $n);
+        }
+        
+        if($n < 2)
+        {
+            return sprintf($singulars, $n);
+        }
+        
+        return sprintf($plurials, $n);
+    }
+    
     public function timeAgo($time)
     {
         $pattern = '';

@@ -21,5 +21,12 @@
             <controller>seo</controller>
             <action>form</action>
         </plugin>
+        <plugin active="true">
+            <name>Block SEO head</name>
+            <prefix>block</prefix>
+            <plugin_name>seo</plugin_name>
+            <controller>seo</controller>
+            <action>head</action>
+        </plugin>
     </plugins>
 </module>

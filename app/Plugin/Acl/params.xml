@@ -50,12 +50,5 @@
             <controller>permission</controller>
             <action>add</action>
         </plugin>
-        <plugin active="true">
-            <name>Acl Permission add</name>
-            <prefix>manager</prefix>
-            <plugin_name>acl</plugin_name>
-            <controller>permission</controller>
-            <action>add</action>
-        </plugin>
     </plugins>
 </module>

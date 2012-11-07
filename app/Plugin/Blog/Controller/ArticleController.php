@@ -12,6 +12,70 @@
  */
 class ArticleController extends BlogAppController
 {
+    public $uses = array(
+        'Blog.Article',
+        'Seo.Seo'
+    );
+    
+    public $helpers = array(
+        'Blog.Articles'
+    );
+    
+    public function public_index()
+    {
+        $aArticles = $this->Article->find('all', array(
+            'conditions' => array(
+                'status' => 1
+            )
+        ));
+        
+        foreach($aArticles as $aKey => $aArticle)
+        {
+            $seo = $this->Seo->find('first', array(
+                'conditions' => array(
+                    'table_id' => 'article_' . $aArticle['Article']['id']
+                )
+            ));
+            
+            $aArticles[$aKey]['Seo'] = $seo['Seo'];
+        }
+        
+        $this->set('aArticles', $aArticles);
+    }
+
+    public function public_read($id = null, $slug = null)
+    {
+        $params = $this->request->params;
+        
+        if(empty($params['named']['id']))
+        {
+            if(is_null($id) && empty($params['id']))
+            {
+                throw new NotFoundException("L'article que vous demandez n'existe pas !");
+            }
+            
+            if(!is_null($id))
+            {
+                $params['named']['id'] = $id;
+            }
+            
+            if(!empty($params['id']))
+            {
+                $params['named']['id'] = $params['id'];
+            }
+        }
+        
+        $aArticle = $this->Article->getByIdForBlog($params['named']['id']);
+        
+        if(empty($aArticle))
+        {
+            throw new NotFoundException("L'article que vous demandez n'existe pas !");
+        }
+        
+        $this->set('aArticle', $aArticle);
+        $this->set('iId', $params['named']['id']);
+    }
+    
     public function manager_index()
     {
         $this->set('title', "Gestion des articles");

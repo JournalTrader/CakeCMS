@@ -16,14 +16,18 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-<h2><?php echo $name; ?></h2>
+<header class="page-header">
+    <h1>Oooops !!! <?php echo $name; ?></h1>
+</header>
+<p class="lead">On a cherché partout. Sous le tapis, sur les étagères, derrière la porte, dans le grenier, on a rien trouvé ! La page que vous demandez est introuvable</p>
+<!--<h2><?php echo $name; ?></h2>
 <p class="error">
 	<strong><?php echo __d('cake', 'Error'); ?>: </strong>
 	<?php printf(
 		__d('cake', 'The requested address %s was not found on this server.'),
 		"<strong>'{$url}'</strong>"
 	); ?>
-</p>
+</p>-->
 <?php
 if (Configure::read('debug') > 0 ):
 	echo $this->element('exception_stack_trace');

@@ -102,7 +102,95 @@ class PluginsData
             'parent_id' => 7,
             'is_main' => false,
             'is_active' => true
-        )    
+        ),    
+        array(
+            'id' => '9',
+            'name' => 'Manager Acl Index',
+            'prefix' => 'manager',
+            'plugin' => 'acl',
+            'controller' => 'acl',
+            'action' => 'index',
+            'parent_id' => 0,
+            'is_main' => true,
+            'is_active' => true
+        ),    
+        array(
+            'id' => '10',
+            'name' => 'Acl Aco Index',
+            'prefix' => 'manager',
+            'plugin' => 'acl',
+            'controller' => 'aco',
+            'action' => 'index',
+            'parent_id' => 9,
+            'is_main' => false,
+            'is_active' => true
+        ),    
+        array(
+            'id' => '11',
+            'name' => 'Acl Aco Add',
+            'prefix' => 'manager',
+            'plugin' => 'acl',
+            'controller' => 'aco',
+            'action' => 'add',
+            'parent_id' => 9,
+            'is_main' => false,
+            'is_active' => true
+        ),    
+        array(
+            'id' => '12',
+            'name' => 'Acl Group Index',
+            'prefix' => 'manager',
+            'plugin' => 'acl',
+            'controller' => 'group',
+            'action' => 'index',
+            'parent_id' => 9,
+            'is_main' => false,
+            'is_active' => true
+        ),    
+        array(
+            'id' => '13',
+            'name' => 'Acl Group Add',
+            'prefix' => 'manager',
+            'plugin' => 'acl',
+            'controller' => 'group',
+            'action' => 'add',
+            'parent_id' => 9,
+            'is_main' => false,
+            'is_active' => true
+        ),    
+        array(
+            'id' => '14',
+            'name' => 'Acl Permission Index',
+            'prefix' => 'manager',
+            'plugin' => 'acl',
+            'controller' => 'permission',
+            'action' => 'index',
+            'parent_id' => 9,
+            'is_main' => false,
+            'is_active' => true
+        ),    
+        array(
+            'id' => '15',
+            'name' => 'User Index',
+            'prefix' => 'public',
+            'plugin' => 'user',
+            'controller' => 'user',
+            'action' => 'index',
+            'parent_id' => 0,
+            'is_main' => true,
+            'is_active' => true
+        ),    
+        array(
+            'id' => '16',
+            'name' => 'Manager Index',
+            'prefix' => 'manager',
+            'plugin' => 'index',
+            'controller' => 'index',
+            'action' => 'index',
+            'parent_id' => 0,
+            'is_main' => true,
+            'is_active' => true
+        )
     );    
 }
 

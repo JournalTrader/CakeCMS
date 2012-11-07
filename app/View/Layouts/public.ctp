@@ -21,13 +21,8 @@
 <html>
 <head>
 	<?php echo $this->Html->charset(); ?>
-	<title>
-		<?php echo $title_for_layout; ?>
-	</title>
-	<?php
-//		echo $this->Html->meta('icon');
-
-
+        <?php 
+                echo $this->block->element('head_block'); 
 		echo $this->Html->css('bootstrap.min');
 		echo $this->Html->css('bootstrap-responsive.min');
 		echo $this->Html->css('style');
@@ -40,7 +35,7 @@
 	?>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
                 <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -48,10 +43,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="brand" href="/">CMS</a>
+                <a class="brand" href="/"><?php echo $option->getOption('name_web_site') ?></a>
             </div>
         </div>
-    </div>
+    </header>
     <div class="container">
         <div class="row-fluid">
             <?php echo $this->Session->flash(); ?>
@@ -61,7 +56,6 @@
         </div>
 	
     </div>
-    
     <footer class="footer">
             footer
     </footer>

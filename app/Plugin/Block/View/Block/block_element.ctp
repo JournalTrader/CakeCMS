@@ -42,7 +42,10 @@
         'action' => $aElement['Plugin']['action']
     ), array(
         'return',
-        'named' => $named
+        'named' => $named,
+        'pass' => $pass,
+        'id' => $id,
+        'slug' => $slug
     )) ?>
     <?php endif ?>
 <?php endforeach; ?>

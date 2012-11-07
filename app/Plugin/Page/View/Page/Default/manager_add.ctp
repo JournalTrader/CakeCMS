@@ -65,7 +65,7 @@
      ?>
 <?php endif ?>
 
-<?php echo $this->Block->element('manager_content_add') ?>
+<?php echo $this->Block->element('block_form') ?>
 
 <div class="form-actions">
     <?php

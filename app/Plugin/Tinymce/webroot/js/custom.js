@@ -234,10 +234,18 @@
                                 
                                 if($inst.selection.getNode().nodeName === 'A')
                                 {
+//                                    console.log($url)
+                                    if($url.substr(0,1) === '{')
+                                    {
+                                        $url = '/' + $url;
+                                    }
+                                    
                                     $node.attr('title', $title);
                                     $node.attr('target', $blank);
                                     $node.attr('rel', $external);
                                     $node.attr('href', $url);
+                                    $node.attr('data-mce-href', $url);
+                                    
                                 } else {
                                     tinyMCE.execCommand('insertHTML', false, $link);
                                 }
@@ -249,7 +257,6 @@
                     $tiny.insertVideo($inst);
                     break;
                 case 'insertPicture':
-                    console.log($inst)
                     $tiny.insertPicture($inst);
                     break;
             }
@@ -257,6 +264,11 @@
         
         createLink : function(anchor, href, title, target, rel) {
             var $a = null;
+            
+            if(href.substr(0,1) === '{')
+            {
+                href = '/' + href;
+            }
             
             $a = '<a href="' + href + '"' ;
             

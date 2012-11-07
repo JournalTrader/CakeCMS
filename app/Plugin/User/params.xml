@@ -15,5 +15,12 @@
             <controller>user</controller>
             <action>index</action>
         </plugin>
+        <plugin active="true">
+            <name>User Connexion</name>
+            <prefix>public</prefix>
+            <plugin_name>user</plugin_name>
+            <controller>user</controller>
+            <action>login</action>
+        </plugin>
     </plugins>
 </module>
